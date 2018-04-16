@@ -1,0 +1,23 @@
+stages:
+  - build
+  - mirror
+
+before_script:
+  - npm config set spin false
+  - sudo npm install -g bower
+  - sudo npm install -g ember-cli
+  - npm install
+
+build_webapp:
+  stage: build
+  script:
+    - ember build --environment=production
+    - rsync -av -e "ssh -p 37855" --progress --delete dist/ mirror@node-tor1-05.tr.be:/var/www/adshield-ui/
+
+push_to_github:
+  stage: mirror
+  script:
+    - git config --global push.default simple
+    - git checkout ${CI_COMMIT_REF_NAME}
+    - git pull
+    - git push -q https://${GITHUB_USERNAME}:${GITHUB_TOKEN}@github.com/${GITHUB_REPO}.git ${CI_COMMIT_REF_NAME}
