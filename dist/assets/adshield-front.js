@@ -799,6 +799,14 @@ define('adshield-front/components/bs-tooltip/element', ['exports', 'ember-bootst
     }
   });
 });
+define('adshield-front/components/ember-chart', ['exports', 'ember-cli-chart/components/ember-chart'], function (exports, _emberChart) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = _emberChart.default;
+});
 define('adshield-front/components/ember-popper', ['exports', 'ember-popper/components/ember-popper'], function (exports, _emberPopper) {
   'use strict';
 
@@ -833,6 +841,46 @@ define('adshield-front/controllers/stats', ['exports'], function (exports) {
 	});
 	exports.default = Ember.Controller.extend({
 
+		init: function () {
+			this._super();
+			var self = this;
+			self.poll = function () {
+				Ember.run.later(function () {
+					self.get('store').findAll('adshieldstat').then(function (data) {
+						self.set("model", data);
+						// self.set('chartData', self.chartData);
+						var stat = self.model.get('firstObject').get('stat');
+						var data = self.get("chartData");
+						var maxPoint = 60;
+						if (data.labels.length < maxPoint) data.labels.push('');
+						if (data.datasets[0].data.length == maxPoint) data.datasets[0].data.splice(0, 1);
+						data.datasets[0].data.push(stat.transactionsInterval);
+						// self.set("chartData", null);
+						self.set("chartData", data);
+						self.notifyPropertyChange('chartData');
+						self.poll();
+					});
+				}, 2000);
+			};
+			self.poll();
+		},
+
+		/**
+   * parse stat JSON value so we can access from template with less issue
+   * @param  {[type]} ) {		var       model [description]
+   * @return {[type]}   [description]
+   */
+		stat: Ember.computed(function () {
+			var model = this.get('model');
+			return model.get('firstObject');
+		}),
+
+		/**
+   * filtered stats to hide some data that aren't being used yet.
+   * no point of showing it yet
+   * @param  {[type]} ) {		var       model [description]
+   * @return {[type]}   [description]
+   */
 		filteredStats: Ember.computed(function () {
 			var model = this.get('model');
 			var stats = model.get('firstObject').get('stat');
@@ -841,7 +889,79 @@ define('adshield-front/controllers/stats', ['exports'], function (exports) {
 				return true;
 			});
 			return newstats;
-		})
+		}),
+
+		/**
+   * create a ChartJS compatible data source/struct
+   * @param  {[type]} ) {		var       model [description]
+   * @return {[type]}   [description]
+   */
+		chartData: Ember.computed(function () {
+			var model = this.get('model');
+			var stat = model.get('firstObject').get('stat');
+			var data = {};
+			data.datasets = [];
+			data.labels = [''];
+			data.datasets.push({
+				label: "Transactions",
+				data: [stat.transactionsInterval],
+				backgroundColor: ['rgba(109,186,252,1)', 'rgba(109,186,252,1)'],
+				borderColor: ['rgba(109,186,252,1)', 'rgba(109,186,252,1)'],
+				borderWidth: 2
+			});
+			return data;
+		}),
+
+		chartOptions: Ember.computed(function () {
+			var options = {
+				scales: {
+					yAxes: [{
+						ticks: {
+							beginAtZero: true,
+							stepSize: 1
+						}
+					}],
+					xAxes: [{
+						ticks: {
+							suggestedMax: 2,
+							suggestedMin: 2,
+							max: 5,
+							min: 0,
+							stepSize: 4
+						}
+					}]
+				},
+				legend: {
+					display: false
+				},
+				title: {
+					display: true,
+					text: "Transactions for the past 2 minutes"
+				},
+				tooltips: {
+					enabled: false
+				},
+				elements: {
+					point: {
+						pointStyle: 'triangle',
+						borderWidth: 1
+					},
+					line: {
+						fill: false
+					}
+				}
+			};
+			return options;
+		}),
+
+		updateChart: function (self, model) {
+			var data = self.get("chartData");
+			var stat = model.stat;
+			console.log(data.datasets[0]);
+			// data.datasets[0].data = stat.transactionsInterval;
+			data.datasets[0].data = [1, 2, 3, 4, 5, 6];
+			self.set("chartData", data);
+		}
 
 	});
 });
@@ -1199,7 +1319,7 @@ define("adshield-front/templates/application", ["exports"], function (exports) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "Ov2jzgtV", "block": "{\"symbols\":[],\"statements\":[[6,\"div\"],[9,\"class\",\"container-fluid\"],[7],[0,\"\\n\\n\"],[6,\"h1\"],[7],[0,\"Adshield Frontend\"],[8],[0,\"\\n\\n\"],[1,[18,\"outlet\"],false],[0,\"\\n\\n\"],[8]],\"hasEval\":false}", "meta": { "moduleName": "adshield-front/templates/application.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "Bf94lT+Z", "block": "{\"symbols\":[],\"statements\":[[6,\"div\"],[9,\"class\",\"container-fluid\"],[7],[0,\"\\n\\n\"],[6,\"h1\"],[7],[0,\"AdShield\"],[8],[0,\"\\n\\n\"],[1,[18,\"outlet\"],false],[0,\"\\n\\n\"],[8]],\"hasEval\":false}", "meta": { "moduleName": "adshield-front/templates/application.hbs" } });
 });
 define('adshield-front/templates/components/ember-popper', ['exports', 'ember-popper/templates/components/ember-popper'], function (exports, _emberPopper) {
   'use strict';
@@ -1220,7 +1340,7 @@ define("adshield-front/templates/stats", ["exports"], function (exports) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "cQsCFidY", "block": "{\"symbols\":[\"stat\",\"statData\"],\"statements\":[[6,\"div\"],[9,\"class\",\"row\"],[7],[0,\"\\n\\n\\t\"],[6,\"div\"],[9,\"class\",\"col-md-4\"],[7],[0,\"\\n\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBox\"],[7],[0,\"\\n\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBoxHeader\"],[7],[0,\"\\n\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"text-center\"],[7],[0,\"Traffic\"],[8],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\\t\"],[6,\"div\"],[7],[0,\"\\n\"],[4,\"each\",[[20,[\"filteredStats\"]]],null,{\"statements\":[[0,\"\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBoxData\"],[7],[6,\"span\"],[9,\"class\",\"label\"],[7],[1,[19,2,[\"title\"]],false],[0,\" :\"],[8],[0,\" \"],[6,\"span\"],[9,\"class\",\"value\"],[7],[1,[19,2,[\"count\"]],false],[8],[8],[0,\"\\n\"]],\"parameters\":[2]},null],[0,\"\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\"],[8],[0,\"\\n\\t\"],[8],[0,\"\\n\\t\"],[6,\"div\"],[9,\"class\",\"col-md-4\"],[7],[0,\"\\n\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBox\"],[7],[0,\"\\n\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBoxHeader\"],[7],[0,\"\\n\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"text-center\"],[7],[0,\"Transactions\"],[8],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\\t\"],[6,\"div\"],[7],[0,\"\\n\"],[4,\"each\",[[20,[\"model\"]]],null,{\"statements\":[[0,\"\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBoxData text-center\"],[7],[0,\"\\n\\t\\t\\t\\t\\t\"],[6,\"span\"],[9,\"class\",\"transactions\"],[7],[1,[19,1,[\"stat\",\"transactions\"]],false],[8],[0,\" \"],[6,\"span\"],[9,\"class\",\"label\"],[7],[0,\"trns\"],[8],[0,\"\\n\\t\\t\\t\\t\"],[8],[0,\"\\n\"]],\"parameters\":[1]},null],[0,\"\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\"],[8],[0,\"\\n\\t\"],[8],[0,\"\\n\\t\"],[6,\"div\"],[9,\"class\",\"col-md-4\"],[7],[0,\"\\n\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBox\"],[7],[0,\"\\n\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBoxHeader\"],[7],[0,\"\\n\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"text-center\"],[7],[8],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\\t\"],[6,\"div\"],[7],[0,\"\\n\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBoxData text-center\"],[7],[8],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\"],[8],[0,\"\\n\\t\"],[8],[0,\"\\n\\t\"],[6,\"div\"],[9,\"class\",\"col-md-4\"],[7],[0,\"\\n\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBox\"],[7],[0,\"\\n\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBoxHeader\"],[7],[0,\"\\n\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"text-center\"],[7],[8],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\\t\"],[6,\"div\"],[7],[0,\"\\n\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBoxData text-center\"],[7],[8],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\"],[8],[0,\"\\n\\t\"],[8],[0,\"\\n\\t\"],[6,\"div\"],[9,\"class\",\"col-md-4\"],[7],[0,\"\\n\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBox\"],[7],[0,\"\\n\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBoxHeader\"],[7],[0,\"\\n\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"text-center\"],[7],[8],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\\t\"],[6,\"div\"],[7],[0,\"\\n\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBoxData text-center\"],[7],[8],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\"],[8],[0,\"\\n\\t\"],[8],[0,\"\\n\\t\"],[6,\"div\"],[9,\"class\",\"col-md-4\"],[7],[0,\"\\n\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBox\"],[7],[0,\"\\n\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBoxHeader\"],[7],[0,\"\\n\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"text-center\"],[7],[0,\"test\"],[8],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\\t\"],[6,\"div\"],[7],[0,\"\\n\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBoxData text-center\"],[7],[8],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\"],[8],[0,\"\\n\\t\"],[8],[0,\"\\n\\n\"],[8]],\"hasEval\":false}", "meta": { "moduleName": "adshield-front/templates/stats.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "WUogbWOl", "block": "{\"symbols\":[\"statData\"],\"statements\":[[6,\"div\"],[9,\"class\",\"row\"],[7],[0,\"\\n\\n\\t\"],[6,\"div\"],[9,\"class\",\"col-md-3\"],[7],[0,\"\\n\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBox\"],[7],[0,\"\\n\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBoxHeader\"],[7],[0,\"\\n\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"text-center\"],[7],[0,\"Traffic/Referrals\"],[8],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\\t\"],[6,\"div\"],[7],[0,\"\\n\"],[4,\"each\",[[20,[\"filteredStats\"]]],null,{\"statements\":[[0,\"\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBoxData\"],[7],[6,\"span\"],[9,\"class\",\"value\"],[7],[1,[19,1,[\"count\"]],false],[8],[0,\" \"],[6,\"span\"],[9,\"class\",\"label\"],[7],[1,[19,1,[\"title\"]],false],[8],[8],[0,\"\\n\"]],\"parameters\":[1]},null],[0,\"\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\"],[8],[0,\"\\n\\t\"],[8],[0,\"\\n\\t\"],[6,\"div\"],[9,\"class\",\"col-md-3\"],[7],[0,\"\\n\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBox\"],[7],[0,\"\\n\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBoxHeader\"],[7],[0,\"\\n\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"text-center\"],[7],[0,\"Transactions\"],[8],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\\t\"],[6,\"div\"],[7],[0,\"\\n\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBoxData text-center\"],[7],[0,\"\\n\\t\\t\\t\\t\\t\"],[6,\"span\"],[9,\"class\",\"transactions\"],[7],[1,[20,[\"stat\",\"stat\",\"transactions\",\"today\"]],false],[8],[0,\" \"],[6,\"span\"],[9,\"class\",\"label\"],[7],[0,\" today\"],[8],[0,\"\\n\\t\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBoxData text-center\"],[7],[0,\"\\n\\t\\t\\t\\t\\t\"],[6,\"span\"],[9,\"class\",\"transactions\"],[7],[1,[20,[\"stat\",\"stat\",\"transactions\",\"week\"]],false],[8],[0,\" \"],[6,\"span\"],[9,\"class\",\"label\"],[7],[0,\" this week\"],[8],[0,\"\\n\\t\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\"],[8],[0,\"\\n\\t\"],[8],[0,\"\\n\\t\"],[6,\"div\"],[9,\"class\",\"col-md-6\"],[7],[0,\"\\n\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBox\"],[7],[0,\"\\n\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBoxHeader\"],[7],[0,\"\\n\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"text-center\"],[7],[0,\"Transanction Trend\"],[8],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\\t\"],[6,\"div\"],[7],[0,\"\\n\\t\\t\\t\\t\"],[1,[25,\"ember-chart\",null,[[\"type\",\"data\",\"options\",\"animate\"],[\"line\",[20,[\"chartData\"]],[20,[\"chartOptions\"]],true]]],false],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\"],[8],[0,\"\\n\\t\"],[8],[0,\"\\n\\n\"],[8]],\"hasEval\":false}", "meta": { "moduleName": "adshield-front/templates/stats.hbs" } });
 });
 
 
@@ -1244,6 +1364,6 @@ catch(err) {
 });
 
 if (!runningTests) {
-  require("adshield-front/app")["default"].create({"LOG_RESOLVER":true,"LOG_ACTIVE_GENERATION":true,"LOG_TRANSITIONS":true,"LOG_TRANSITIONS_INTERNAL":true,"LOG_VIEW_LOOKUPS":true,"name":"adshield-front","version":"0.0.0+b06b2013"});
+  require("adshield-front/app")["default"].create({"LOG_RESOLVER":true,"LOG_ACTIVE_GENERATION":true,"LOG_TRANSITIONS":true,"LOG_TRANSITIONS_INTERNAL":true,"LOG_VIEW_LOOKUPS":true,"name":"adshield-front","version":"0.0.0+4237e08b"});
 }
 //# sourceMappingURL=adshield-front.map
