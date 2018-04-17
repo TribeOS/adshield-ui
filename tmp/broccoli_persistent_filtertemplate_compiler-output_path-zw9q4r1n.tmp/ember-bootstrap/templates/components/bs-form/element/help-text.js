@@ -1,1 +1,0 @@
-export default Ember.HTMLBars.template({"id":"hI4mYBZ6","block":"{\"symbols\":[],\"statements\":[[1,[18,\"text\"],false]],\"hasEval\":false}","meta":{"moduleName":"ember-bootstrap/templates/components/bs-form/element/help-text.hbs"}});

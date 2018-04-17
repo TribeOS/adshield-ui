@@ -1,6 +1,0 @@
-define("ember-bootstrap/templates/components/bs-accordion/item", ["exports"], function (exports) {
-  "use strict";
-
-  exports.__esModule = true;
-  exports.default = Ember.HTMLBars.template({ "id": "RjoxvhfJ", "block": "{\"symbols\":[\"&default\"],\"statements\":[[4,\"if\",[[23,1]],null,{\"statements\":[[0,\"  \"],[11,1,[[25,\"hash\",null,[[\"title\",\"body\"],[[25,\"component\",[\"bs-accordion/item/title\"],[[\"collapsed\",\"onClick\"],[[20,[\"collapsed\"]],[25,\"action\",[[19,0,[]],[20,[\"onClick\"]],[20,[\"value\"]]],null]]]],[25,\"component\",[\"bs-accordion/item/body\"],[[\"collapsed\"],[[20,[\"collapsed\"]]]]]]]]]],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[4,\"bs-accordion/item/title\",null,[[\"collapsed\",\"onClick\"],[[20,[\"collapsed\"]],[25,\"action\",[[19,0,[]],[20,[\"onClick\"]],[20,[\"value\"]]],null]]],{\"statements\":[[0,\"    \"],[1,[18,\"title\"],false],[0,\"\\n\"]],\"parameters\":[]},null],[4,\"bs-accordion/item/body\",null,[[\"collapsed\"],[[20,[\"collapsed\"]]]],{\"statements\":[[0,\"    \"],[11,1],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[]}]],\"hasEval\":false}", "meta": { "moduleName": "ember-bootstrap/templates/components/bs-accordion/item.hbs" } });
-});

@@ -1,1 +1,0 @@
-/home/aman/Dev/scorpio/adshield-front/node_modules/ember-bootstrap/app/components/bs-tab.js
