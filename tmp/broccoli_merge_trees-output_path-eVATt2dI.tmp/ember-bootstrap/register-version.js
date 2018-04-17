@@ -1,0 +1,1 @@
+/home/aman/Dev/scorpio/adshield-front/tmp/broccoli_persistent_filtermapper-output_path-a1T3ri02.tmp/ember-bootstrap/register-version.template

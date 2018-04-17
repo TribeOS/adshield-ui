@@ -1,0 +1,1 @@
+/home/aman/Dev/scorpio/adshield-front/node_modules/ember-legacy-class-shim/vendor/ember-legacy-class-shim-ie.js

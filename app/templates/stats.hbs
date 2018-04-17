@@ -1,0 +1,70 @@
+<div class="row">
+
+	<div class="col-md-4">
+		<div class="statBox">
+			<div class="statBoxHeader">
+				<div class="text-center">Traffic</div>
+			</div>
+			<div>
+			{{#each filteredStats as |statData|}}
+				<div class="statBoxData"><span class="label">{{ statData.title }} :</span> <span class="value">{{ statData.count }}</span></div>
+			{{/each}}
+			</div>
+		</div>
+	</div>
+	<div class="col-md-4">
+		<div class="statBox">
+			<div class="statBoxHeader">
+				<div class="text-center">Transactions</div>
+			</div>
+			<div>
+				{{#each model as |stat|}}
+				<div class="statBoxData text-center">
+					<span class="transactions">{{ stat.stat.transactions }}</span> <span class="label">trns</span>
+				</div>
+				{{/each}}
+			</div>
+		</div>
+	</div>
+	<div class="col-md-4">
+		<div class="statBox">
+			<div class="statBoxHeader">
+				<div class="text-center"></div>
+			</div>
+			<div>
+				<div class="statBoxData text-center"></div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-4">
+		<div class="statBox">
+			<div class="statBoxHeader">
+				<div class="text-center"></div>
+			</div>
+			<div>
+				<div class="statBoxData text-center"></div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-4">
+		<div class="statBox">
+			<div class="statBoxHeader">
+				<div class="text-center"></div>
+			</div>
+			<div>
+				<div class="statBoxData text-center"></div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-4">
+		<div class="statBox">
+			<div class="statBoxHeader">
+				<div class="text-center">test</div>
+			</div>
+			<div>
+				<div class="statBoxData text-center"></div>
+			</div>
+		</div>
+	</div>
+
+</div>

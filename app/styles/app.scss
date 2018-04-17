@@ -1,0 +1,35 @@
+
+@import "ember-bootstrap/bootstrap";
+
+body {
+	background: #0d1c27;
+	color: #eee;
+}
+
+.statBox {
+	border: 1px solid #6dbafc; min-height: 100%;
+	margin-bottom: 20px;
+}
+
+.statBoxHeader {
+	border-bottom: 1px solid #6dbafc; padding: 10px;
+	color: #a7a9ac; line-height: 40px; font-size: 24px;
+}
+
+.statBoxData {
+	padding: 10px; background: #183247;margin:5px;
+}
+
+.statBoxData .label {
+	color: #8f989b;
+}
+
+.statBoxData .value {
+	color: #6dbafc;
+}
+
+.statBoxData .transactions {
+	color: #14e1db;
+	font-size: 28px;
+	font-weight: normal;
+}

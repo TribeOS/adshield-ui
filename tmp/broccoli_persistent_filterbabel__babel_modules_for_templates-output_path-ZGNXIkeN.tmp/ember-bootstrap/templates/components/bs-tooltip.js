@@ -1,0 +1,6 @@
+define("ember-bootstrap/templates/components/bs-tooltip", ["exports"], function (exports) {
+  "use strict";
+
+  exports.__esModule = true;
+  exports.default = Ember.HTMLBars.template({ "id": "sSI6OTp9", "block": "{\"symbols\":[\"&default\"],\"statements\":[[4,\"if\",[[20,[\"inDom\"]]],null,{\"statements\":[[4,\"bs-tooltip/element\",null,[[\"id\",\"placement\",\"fade\",\"showHelp\",\"class\",\"renderInPlace\",\"popperTarget\",\"autoPlacement\",\"viewportElement\",\"viewportPadding\"],[[20,[\"overlayId\"]],[20,[\"placement\"]],[20,[\"fade\"]],[20,[\"showHelp\"]],[20,[\"class\"]],[20,[\"_renderInPlace\"]],[20,[\"triggerTargetElement\"]],[20,[\"autoPlacement\"]],[20,[\"viewportElement\"]],[20,[\"viewportPadding\"]]]],{\"statements\":[[4,\"if\",[[22,1]],null,{\"statements\":[[0,\"      \"],[11,1],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"      \"],[1,[18,\"title\"],false],[0,\"\\n\"]],\"parameters\":[]}]],\"parameters\":[]},null]],\"parameters\":[]},null]],\"hasEval\":false}", "meta": { "moduleName": "ember-bootstrap/templates/components/bs-tooltip.hbs" } });
+});
