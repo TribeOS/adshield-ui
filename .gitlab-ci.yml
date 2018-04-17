@@ -12,7 +12,7 @@ build_webapp:
   stage: build
   script:
     - ember build --environment=production
-    - rsync -av -e "ssh -p 37855" --progress --delete dist/ mirror@node-tor1-05.tr.be:/var/www/adshield-ui/
+    - rsync -av -e "ssh -p 62953" --progress --delete dist/ mirror@node-tor1-05.tr.be:/var/www/adshield-ui/
 
 push_to_github:
   stage: mirror
