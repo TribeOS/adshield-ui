@@ -9,7 +9,8 @@ define("adshield-front/adapters/application", ["exports", "ember-data"], functio
 		value: true
 	});
 	exports.default = _emberData.default.RESTAdapter.extend({
-		host: "http://api.adshield.tribeos.io/abcdefg",
+		host: "https://api.adshield.tribeos.io/abcdefg",
+		// host : "http://localhost:90/abcdefg",
 		namespace: ""
 	});
 });
@@ -1243,6 +1244,6 @@ catch(err) {
 });
 
 if (!runningTests) {
-  require("adshield-front/app")["default"].create({"LOG_RESOLVER":true,"LOG_ACTIVE_GENERATION":true,"LOG_TRANSITIONS":true,"LOG_TRANSITIONS_INTERNAL":true,"LOG_VIEW_LOOKUPS":true,"name":"adshield-front","version":"0.0.0+c87cad2f"});
+  require("adshield-front/app")["default"].create({"LOG_RESOLVER":true,"LOG_ACTIVE_GENERATION":true,"LOG_TRANSITIONS":true,"LOG_TRANSITIONS_INTERNAL":true,"LOG_VIEW_LOOKUPS":true,"name":"adshield-front","version":"0.0.0+b06b2013"});
 }
 //# sourceMappingURL=adshield-front.map
