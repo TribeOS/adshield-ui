@@ -1,1 +1,0 @@
-/home/aman/Dev/scorpio/adshield-front/tmp/funnel-input_base_path-0aXYdHr6.tmp/index.js
