@@ -1,9 +1,9 @@
 <div class="row">
 
-	<div class="col-md-3">
+	<div class="col-md-4">
 		<div class="statBox">
 			<div class="statBoxHeader">
-				<div class="text-center">Traffic/Referrals</div>
+				<div class="text-center">URL Referrals Verified</div>
 			</div>
 			<div>
 			{{#each filteredStats as |statData|}}
@@ -12,10 +12,10 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-md-3">
+	<div class="col-md-4">
 		<div class="statBox">
 			<div class="statBoxHeader">
-				<div class="text-center">Transactions</div>
+				<div class="text-center">Requests Handled</div>
 			</div>
 			<div>
 				<div class="statBoxData text-center">
@@ -24,13 +24,34 @@
 				<div class="statBoxData text-center">
 					<span class="transactions">{{ stat.stat.transactions.week }}</span> <span class="label"> this week</span>
 				</div>
+				<div class="statBoxData text-center">
+					<span class="transactions">{{ stat.stat.transactions.month }}</span> <span class="label"> this month</span>
+				</div>
 			</div>
 		</div>
 	</div>
-	<div class="col-md-6">
+	<div class="col-md-4">
 		<div class="statBox">
 			<div class="statBoxHeader">
-				<div class="text-center">Transanction Trend</div>
+				<div class="text-center">Ad Clicks Detected</div>
+			</div>
+			<div>
+				<div class="statBoxData text-center">
+					<span class="transactions">{{ stat.stat.adClicks.today }}</span> <span class="label"> today</span>
+				</div>
+				<div class="statBoxData text-center">
+					<span class="transactions">{{ stat.stat.adClicks.week }}</span> <span class="label"> this week</span>
+				</div>
+				<div class="statBoxData text-center">
+					<span class="transactions">{{ stat.stat.adClicks.month }}</span> <span class="label"> this month</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-4" style="margin-top: 10px;">
+		<div class="statBox">
+			<div class="statBoxHeader">
+				<div class="text-center">Live Requests Received</div>
 			</div>
 			<div>
 				{{ember-chart type='line' data=chartData options=chartOptions animate=true }}

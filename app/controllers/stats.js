@@ -1,5 +1,6 @@
 import Controller from '@ember/controller';
 import { computed } from "@ember/object";
+import { later } from '@ember/runloop';
 
 export default Controller.extend({
 
@@ -7,18 +8,18 @@ export default Controller.extend({
 		this._super();
 		var self = this;
 		self.poll = function() {
-			Ember.run.later(function() {
+			later(function() {
 				self.get('store').findAll('adshieldstat').then(function(data) {
 					self.set("model", data);
 					// self.set('chartData', self.chartData);
 					var stat = self.model.get('firstObject').get('stat');
-					var data = self.get("chartData");
+					var cData = self.get("chartData");
 					var maxPoint = 60;
-					if (data.labels.length < maxPoint) data.labels.push('');
-					if (data.datasets[0].data.length == maxPoint) data.datasets[0].data.splice(0, 1);
-					data.datasets[0].data.push(stat.transactionsInterval);
+					if (cData.labels.length < maxPoint) cData.labels.push('');
+					if (cData.datasets[0].data.length == maxPoint) cData.datasets[0].data.splice(0, 1);
+					cData.datasets[0].data.push(stat.transactionsInterval);
 					// self.set("chartData", null);
-					self.set("chartData", data);
+					self.set("chartData", cData);
 					self.notifyPropertyChange('chartData');
 					self.poll();
 				});
@@ -84,7 +85,7 @@ export default Controller.extend({
 	chartOptions : computed(function() {
 		var options = {
 			scales: {
-	            yAxes: [{
+				yAxes: [{
 	                ticks: {
 	                    beginAtZero:true,
 	                    stepSize : 1
@@ -122,15 +123,5 @@ export default Controller.extend({
 		}
 		return options;
 	}),
-
-	updateChart : function(self, model) {
-		var data = self.get("chartData");
-		var stat = model.stat;
-		console.log(data.datasets[0]);
-		// data.datasets[0].data = stat.transactionsInterval;
-		data.datasets[0].data = [1,2,3,4,5,6];
-		self.set("chartData", data);
-	}
-
 
 });

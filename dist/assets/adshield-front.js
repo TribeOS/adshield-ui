@@ -850,13 +850,13 @@ define('adshield-front/controllers/stats', ['exports'], function (exports) {
 						self.set("model", data);
 						// self.set('chartData', self.chartData);
 						var stat = self.model.get('firstObject').get('stat');
-						var data = self.get("chartData");
+						var cData = self.get("chartData");
 						var maxPoint = 60;
-						if (data.labels.length < maxPoint) data.labels.push('');
-						if (data.datasets[0].data.length == maxPoint) data.datasets[0].data.splice(0, 1);
-						data.datasets[0].data.push(stat.transactionsInterval);
+						if (cData.labels.length < maxPoint) cData.labels.push('');
+						if (cData.datasets[0].data.length == maxPoint) cData.datasets[0].data.splice(0, 1);
+						cData.datasets[0].data.push(stat.transactionsInterval);
 						// self.set("chartData", null);
-						self.set("chartData", data);
+						self.set("chartData", cData);
 						self.notifyPropertyChange('chartData');
 						self.poll();
 					});
@@ -952,16 +952,7 @@ define('adshield-front/controllers/stats', ['exports'], function (exports) {
 				}
 			};
 			return options;
-		}),
-
-		updateChart: function (self, model) {
-			var data = self.get("chartData");
-			var stat = model.stat;
-			console.log(data.datasets[0]);
-			// data.datasets[0].data = stat.transactionsInterval;
-			data.datasets[0].data = [1, 2, 3, 4, 5, 6];
-			self.set("chartData", data);
-		}
+		})
 
 	});
 });
@@ -1340,7 +1331,7 @@ define("adshield-front/templates/stats", ["exports"], function (exports) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "WUogbWOl", "block": "{\"symbols\":[\"statData\"],\"statements\":[[6,\"div\"],[9,\"class\",\"row\"],[7],[0,\"\\n\\n\\t\"],[6,\"div\"],[9,\"class\",\"col-md-3\"],[7],[0,\"\\n\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBox\"],[7],[0,\"\\n\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBoxHeader\"],[7],[0,\"\\n\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"text-center\"],[7],[0,\"Traffic/Referrals\"],[8],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\\t\"],[6,\"div\"],[7],[0,\"\\n\"],[4,\"each\",[[20,[\"filteredStats\"]]],null,{\"statements\":[[0,\"\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBoxData\"],[7],[6,\"span\"],[9,\"class\",\"value\"],[7],[1,[19,1,[\"count\"]],false],[8],[0,\" \"],[6,\"span\"],[9,\"class\",\"label\"],[7],[1,[19,1,[\"title\"]],false],[8],[8],[0,\"\\n\"]],\"parameters\":[1]},null],[0,\"\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\"],[8],[0,\"\\n\\t\"],[8],[0,\"\\n\\t\"],[6,\"div\"],[9,\"class\",\"col-md-3\"],[7],[0,\"\\n\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBox\"],[7],[0,\"\\n\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBoxHeader\"],[7],[0,\"\\n\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"text-center\"],[7],[0,\"Transactions\"],[8],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\\t\"],[6,\"div\"],[7],[0,\"\\n\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBoxData text-center\"],[7],[0,\"\\n\\t\\t\\t\\t\\t\"],[6,\"span\"],[9,\"class\",\"transactions\"],[7],[1,[20,[\"stat\",\"stat\",\"transactions\",\"today\"]],false],[8],[0,\" \"],[6,\"span\"],[9,\"class\",\"label\"],[7],[0,\" today\"],[8],[0,\"\\n\\t\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBoxData text-center\"],[7],[0,\"\\n\\t\\t\\t\\t\\t\"],[6,\"span\"],[9,\"class\",\"transactions\"],[7],[1,[20,[\"stat\",\"stat\",\"transactions\",\"week\"]],false],[8],[0,\" \"],[6,\"span\"],[9,\"class\",\"label\"],[7],[0,\" this week\"],[8],[0,\"\\n\\t\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\"],[8],[0,\"\\n\\t\"],[8],[0,\"\\n\\t\"],[6,\"div\"],[9,\"class\",\"col-md-6\"],[7],[0,\"\\n\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBox\"],[7],[0,\"\\n\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBoxHeader\"],[7],[0,\"\\n\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"text-center\"],[7],[0,\"Transanction Trend\"],[8],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\\t\"],[6,\"div\"],[7],[0,\"\\n\\t\\t\\t\\t\"],[1,[25,\"ember-chart\",null,[[\"type\",\"data\",\"options\",\"animate\"],[\"line\",[20,[\"chartData\"]],[20,[\"chartOptions\"]],true]]],false],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\"],[8],[0,\"\\n\\t\"],[8],[0,\"\\n\\n\"],[8]],\"hasEval\":false}", "meta": { "moduleName": "adshield-front/templates/stats.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "+zNMfQYz", "block": "{\"symbols\":[\"statData\"],\"statements\":[[6,\"div\"],[9,\"class\",\"row\"],[7],[0,\"\\n\\n\\t\"],[6,\"div\"],[9,\"class\",\"col-md-4\"],[7],[0,\"\\n\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBox\"],[7],[0,\"\\n\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBoxHeader\"],[7],[0,\"\\n\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"text-center\"],[7],[0,\"URL Referrals Verified\"],[8],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\\t\"],[6,\"div\"],[7],[0,\"\\n\"],[4,\"each\",[[20,[\"filteredStats\"]]],null,{\"statements\":[[0,\"\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBoxData\"],[7],[6,\"span\"],[9,\"class\",\"value\"],[7],[1,[19,1,[\"count\"]],false],[8],[0,\" \"],[6,\"span\"],[9,\"class\",\"label\"],[7],[1,[19,1,[\"title\"]],false],[8],[8],[0,\"\\n\"]],\"parameters\":[1]},null],[0,\"\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\"],[8],[0,\"\\n\\t\"],[8],[0,\"\\n\\t\"],[6,\"div\"],[9,\"class\",\"col-md-4\"],[7],[0,\"\\n\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBox\"],[7],[0,\"\\n\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBoxHeader\"],[7],[0,\"\\n\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"text-center\"],[7],[0,\"Requests Handled\"],[8],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\\t\"],[6,\"div\"],[7],[0,\"\\n\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBoxData text-center\"],[7],[0,\"\\n\\t\\t\\t\\t\\t\"],[6,\"span\"],[9,\"class\",\"transactions\"],[7],[1,[20,[\"stat\",\"stat\",\"transactions\",\"today\"]],false],[8],[0,\" \"],[6,\"span\"],[9,\"class\",\"label\"],[7],[0,\" today\"],[8],[0,\"\\n\\t\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBoxData text-center\"],[7],[0,\"\\n\\t\\t\\t\\t\\t\"],[6,\"span\"],[9,\"class\",\"transactions\"],[7],[1,[20,[\"stat\",\"stat\",\"transactions\",\"week\"]],false],[8],[0,\" \"],[6,\"span\"],[9,\"class\",\"label\"],[7],[0,\" this week\"],[8],[0,\"\\n\\t\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBoxData text-center\"],[7],[0,\"\\n\\t\\t\\t\\t\\t\"],[6,\"span\"],[9,\"class\",\"transactions\"],[7],[1,[20,[\"stat\",\"stat\",\"transactions\",\"month\"]],false],[8],[0,\" \"],[6,\"span\"],[9,\"class\",\"label\"],[7],[0,\" this month\"],[8],[0,\"\\n\\t\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\"],[8],[0,\"\\n\\t\"],[8],[0,\"\\n\\t\"],[6,\"div\"],[9,\"class\",\"col-md-4\"],[7],[0,\"\\n\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBox\"],[7],[0,\"\\n\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBoxHeader\"],[7],[0,\"\\n\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"text-center\"],[7],[0,\"Ad Clicks Detected\"],[8],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\\t\"],[6,\"div\"],[7],[0,\"\\n\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBoxData text-center\"],[7],[0,\"\\n\\t\\t\\t\\t\\t\"],[6,\"span\"],[9,\"class\",\"transactions\"],[7],[1,[20,[\"stat\",\"stat\",\"adClicks\",\"today\"]],false],[8],[0,\" \"],[6,\"span\"],[9,\"class\",\"label\"],[7],[0,\" today\"],[8],[0,\"\\n\\t\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBoxData text-center\"],[7],[0,\"\\n\\t\\t\\t\\t\\t\"],[6,\"span\"],[9,\"class\",\"transactions\"],[7],[1,[20,[\"stat\",\"stat\",\"adClicks\",\"week\"]],false],[8],[0,\" \"],[6,\"span\"],[9,\"class\",\"label\"],[7],[0,\" this week\"],[8],[0,\"\\n\\t\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBoxData text-center\"],[7],[0,\"\\n\\t\\t\\t\\t\\t\"],[6,\"span\"],[9,\"class\",\"transactions\"],[7],[1,[20,[\"stat\",\"stat\",\"adClicks\",\"month\"]],false],[8],[0,\" \"],[6,\"span\"],[9,\"class\",\"label\"],[7],[0,\" this month\"],[8],[0,\"\\n\\t\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\"],[8],[0,\"\\n\\t\"],[8],[0,\"\\n\\t\"],[6,\"div\"],[9,\"class\",\"col-md-4\"],[9,\"style\",\"margin-top: 10px;\"],[7],[0,\"\\n\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBox\"],[7],[0,\"\\n\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBoxHeader\"],[7],[0,\"\\n\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"text-center\"],[7],[0,\"Live Requests Received\"],[8],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\\t\"],[6,\"div\"],[7],[0,\"\\n\\t\\t\\t\\t\"],[1,[25,\"ember-chart\",null,[[\"type\",\"data\",\"options\",\"animate\"],[\"line\",[20,[\"chartData\"]],[20,[\"chartOptions\"]],true]]],false],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\"],[8],[0,\"\\n\\t\"],[8],[0,\"\\n\\n\"],[8]],\"hasEval\":false}", "meta": { "moduleName": "adshield-front/templates/stats.hbs" } });
 });
 
 
@@ -1364,6 +1355,6 @@ catch(err) {
 });
 
 if (!runningTests) {
-  require("adshield-front/app")["default"].create({"LOG_RESOLVER":true,"LOG_ACTIVE_GENERATION":true,"LOG_TRANSITIONS":true,"LOG_TRANSITIONS_INTERNAL":true,"LOG_VIEW_LOOKUPS":true,"name":"adshield-front","version":"0.0.0+4237e08b"});
+  require("adshield-front/app")["default"].create({"LOG_RESOLVER":true,"LOG_ACTIVE_GENERATION":true,"LOG_TRANSITIONS":true,"LOG_TRANSITIONS_INTERNAL":true,"LOG_VIEW_LOOKUPS":true,"name":"adshield-front","version":"0.0.0+a312533f"});
 }
 //# sourceMappingURL=adshield-front.map
