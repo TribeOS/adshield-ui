@@ -3,11 +3,13 @@
 	<div class="col-md-4">
 		<div class="statBox">
 			<div class="statBoxHeader">
-				<div class="text-center">URL Referrals Verified</div>
+				<div class="text-center">URL Referrals this Month</div>
 			</div>
 			<div>
 			{{#each filteredStats as |statData|}}
-				<div class="statBoxData"><span class="value">{{ statData.count }}</span> <span class="label">{{ statData.title }}</span></div>
+				<div class="statBoxData">
+					<span class="value">{{format-number statData.count }}</span> <span class="label">{{statData.title }}</span>
+				</div>
 			{{/each}}
 			</div>
 		</div>
@@ -19,13 +21,13 @@
 			</div>
 			<div>
 				<div class="statBoxData text-center">
-					<span class="transactions">{{ stat.stat.transactions.today }}</span> <span class="label"> today</span>
+					<span class="transactions">{{format-number stat.stat.transactions.today }}</span> <span class="label"> today</span>
 				</div>
 				<div class="statBoxData text-center">
-					<span class="transactions">{{ stat.stat.transactions.week }}</span> <span class="label"> this week</span>
+					<span class="transactions">{{format-number stat.stat.transactions.week }}</span> <span class="label"> this week</span>
 				</div>
 				<div class="statBoxData text-center">
-					<span class="transactions">{{ stat.stat.transactions.month }}</span> <span class="label"> this month</span>
+					<span class="transactions">{{format-number stat.stat.transactions.month }}</span> <span class="label"> this month</span>
 				</div>
 			</div>
 		</div>
@@ -37,13 +39,13 @@
 			</div>
 			<div>
 				<div class="statBoxData text-center">
-					<span class="transactions">{{ stat.stat.adClicks.today }}</span> <span class="label"> today</span>
+					<span class="transactions">{{format-number stat.stat.adClicks.today }}</span> <span class="label"> today</span>
 				</div>
 				<div class="statBoxData text-center">
-					<span class="transactions">{{ stat.stat.adClicks.week }}</span> <span class="label"> this week</span>
+					<span class="transactions">{{format-number stat.stat.adClicks.week }}</span> <span class="label"> this week</span>
 				</div>
 				<div class="statBoxData text-center">
-					<span class="transactions">{{ stat.stat.adClicks.month }}</span> <span class="label"> this month</span>
+					<span class="transactions">{{format-number stat.stat.adClicks.month }}</span> <span class="label"> this month</span>
 				</div>
 			</div>
 		</div>

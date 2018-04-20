@@ -11,16 +11,16 @@ export default Controller.extend({
 			later(function() {
 				self.get('store').findAll('adshieldstat').then(function(data) {
 					self.set("model", data);
-					// self.set('chartData', self.chartData);
 					var stat = self.model.get('firstObject').get('stat');
 					var cData = self.get("chartData");
 					var maxPoint = 60;
 					if (cData.labels.length < maxPoint) cData.labels.push('');
 					if (cData.datasets[0].data.length == maxPoint) cData.datasets[0].data.splice(0, 1);
 					cData.datasets[0].data.push(stat.transactionsInterval);
-					// self.set("chartData", null);
 					self.set("chartData", cData);
 					self.notifyPropertyChange('chartData');
+
+					self.set("filteredStats", stat);
 					self.poll();
 				});
 			}, 2000);
@@ -44,14 +44,25 @@ export default Controller.extend({
 	 * @param  {[type]} ) {		var       model [description]
 	 * @return {[type]}   [description]
 	 */
-	filteredStats : computed(function() {
-		var model = this.get('model');
-		var stats = model.get('firstObject').get('stat');
-		var newstats = stats.stat.filter(function(item) {
-			if (item.status == 6 || item.status == 1) return false;
-			return true;
-		});
-		return newstats;
+	filteredStats : computed({
+		get(key) {
+			var model = this.get('model');
+			var stats = model.get('firstObject').get('stat');
+			var newstats = stats.stat.filter(function(item) {
+				if (item.status == 6 || item.status == 1) return false;
+				return true;
+			});
+			return newstats;
+		},
+		set(key, value) {
+			var stats = value;
+			var newstats = stats.stat.filter(function(item) {
+				if (item.status == 6 || item.status == 1) return false;
+				return true;
+			});
+			return newstats;
+		}
+
 	}),
 
 
