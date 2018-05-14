@@ -882,7 +882,7 @@ define('adshield-front/controllers/stats', ['exports'], function (exports) {
    * @return {[type]}   [description]
    */
 		filteredStats: Ember.computed({
-			get(key) {
+			get() {
 				var model = this.get('model');
 				var stats = model.get('firstObject').get('stat');
 				var newstats = stats.stat.filter(function (item) {
@@ -1297,9 +1297,18 @@ define('adshield-front/router', ['exports', 'adshield-front/config/environment']
 
   Router.map(function () {
     this.route('stats');
+    this.route('dash');
   });
 
   exports.default = Router;
+});
+define('adshield-front/routes/dash', ['exports'], function (exports) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = Ember.Route.extend({});
 });
 define('adshield-front/routes/stats', ['exports'], function (exports) {
 	'use strict';
@@ -1349,6 +1358,14 @@ define('adshield-front/templates/components/ember-popper', ['exports', 'ember-po
     }
   });
 });
+define("adshield-front/templates/dash", ["exports"], function (exports) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = Ember.HTMLBars.template({ "id": "yv/Z5AJK", "block": "{\"symbols\":[],\"statements\":[[1,[18,\"outlet\"],false]],\"hasEval\":false}", "meta": { "moduleName": "adshield-front/templates/dash.hbs" } });
+});
 define("adshield-front/templates/stats", ["exports"], function (exports) {
   "use strict";
 
@@ -1379,6 +1396,6 @@ catch(err) {
 });
 
 if (!runningTests) {
-  require("adshield-front/app")["default"].create({"LOG_RESOLVER":true,"LOG_ACTIVE_GENERATION":true,"LOG_TRANSITIONS":true,"LOG_TRANSITIONS_INTERNAL":true,"LOG_VIEW_LOOKUPS":true,"name":"adshield-front","version":"0.0.0+83ec3bb8"});
+  require("adshield-front/app")["default"].create({"LOG_RESOLVER":true,"LOG_ACTIVE_GENERATION":true,"LOG_TRANSITIONS":true,"LOG_TRANSITIONS_INTERNAL":true,"LOG_VIEW_LOOKUPS":true,"name":"adshield-front","version":"0.0.0+edcda22c"});
 }
 //# sourceMappingURL=adshield-front.map
