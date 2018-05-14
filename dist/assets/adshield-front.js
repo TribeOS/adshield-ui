@@ -1054,17 +1054,17 @@ define('adshield-front/helpers/cancel-all', ['exports', 'ember-concurrency/helpe
   });
 });
 define("adshield-front/helpers/format-number", ["exports"], function (exports) {
-  "use strict";
+	"use strict";
 
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.formatNumber = formatNumber;
-  function formatNumber(params /*, hash*/) {
-    return params.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");;
-  }
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.formatNumber = formatNumber;
+	function formatNumber(params /*, hash*/) {
+		return params.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	}
 
-  exports.default = Ember.Helper.helper(formatNumber);
+	exports.default = Ember.Helper.helper(formatNumber);
 });
 define('adshield-front/helpers/perform', ['exports', 'ember-concurrency/helpers/perform'], function (exports, _perform) {
   'use strict';
@@ -1396,6 +1396,6 @@ catch(err) {
 });
 
 if (!runningTests) {
-  require("adshield-front/app")["default"].create({"LOG_RESOLVER":true,"LOG_ACTIVE_GENERATION":true,"LOG_TRANSITIONS":true,"LOG_TRANSITIONS_INTERNAL":true,"LOG_VIEW_LOOKUPS":true,"name":"adshield-front","version":"0.0.0+edcda22c"});
+  require("adshield-front/app")["default"].create({"LOG_RESOLVER":true,"LOG_ACTIVE_GENERATION":true,"LOG_TRANSITIONS":true,"LOG_TRANSITIONS_INTERNAL":true,"LOG_VIEW_LOOKUPS":true,"name":"adshield-front","version":"0.0.0+a1eee9a4"});
 }
 //# sourceMappingURL=adshield-front.map
