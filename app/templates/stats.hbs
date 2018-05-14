@@ -60,5 +60,14 @@
 			</div>
 		</div>
 	</div>
+	<div class="col-md-8" style="margin-top: 10px;">
+		<div class="statBox">
+			<div>
+				{{#leaflet-map lat=lat lng=lng zoom=zoom}}
+					{{tile-layer url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
+				{{/leaflet-map}}
+			</div>
+		</div>
+	</div>
 
 </div>
