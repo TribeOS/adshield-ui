@@ -1,2 +1,160 @@
 <h1>test</h1>
-{{outlet}}
+
+<!-- fixed navbar -->
+<div class="navbar navbar-default navbar-fixed-top nav-ados">
+  <div class="container logo-container">
+    <div class="navbar-header">
+      <!--
+          <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          -->
+      <a href="#" class="navbar-brand logo-ados"><img src="img/tribeOSLogo.svg"></a> </div>
+      <div style="float:right; font-size:24px; padding-top:10px"><a href="#">Logout</a></div>
+  </div>
+</div>
+<div class="container ad-container">
+  <div class="row">
+    
+    
+    <div class="col-md-4 col-sm-4 col-xs-12 marBot" id="appWrapper">
+      <ul id="sortable3" class="connectedSortable">
+      <li class="boxgrid">
+          <ul class="list-group">
+            <li class="list-group-item nopad" style="text-align:center"> <span><img style="width:100%" src="img/db_img.jpg"></span> 
+            <a data-toggle="modal" data-target="#dashboard" href="#">
+              <div class="img-title"> <span class="title dBlock">Dashboard</span> </div>
+            </a> </li>
+          </ul>
+        </li>
+        <li class="boxgrid">
+          <ul class="list-group">
+            <li class="list-group-item"> <span class="circle"><img src="img/icon_stat.png"></span> <span class="title">Threats Summary</span></li>
+            <a data-toggle="modal" data-target="#threatsSummary" href="#">
+            <li class="list-group-item">Summary <span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>
+            </a>
+            
+            <a data-toggle="modal" data-target="#badbots" href="#">
+            <li class="list-group-item">Automated Traffic <span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>
+            </a>
+            <a data-toggle="modal" data-target="#threatsbyorg" href="#">
+            <li class="list-group-item">Traffic by Organization <span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>           
+            </a> 
+            <a data-toggle="modal" data-target="#malicious" href="#">
+            <li class="list-group-item">Suspicious Countries <span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>
+            </a>
+          </ul>
+        </li>
+        <li class="boxgrid">
+          <ul class="list-group">
+            <li class="list-group-item"> <span class="circle"><img src="img/icon_sell.png"></span> <span class="title">Summary Reports</span></li>
+            <a data-toggle="modal" data-target="#clickfraud" href="#">
+            <li class="list-group-item">Click Fraud <span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>
+            </a> 
+            <a data-toggle="modal" data-target="#captchareq" href="#">
+            <li class="list-group-item">Captcha Requests <span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>
+            </a>
+            <a data-toggle="modal" data-target="#goodbots" href="#">
+            <li class="list-group-item">Desirable Automated Traffic <span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>
+            </a>
+            <a data-toggle="modal" data-target="#targetcon" href="#">
+            <li class="list-group-item">Targeted Content <span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>
+            </a>
+          </ul>
+        </li>
+        
+        
+      </ul>
+    </div>
+    
+    <div class="col-md-4 col-sm-4 col-xs-12 marBot" id="appWrapper">
+      <ul id="sortable2" class="connectedSortable">
+        
+        <li class="boxgrid">
+          <ul class="list-group">
+            <li class="list-group-item"> <span class="circle"><img src="img/icon_settings.png"></span> <span class="title">Settings</span></li>
+            <a data-toggle="modal" data-target="#contentprotect" href="#">
+            <li class="list-group-item">Content Protection <span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>
+            </a> <a data-toggle="modal" data-target="#custompage" href="#">
+            <li class="list-group-item">Custom Pages <span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>
+            </a> <a data-toggle="modal" data-target="#ipaccess" href="#">
+            <li class="list-group-item">IP Access List <span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>
+            </a> <a data-toggle="modal" data-target="#countryblock" href="#">
+            <li class="list-group-item">Country Block List <span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>
+            </a>
+            <a data-toggle="modal" data-target="#contentdis" href="#">
+            <li class="list-group-item">Content Distribution <span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>
+            </a>
+            <a data-toggle="modal" data-target="#accountman" href="#">
+            <li class="list-group-item">Account Management <span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>
+            </a>
+          </ul>
+        </li>
+        <li class="boxgrid">
+          <ul class="list-group">
+            <li class="list-group-item nopad" style="text-align:center"><a data-toggle="modal" data-target="#auditlog" href="#">
+              <div class="img-title"> <span class="title dBlock">Complete Log</span> </div>
+            </a>
+            </li>
+          </ul>
+        </li>
+        <li class="boxgrid">
+          <ul class="list-group">
+            <li class="list-group-item"> <span class="circle"><img src="img/icon_buy.png"></span> <span class="title">Traffic Summary</span></li>
+            <a data-toggle="modal" data-target="#trafficSummary" href="#">
+            <li class="list-group-item">Summary <span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>
+            </a> <a data-toggle="modal" data-target="#cacheanalysis" href="#">
+            <li class="list-group-item">Cache Analysis <span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>
+            </a> <a data-toggle="modal" data-target="#upstream" href="#">
+            <li class="list-group-item">Upstream HTTP Errors <span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>
+            </a>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-12 marBot" id="appWrapper">
+      <ul id="sortable1" class="connectedSortable">        
+        
+        <li class="boxgrid">
+          <ul class="list-group">
+            <li class="list-group-item"> <span class="circle"><img src="img/icon_support.png"></span> <span class="title">Protection Summary</span></li>
+            <a data-toggle="modal" data-target="#trapSummary" href="#">
+            <li class="list-group-item">Overview <span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>
+            </a> <a data-toggle="modal" data-target="#knownviolators" href="#">
+            <li class="list-group-item">Known Violators <span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>
+            </a> <a data-toggle="modal" data-target="#javacheck" href="#">
+            <li class="list-group-item">JavaScript Check Failed <span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>
+            </a>
+            <a data-toggle="modal" data-target="#javanot" href="#">
+            <li class="list-group-item">JavaScript Not Loaded <span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>
+            </a><a data-toggle="modal" data-target="#knownviolatorsagent" href="#">
+            <li class="list-group-item">Known Violator User Agent <span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>
+            </a><a data-toggle="modal" data-target="#baduser" href="#">
+            <li class="list-group-item">Suspicious User Agents<span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>
+            </a><a data-toggle="modal" data-target="#browserinteg" href="#">
+            <li class="list-group-item">Browser Integrity Check <span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>
+            </a><a data-toggle="modal" data-target="#knownviolatorscenter" href="#">
+            <li class="list-group-item">Known Violator Data Center <span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>
+            </a><a data-toggle="modal" data-target="#pagespermin" href="#">
+            <li class="list-group-item">Pages Per Minute Exceeded <span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>
+            </a><a data-toggle="modal" data-target="#sessionlength" href="#">
+            <li class="list-group-item">Session Length Exceeded <span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>
+            </a><a data-toggle="modal" data-target="#pagesperses" href="#">
+            <li class="list-group-item">Pages Per Session Exceeded <span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>
+            </a><a data-toggle="modal" data-target="#blockedcountry" href="#">
+            <li class="list-group-item">Blocked Country <span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>
+            </a><a data-toggle="modal" data-target="#agguser" href="#">
+            <li class="list-group-item">Aggregator User Agents <span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>
+            </a>
+            <a data-toggle="modal" data-target="#knownviolatorstool" href="#">
+            <li class="list-group-item">Known Violator Automation Tool <span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>
+            </a>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
