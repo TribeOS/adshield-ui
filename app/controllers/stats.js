@@ -4,6 +4,10 @@ import { later } from '@ember/runloop';
 
 export default Controller.extend({
 
+	lat: 45.519743,
+	lng: -122.680522,
+	zoom: 1,
+
 	init : function() {
 		this._super();
 		var self = this;
@@ -45,7 +49,7 @@ export default Controller.extend({
 	 * @return {[type]}   [description]
 	 */
 	filteredStats : computed({
-		get(key) {
+		get() {
 			var model = this.get('model');
 			var stats = model.get('firstObject').get('stat');
 			var newstats = stats.stat.filter(function(item) {
@@ -95,42 +99,42 @@ export default Controller.extend({
 
 	chartOptions : computed(function() {
 		var options = {
-			scales: {
-				yAxes: [{
-	                ticks: {
-	                    beginAtZero:true,
-	                    stepSize : 1
-	                }
-	            }],
-	            xAxes : [{
-	            	ticks : {
-	            		suggestedMax : 2,
-	            		suggestedMin : 2,
-	            		max : 5,
-	            		min : 0,
-	            		stepSize : 4
-	            	}
-	            }]
-	        },
-	        legend : {
-	        	display : false
-	        },
-	        title : {
-	        	display : true,
-	        	text : "Transactions for the past 2 minutes"
-	        },
-	        tooltips : {
-	        	enabled : false
-	        },
-	        elements : {
-	        	point : {
-	        		pointStyle : 'triangle',
-	        		borderWidth : 1
-	        	},
-	        	line : {
-	        		fill : false
-	        	}
-	        }
+			scales : {
+				yAxes : [{
+					ticks : {
+						beginAtZero:true,
+						stepSize : 1
+					}
+				}],
+				xAxes:[{
+					ticks:{
+						suggestedMax : 2,
+						suggestedMin : 2,
+						max : 5,
+						min : 0,
+						stepSize : 4
+					}
+				}]
+			},
+			legend:{
+				display:false
+			},
+			title : {
+				display : true,
+				text : "Transactions for the past 2 minutes"
+			},
+			tooltips : {
+				enabled : false
+			},
+			elements : {
+				point : {
+					pointStyle : 'triangle',
+					borderWidth : 1
+				},
+				line : {
+					fill : false
+				}
+			}
 		}
 		return options;
 	}),
