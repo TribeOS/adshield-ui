@@ -1,0 +1,19 @@
+<table class="table" width="100%">
+	<thead class="thead-light">
+		<tr>
+			{{#each data.headers as |header|}}
+				<th>{{header}}</th>
+			{{/each}}
+		</tr>
+	</thead>
+	<tbody>
+		{{#each data.data as |rows|}}
+			<tr>
+				{{#each rows.value as |value|}}
+					<td>{{value}}</td>
+				{{/each}}
+			</tr>
+		{{/each}}
+	</tbody>
+</table>
+<!-- insert pagination here -->

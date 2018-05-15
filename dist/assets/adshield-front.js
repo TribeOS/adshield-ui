@@ -864,6 +864,22 @@ define('adshield-front/components/container-layer', ['exports', 'ember-leaflet/c
     }
   });
 });
+define('adshield-front/components/data-graph', ['exports'], function (exports) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = Ember.Component.extend({});
+});
+define('adshield-front/components/data-table', ['exports'], function (exports) {
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = Ember.Component.extend({});
+});
 define('adshield-front/components/div-overlay-layer', ['exports', 'ember-leaflet/components/div-overlay-layer'], function (exports, _divOverlayLayer) {
   'use strict';
 
@@ -960,6 +976,19 @@ define('adshield-front/components/marker-layer', ['exports', 'ember-leaflet/comp
     enumerable: true,
     get: function () {
       return _markerLayer.default;
+    }
+  });
+});
+define('adshield-front/components/page-numbers', ['exports', 'ember-cli-pagination/components/page-numbers'], function (exports, _pageNumbers) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _pageNumbers.default;
     }
   });
 });
@@ -1079,6 +1108,24 @@ define('adshield-front/components/wms-tile-layer', ['exports', 'ember-leaflet/co
       return _wmsTileLayer.default;
     }
   });
+});
+define("adshield-front/controllers/apiaccesslist", ["exports"], function (exports) {
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = Ember.Controller.extend({
+
+		// sample data
+		data: {
+			headers: ["IP", "URL", "Website", "Created On"],
+			data: [{
+				value: ["192.168.0.1", "test url", "AdOS", "2018-01-01 10:01:10"]
+			}]
+		}
+
+	});
 });
 define('adshield-front/controllers/stats', ['exports'], function (exports) {
 	'use strict';
@@ -1644,9 +1691,18 @@ define('adshield-front/router', ['exports', 'adshield-front/config/environment']
   Router.map(function () {
     this.route('stats');
     this.route('dash');
+    this.route('apiaccesslist');
   });
 
   exports.default = Router;
+});
+define('adshield-front/routes/apiaccesslist', ['exports'], function (exports) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = Ember.Route.extend({});
 });
 define('adshield-front/routes/dash', ['exports'], function (exports) {
   'use strict';
@@ -1683,6 +1739,14 @@ define('adshield-front/services/ajax', ['exports', 'ember-ajax/services/ajax'], 
     }
   });
 });
+define("adshield-front/templates/apiaccesslist", ["exports"], function (exports) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = Ember.HTMLBars.template({ "id": "UtrhbGYg", "block": "{\"symbols\":[],\"statements\":[[6,\"div\"],[9,\"class\",\"row\"],[7],[0,\"\\n\\t\"],[6,\"div\"],[9,\"class\",\"col-md-12\"],[7],[0,\"\\n\\t\\t\"],[6,\"h3\"],[7],[0,\"Api Access List\"],[8],[0,\"\\n\\t\"],[8],[0,\"\\n\"],[8],[0,\"\\n\\n\"],[6,\"div\"],[9,\"class\",\"row\"],[7],[0,\"\\n\\t\"],[6,\"div\"],[9,\"class\",\"col-md-12\"],[7],[0,\"\\n\"],[4,\"data-table\",null,[[\"data\"],[[20,[\"data\"]]]],{\"statements\":[],\"parameters\":[]},null],[0,\"\\t\"],[8],[0,\"\\n\"],[8]],\"hasEval\":false}", "meta": { "moduleName": "adshield-front/templates/apiaccesslist.hbs" } });
+});
 define("adshield-front/templates/application", ["exports"], function (exports) {
   "use strict";
 
@@ -1690,6 +1754,22 @@ define("adshield-front/templates/application", ["exports"], function (exports) {
     value: true
   });
   exports.default = Ember.HTMLBars.template({ "id": "Bf94lT+Z", "block": "{\"symbols\":[],\"statements\":[[6,\"div\"],[9,\"class\",\"container-fluid\"],[7],[0,\"\\n\\n\"],[6,\"h1\"],[7],[0,\"AdShield\"],[8],[0,\"\\n\\n\"],[1,[18,\"outlet\"],false],[0,\"\\n\\n\"],[8]],\"hasEval\":false}", "meta": { "moduleName": "adshield-front/templates/application.hbs" } });
+});
+define("adshield-front/templates/components/data-graph", ["exports"], function (exports) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = Ember.HTMLBars.template({ "id": "PBKc4s6w", "block": "{\"symbols\":[],\"statements\":[[2,\" for graph ui \"]],\"hasEval\":false}", "meta": { "moduleName": "adshield-front/templates/components/data-graph.hbs" } });
+});
+define("adshield-front/templates/components/data-table", ["exports"], function (exports) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = Ember.HTMLBars.template({ "id": "/r2Xct4K", "block": "{\"symbols\":[\"rows\",\"value\",\"header\"],\"statements\":[[6,\"table\"],[9,\"class\",\"table\"],[9,\"width\",\"100%\"],[7],[0,\"\\n\\t\"],[6,\"thead\"],[9,\"class\",\"thead-light\"],[7],[0,\"\\n\\t\\t\"],[6,\"tr\"],[7],[0,\"\\n\"],[4,\"each\",[[20,[\"data\",\"headers\"]]],null,{\"statements\":[[0,\"\\t\\t\\t\\t\"],[6,\"th\"],[7],[1,[19,3,[]],false],[8],[0,\"\\n\"]],\"parameters\":[3]},null],[0,\"\\t\\t\"],[8],[0,\"\\n\\t\"],[8],[0,\"\\n\\t\"],[6,\"tbody\"],[7],[0,\"\\n\"],[4,\"each\",[[20,[\"data\",\"data\"]]],null,{\"statements\":[[0,\"\\t\\t\\t\"],[6,\"tr\"],[7],[0,\"\\n\"],[4,\"each\",[[19,1,[\"value\"]]],null,{\"statements\":[[0,\"\\t\\t\\t\\t\\t\"],[6,\"td\"],[7],[1,[19,2,[]],false],[8],[0,\"\\n\"]],\"parameters\":[2]},null],[0,\"\\t\\t\\t\"],[8],[0,\"\\n\"]],\"parameters\":[1]},null],[0,\"\\t\"],[8],[0,\"\\n\"],[8],[0,\"\\n\"],[2,\" insert pagination here \"]],\"hasEval\":false}", "meta": { "moduleName": "adshield-front/templates/components/data-table.hbs" } });
 });
 define('adshield-front/templates/components/ember-popper', ['exports', 'ember-popper/templates/components/ember-popper'], function (exports, _emberPopper) {
   'use strict';
@@ -1710,7 +1790,7 @@ define("adshield-front/templates/dash", ["exports"], function (exports) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "yv/Z5AJK", "block": "{\"symbols\":[],\"statements\":[[1,[18,\"outlet\"],false]],\"hasEval\":false}", "meta": { "moduleName": "adshield-front/templates/dash.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "IiGNwF18", "block": "{\"symbols\":[],\"statements\":[[6,\"h1\"],[7],[0,\"test\"],[8],[0,\"\\n\"],[1,[18,\"outlet\"],false]],\"hasEval\":false}", "meta": { "moduleName": "adshield-front/templates/dash.hbs" } });
 });
 define("adshield-front/templates/stats", ["exports"], function (exports) {
   "use strict";
@@ -1718,7 +1798,7 @@ define("adshield-front/templates/stats", ["exports"], function (exports) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "BSFBb7Kx", "block": "{\"symbols\":[\"statData\"],\"statements\":[[6,\"div\"],[9,\"class\",\"row\"],[7],[0,\"\\n\\n\\t\"],[6,\"div\"],[9,\"class\",\"col-md-4\"],[7],[0,\"\\n\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBox\"],[7],[0,\"\\n\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBoxHeader\"],[7],[0,\"\\n\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"text-center\"],[7],[0,\"URL Referrals this Month\"],[8],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\\t\"],[6,\"div\"],[7],[0,\"\\n\"],[4,\"each\",[[20,[\"filteredStats\"]]],null,{\"statements\":[[0,\"\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBoxData\"],[7],[0,\"\\n\\t\\t\\t\\t\\t\"],[6,\"span\"],[9,\"class\",\"value\"],[7],[1,[25,\"format-number\",[[19,1,[\"count\"]]],null],false],[8],[0,\" \"],[6,\"span\"],[9,\"class\",\"label\"],[7],[1,[19,1,[\"title\"]],false],[8],[0,\"\\n\\t\\t\\t\\t\"],[8],[0,\"\\n\"]],\"parameters\":[1]},null],[0,\"\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\"],[8],[0,\"\\n\\t\"],[8],[0,\"\\n\\t\"],[6,\"div\"],[9,\"class\",\"col-md-4\"],[7],[0,\"\\n\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBox\"],[7],[0,\"\\n\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBoxHeader\"],[7],[0,\"\\n\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"text-center\"],[7],[0,\"Requests Handled\"],[8],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\\t\"],[6,\"div\"],[7],[0,\"\\n\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBoxData text-center\"],[7],[0,\"\\n\\t\\t\\t\\t\\t\"],[6,\"span\"],[9,\"class\",\"transactions\"],[7],[1,[25,\"format-number\",[[20,[\"stat\",\"stat\",\"transactions\",\"today\"]]],null],false],[8],[0,\" \"],[6,\"span\"],[9,\"class\",\"label\"],[7],[0,\" today\"],[8],[0,\"\\n\\t\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBoxData text-center\"],[7],[0,\"\\n\\t\\t\\t\\t\\t\"],[6,\"span\"],[9,\"class\",\"transactions\"],[7],[1,[25,\"format-number\",[[20,[\"stat\",\"stat\",\"transactions\",\"week\"]]],null],false],[8],[0,\" \"],[6,\"span\"],[9,\"class\",\"label\"],[7],[0,\" this week\"],[8],[0,\"\\n\\t\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBoxData text-center\"],[7],[0,\"\\n\\t\\t\\t\\t\\t\"],[6,\"span\"],[9,\"class\",\"transactions\"],[7],[1,[25,\"format-number\",[[20,[\"stat\",\"stat\",\"transactions\",\"month\"]]],null],false],[8],[0,\" \"],[6,\"span\"],[9,\"class\",\"label\"],[7],[0,\" this month\"],[8],[0,\"\\n\\t\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\"],[8],[0,\"\\n\\t\"],[8],[0,\"\\n\\t\"],[6,\"div\"],[9,\"class\",\"col-md-4\"],[7],[0,\"\\n\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBox\"],[7],[0,\"\\n\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBoxHeader\"],[7],[0,\"\\n\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"text-center\"],[7],[0,\"Ad Clicks Detected\"],[8],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\\t\"],[6,\"div\"],[7],[0,\"\\n\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBoxData text-center\"],[7],[0,\"\\n\\t\\t\\t\\t\\t\"],[6,\"span\"],[9,\"class\",\"transactions\"],[7],[1,[25,\"format-number\",[[20,[\"stat\",\"stat\",\"adClicks\",\"today\"]]],null],false],[8],[0,\" \"],[6,\"span\"],[9,\"class\",\"label\"],[7],[0,\" today\"],[8],[0,\"\\n\\t\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBoxData text-center\"],[7],[0,\"\\n\\t\\t\\t\\t\\t\"],[6,\"span\"],[9,\"class\",\"transactions\"],[7],[1,[25,\"format-number\",[[20,[\"stat\",\"stat\",\"adClicks\",\"week\"]]],null],false],[8],[0,\" \"],[6,\"span\"],[9,\"class\",\"label\"],[7],[0,\" this week\"],[8],[0,\"\\n\\t\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBoxData text-center\"],[7],[0,\"\\n\\t\\t\\t\\t\\t\"],[6,\"span\"],[9,\"class\",\"transactions\"],[7],[1,[25,\"format-number\",[[20,[\"stat\",\"stat\",\"adClicks\",\"month\"]]],null],false],[8],[0,\" \"],[6,\"span\"],[9,\"class\",\"label\"],[7],[0,\" this month\"],[8],[0,\"\\n\\t\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\"],[8],[0,\"\\n\\t\"],[8],[0,\"\\n\\t\"],[6,\"div\"],[9,\"class\",\"col-md-4\"],[9,\"style\",\"margin-top: 10px;\"],[7],[0,\"\\n\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBox\"],[7],[0,\"\\n\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBoxHeader\"],[7],[0,\"\\n\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"text-center\"],[7],[0,\"Live Requests Received\"],[8],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\\t\"],[6,\"div\"],[7],[0,\"\\n\\t\\t\\t\\t\"],[1,[25,\"ember-chart\",null,[[\"type\",\"data\",\"options\",\"animate\"],[\"line\",[20,[\"chartData\"]],[20,[\"chartOptions\"]],true]]],false],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\"],[8],[0,\"\\n\\t\"],[8],[0,\"\\n\\t\"],[6,\"div\"],[9,\"class\",\"col-md-8\"],[9,\"style\",\"margin-top: 10px;\"],[7],[0,\"\\n\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBox\"],[7],[0,\"\\n\\t\\t\\t\"],[6,\"div\"],[7],[0,\"\\n\"],[4,\"leaflet-map\",null,[[\"lat\",\"lng\",\"zoom\"],[[20,[\"lat\"]],[20,[\"lng\"]],[20,[\"zoom\"]]]],{\"statements\":[[0,\"\\t\\t\\t\\t\\t\"],[1,[25,\"tile-layer\",null,[[\"url\"],[\"https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png\"]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\"],[8],[0,\"\\n\\t\"],[8],[0,\"\\n\\n\"],[8]],\"hasEval\":false}", "meta": { "moduleName": "adshield-front/templates/stats.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "K6ns2QOX", "block": "{\"symbols\":[\"statData\"],\"statements\":[[6,\"div\"],[9,\"class\",\"row\"],[7],[0,\"\\n\\n\\t\"],[6,\"div\"],[9,\"class\",\"col-md-4\"],[7],[0,\"\\n\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBox\"],[7],[0,\"\\n\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBoxHeader\"],[7],[0,\"\\n\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"text-center\"],[7],[0,\"URL Referrals this Month\"],[8],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\\t\"],[6,\"div\"],[7],[0,\"\\n\"],[4,\"each\",[[20,[\"filteredStats\"]]],null,{\"statements\":[[0,\"\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBoxData\"],[7],[0,\"\\n\\t\\t\\t\\t\\t\"],[6,\"span\"],[9,\"class\",\"value\"],[7],[1,[25,\"format-number\",[[19,1,[\"count\"]]],null],false],[8],[0,\" \"],[6,\"span\"],[9,\"class\",\"label\"],[7],[1,[19,1,[\"title\"]],false],[8],[0,\"\\n\\t\\t\\t\\t\"],[8],[0,\"\\n\"]],\"parameters\":[1]},null],[0,\"\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\"],[8],[0,\"\\n\\t\"],[8],[0,\"\\n\\t\"],[6,\"div\"],[9,\"class\",\"col-md-4\"],[7],[0,\"\\n\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBox\"],[7],[0,\"\\n\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBoxHeader\"],[7],[0,\"\\n\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"text-center\"],[7],[0,\"Requests Handled This Month\"],[8],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\\t\"],[6,\"div\"],[7],[0,\"\\n\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBoxData text-center\"],[7],[0,\"\\n\\t\\t\\t\\t\\t\"],[6,\"span\"],[9,\"class\",\"transactions\"],[7],[1,[25,\"format-number\",[[20,[\"stat\",\"stat\",\"transactions\",\"today\"]]],null],false],[8],[0,\" \"],[6,\"span\"],[9,\"class\",\"label\"],[7],[0,\" today\"],[8],[0,\"\\n\\t\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBoxData text-center\"],[7],[0,\"\\n\\t\\t\\t\\t\\t\"],[6,\"span\"],[9,\"class\",\"transactions\"],[7],[1,[25,\"format-number\",[[20,[\"stat\",\"stat\",\"transactions\",\"week\"]]],null],false],[8],[0,\" \"],[6,\"span\"],[9,\"class\",\"label\"],[7],[0,\" this week\"],[8],[0,\"\\n\\t\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBoxData text-center\"],[7],[0,\"\\n\\t\\t\\t\\t\\t\"],[6,\"span\"],[9,\"class\",\"transactions\"],[7],[1,[25,\"format-number\",[[20,[\"stat\",\"stat\",\"transactions\",\"month\"]]],null],false],[8],[0,\" \"],[6,\"span\"],[9,\"class\",\"label\"],[7],[0,\" this month\"],[8],[0,\"\\n\\t\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\"],[8],[0,\"\\n\\t\"],[8],[0,\"\\n\\t\"],[6,\"div\"],[9,\"class\",\"col-md-4\"],[7],[0,\"\\n\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBox\"],[7],[0,\"\\n\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBoxHeader\"],[7],[0,\"\\n\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"text-center\"],[7],[0,\"Ad Clicks Detected\"],[8],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\\t\"],[6,\"div\"],[7],[0,\"\\n\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBoxData text-center\"],[7],[0,\"\\n\\t\\t\\t\\t\\t\"],[6,\"span\"],[9,\"class\",\"transactions\"],[7],[1,[25,\"format-number\",[[20,[\"stat\",\"stat\",\"adClicks\",\"today\"]]],null],false],[8],[0,\" \"],[6,\"span\"],[9,\"class\",\"label\"],[7],[0,\" today\"],[8],[0,\"\\n\\t\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBoxData text-center\"],[7],[0,\"\\n\\t\\t\\t\\t\\t\"],[6,\"span\"],[9,\"class\",\"transactions\"],[7],[1,[25,\"format-number\",[[20,[\"stat\",\"stat\",\"adClicks\",\"week\"]]],null],false],[8],[0,\" \"],[6,\"span\"],[9,\"class\",\"label\"],[7],[0,\" this week\"],[8],[0,\"\\n\\t\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBoxData text-center\"],[7],[0,\"\\n\\t\\t\\t\\t\\t\"],[6,\"span\"],[9,\"class\",\"transactions\"],[7],[1,[25,\"format-number\",[[20,[\"stat\",\"stat\",\"adClicks\",\"month\"]]],null],false],[8],[0,\" \"],[6,\"span\"],[9,\"class\",\"label\"],[7],[0,\" this month\"],[8],[0,\"\\n\\t\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\"],[8],[0,\"\\n\\t\"],[8],[0,\"\\n\\t\"],[6,\"div\"],[9,\"class\",\"col-md-4\"],[9,\"style\",\"margin-top: 10px;\"],[7],[0,\"\\n\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBox\"],[7],[0,\"\\n\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBoxHeader\"],[7],[0,\"\\n\\t\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"text-center\"],[7],[0,\"Live Requests Received\"],[8],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\\t\"],[6,\"div\"],[7],[0,\"\\n\\t\\t\\t\\t\"],[1,[25,\"ember-chart\",null,[[\"type\",\"data\",\"options\",\"animate\"],[\"line\",[20,[\"chartData\"]],[20,[\"chartOptions\"]],true]]],false],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\"],[8],[0,\"\\n\\t\"],[8],[0,\"\\n\\t\"],[6,\"div\"],[9,\"class\",\"col-md-8\"],[9,\"style\",\"margin-top: 10px;\"],[7],[0,\"\\n\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBox\"],[7],[0,\"\\n\\t\\t\\t\"],[6,\"div\"],[7],[0,\"\\n\"],[4,\"leaflet-map\",null,[[\"lat\",\"lng\",\"zoom\"],[[20,[\"lat\"]],[20,[\"lng\"]],[20,[\"zoom\"]]]],{\"statements\":[[0,\"\\t\\t\\t\\t\\t\"],[1,[25,\"tile-layer\",null,[[\"url\"],[\"https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png\"]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\"],[8],[0,\"\\n\\t\"],[8],[0,\"\\n\\n\\t\"],[6,\"div\"],[9,\"class\",\"col-md-4\"],[9,\"style\",\"margin-top: 10px;\"],[7],[0,\"\\n\\t\\t\"],[6,\"div\"],[9,\"class\",\"statBox\"],[7],[0,\"\\n\\t\\t\"],[8],[0,\"\\n\\t\"],[8],[0,\"\\n\\n\"],[8]],\"hasEval\":false}", "meta": { "moduleName": "adshield-front/templates/stats.hbs" } });
 });
 
 
@@ -1742,6 +1822,6 @@ catch(err) {
 });
 
 if (!runningTests) {
-  require("adshield-front/app")["default"].create({"LOG_RESOLVER":true,"LOG_ACTIVE_GENERATION":true,"LOG_TRANSITIONS":true,"LOG_TRANSITIONS_INTERNAL":true,"LOG_VIEW_LOOKUPS":true,"name":"adshield-front","version":"0.0.0+0204f712"});
+  require("adshield-front/app")["default"].create({"LOG_RESOLVER":true,"LOG_ACTIVE_GENERATION":true,"LOG_TRANSITIONS":true,"LOG_TRANSITIONS_INTERNAL":true,"LOG_VIEW_LOOKUPS":true,"name":"adshield-front","version":"0.0.0+eb906516"});
 }
 //# sourceMappingURL=adshield-front.map
