@@ -1,0 +1,550 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+/*
+	AdOS V2 by Tribe
+	Started June 15, 2015
+	HTML Implementation
+*/
+
+	
+/* by joey */	
+
+body {
+	font-family: 'Lato', sans-serif;
+	background:#f2f2f2
+}
+a {
+	color:#333
+}
+a:hover {
+	color:#f2602c
+}
+.breadcrumb {
+	padding:0;
+	margin:7px 0 0 0
+}
+table {
+	color:#888;
+}
+table.common {
+	margin-bottom:0 !important;
+	font-size:16px
+}
+table.common thead.thead-dark {
+	background:#4394a3;
+	color:#fff
+}
+.t-center {
+	text-align:center
+}
+.mBottom {
+	margin-bottom:20px
+}
+.mbottom10 {
+	margin-bottom:10px
+}
+h1 {
+	font-size:28px;
+	color:#888
+}
+h2.allcaps {
+	text-transform:uppercase;
+	color:#ccc;
+	font-size:18px;
+	border-bottom:1px #eee solid;
+	padding-bottom:20px;
+	margin-bottom:20px;
+	font-weight:bold
+}
+.form-horizontal .control-label {
+	font-weight: normal;
+}
+.boxpad {
+	color:#888
+}
+.contentbox {
+	border:1px #ccc solid;
+	padding:10px;
+}
+.tcenter {
+	text-align:center
+}
+.ptopbot {
+	padding:40px 0
+}
+.gey-bg {
+	background:#eee;
+	font-weight:bold
+}
+.text-large {
+	font-size:24px
+}
+span.total {
+	display:block;
+	font-weight:bold
+}
+.contentbox h1 {
+	margin:0;
+	border-bottom:1px #ccc solid;
+	font-size:18px;
+	padding-bottom:10px;
+	margin-bottom:10px;
+	color:#4394a3
+}
+.contentbox span.info {
+	display:inline-block;
+	padding-top:5px;
+	margin-left:5px
+}
+.contentbox span.b-bottom {
+	display:inline-block;
+	padding-top:5px;
+	margin-left:5px
+}
+.nav-ados {
+	background:#fff;
+	padding:15px 0 20px 0
+}
+.logo-ados {
+	padding:0 0 0 15px !important;
+}
+.logo-ados img {
+	width:220px
+}
+.ad-container {
+	/*max-width:960px !important;*/
+	margin-top:120px
+}
+.logo-container {
+/*max-width:960px !important;*/
+}
+.contentholder {
+	padding:20px
+}
+.contentholder img {
+	width:100%
+}
+.contentholder img.trapanalysis {
+	width:auto
+}
+.marBot {
+	margin-bottom:0 !important
+}
+.no-pad-right {
+	padding-right:0
+}
+.boxgrid .list-group {
+	text-align:left;
+	color:#888;
+	font-size:16px;
+	margin-bottom:0;
+	-webkit-box-shadow: 0px 2px 0px 0px rgba(50, 50, 50, 0.2);
+	-moz-box-shadow:    0px 2px 0px 0px rgba(50, 50, 50, 0.2);
+	box-shadow:         0px 2px 0px 0px rgba(50, 50, 50, 0.2);
+}
+.boxgrid .list-group .nopad {
+	padding:0 !important
+}
+.boxgrid .list-group .list-group-item {
+	padding:20px 15px;
+	text-decoration:none
+}
+.boxgrid .list-group .list-group-item a li.list-group-item:active {
+	padding:20px 15px;
+	text-decoration:none !important
+}
+.boxgrid .list-group .list-group-item .img-title {
+	padding:12px 0
+}
+.boxgrid .list-group .list-group-item span.circle {
+	border-radius: 50%;
+	width: 60px;
+	height: 60px;
+	display:inline-block;
+	background:#dfdddc;
+	text-align:center;
+	line-height:55px !important
+}
+.boxgrid .list-group .list-group-item span.app-icon img {
+	width: 50px;
+	border-radius: 50%;
+	height:50px
+}
+.boxgrid .list-group .list-group-item span.circle-user {
+	border-radius: 50%;
+	width: 116px;
+	height: 116px;
+	display:inline-block;
+	background:#dfdddc;
+	text-align:center;
+	line-height:100px
+}
+.boxgrid .list-group .list-group-item span.title {
+	display:inline-block;
+	font-size:26px;
+	color:#333;
+	margin-left:10px;
+	vertical-align:middle;
+}
+.boxgrid .list-group .list-group-item span.app-title {
+	display:inline-block;
+	font-size:28px;
+	color:#888;
+	margin-left:10px;
+	vertical-align:middle
+}
+.boxgrid .list-group .list-group-item span.signout a {
+	color:#888
+}
+.boxiconHolder .list-group a li.last {
+	border-bottom:1px #ddd solid
+}
+.boxgrid .list-group a:hover {
+	text-decoration:none
+}
+.boxgrid .list-group a li {
+	color:#888;
+	padding:15px 20px;
+	margin-bottom:0 !important
+}
+.boxgrid .list-group a li span.small-icon {
+	position:absolute;
+	right:15px;
+	top:25px;
+	width:30px;
+	text-align:center
+}
+.boxgrid .list-group li span.stat-price {
+	position:absolute;
+	right:15px;
+	top:18px;
+	font-size:20px
+}
+.boxgrid .list-group a li:hover {
+	color:#f2602c;
+}
+.boxgrid .list-group-item:first-child {
+	border-radius: 0 !important;
+	border-bottom:none
+}
+.boxgrid .list-group-item:last-child {
+	border-radius: 0 !important;
+	border-bottom:none
+}
+/*Bootstrap Overrides*/
+
+.ados-input {
+	border-radius:0;
+	box-shadow:none;
+	border:1px #dddddd solid;
+	color:#888
+}
+.ados-btn {
+	background: #008edc;
+	border: none;
+	border-radius:0;
+	text-shadow:none;
+	box-shadow:none;
+	color:#fff
+}
+.ados-btn:hover {
+	background:#0088d3;
+	color:#fff
+}
+.ados-gray-btn {
+	background:#ddd;
+	border: none;
+	border-radius:0;
+	text-shadow:none;
+	color:#888;
+	box-shadow:none;
+}
+.ados-gray-btn:hover {
+	background:#d3d3d3;
+	color:#999
+}
+.modal-content {
+	border:none;
+	border-radius:0
+}
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
+	outline:none
+}
+.nav-tabs > li > a:hover {
+	outline:none
+}
+.nav-tabs > li > a {
+	border-radius: 0;
+}
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
+	color: #888;
+}
+.selectboxit-btn {
+	box-shadow:none !important;
+	border:1px #dddddd solid !important
+}
+.selectboxit-container .selectboxit {
+	border-radius: 0 !important;
+}
+.selectboxit-container .selectboxit:hover {
+	color:#888 !important
+}
+.selectboxit-container .selectboxit-options {
+	border-radius: 0 !important;
+}
+.selectboxit-list .selectboxit-option-anchor {
+	color: #888 !important;
+}
+.selectboxit-list > .selectboxit-focus > .selectboxit-option-anchor {
+	background: #008edc !important;
+	color:#fff !important
+}
+.selectboxit-btn.selectboxit-enabled:hover, .selectboxit-btn.selectboxit-enabled:focus {
+	color: #888 !important;
+}
+/*Colors*/
+.blue {
+	color:#008edc
+}
+/*Sort*/
+
+.boxgrid {
+	width:auto;
+	margin-bottom:30px
+}
+#sortable1, #sortable2, #sortable3 {
+	list-style-type: none;
+	width:100%;
+	margin: 0;
+	padding: 0 0 0;
+	float: left;
+	margin-right: 10px;
+}
+#sortable1 li, #sortable2 li, #sortable3 li {
+	width: auto;
+}
+
+
+/*******MEDIA.CSS*******/
+@media (max-width: 767px) { 
+	.searchBot {
+	margin-bottom:10px !important
+}
+
+.mBottom {
+  margin-bottom: 25px;
+}
+
+
+}
+
+@media (max-width: 480px) { 
+	.searchBot {
+	margin-bottom:10px !important
+}
+
+.mBottom {
+  margin-bottom: 25px;
+}
+}
+
+
+/*****THUMB.CSS*****/
+#appWrapper {
+	height: auto;
+	margin: 0 auto;
+	text-align: center;
+}
+/* Image Box Style */
+
+#appWrapper .box {
+	cursor: pointer;
+	height: 250px;
+	float: left;
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+	background-color:#8bb9de;
+	margin-bottom:20px
+}
+#appWrapper .box img {
+	left: 0;
+	-webkit-transition: all 300ms ease-out;
+	-moz-transition: all 300ms ease-out;
+	-o-transition: all 300ms ease-out;
+	-ms-transition: all 300ms ease-out;
+	transition: all 300ms ease-out;
+	width:auto;
+	height:auto;
+	padding-top:30px;
+}
+#appWrapper .boxiconHolder {
+	background-color:#fff;
+	float:left;
+	width:100%;
+}
+
+#appWrapper .boxiconHolder2 {
+	background-color:#fff;
+	padding:30px 20px;
+	float:left;
+	width:100%;
+}
+
+#appWrapper .boxIcon {
+	cursor: pointer;
+	float: left;
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+	background-color:#8bb9de;
+	padding:30px 0;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+}
+#appWrapper .boxIcon2 {
+	cursor: pointer;
+	float: left;
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+	background:url(../img/blue_bg.png) no-repeat center;
+	background-size:100% 100%;
+	padding:60px 0;
+	-webkit-border-radius: 30px;
+	-moz-border-radius: 30px;
+	border-radius: 30px;
+	-webkit-box-shadow: 0px 5px 5px 0px rgba(50, 50, 50, 0.4);
+	-moz-box-shadow:    0px 5px 5px 0px rgba(50, 50, 50, 0.4);
+	box-shadow:         0px 5px 5px 0px rgba(50, 50, 50, 0.4);
+	border-bottom:2px #4d67b9 solid
+}
+#appWrapper .boxIcon3 {
+	cursor: pointer;
+	float: left;
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+	background:url(../img/blue_bg.png) no-repeat center;
+	background-size:100% 100%;
+	padding:40px 0;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	-webkit-box-shadow: 0px 5px 5px 0px rgba(50, 50, 50, 0.4);
+	-moz-box-shadow:    0px 5px 5px 0px rgba(50, 50, 50, 0.4);
+	box-shadow:         0px 5px 5px 0px rgba(50, 50, 50, 0.4);
+	border-bottom:2px #4d67b9 solid
+}
+
+a.adosLink {
+	color:#333;
+	
+}
+
+a.adosLink:hover {
+	color:rgba(0, 0, 0, 0.5);
+	
+}
+
+a.adosLink2 {
+	color:#fff;
+	
+}
+
+a.adosLink2:hover {
+	color:rgba(0, 0, 0, 0.3);
+	
+}
+
+#appWrapper .boxIcon2 .iconHolder {
+	margin:0 auto;
+}
+#appWrapper .boxIcon .iconHolder {
+	margin:0 auto;
+}
+#appWrapper .boxIcon .iconHolder img {
+	left: 0;
+	-webkit-transition: all 300ms ease-out;
+	-moz-transition: all 300ms ease-out;
+	-o-transition: all 300ms ease-out;
+	-ms-transition: all 300ms ease-out;
+	transition: all 300ms ease-out;
+	width:auto;
+	height:auto;
+}
+span.appTitle {
+	font-size:18px;
+	padding-top:20px;
+	float:left;
+	text-align:center;
+	width:100%;
+	font-weight:bold;
+	text-align:left
+}
+/* Caption Common Style */
+#appWrapper .box .caption {
+	background-color: rgba(0, 0, 0, 0.7);
+	position: absolute;
+	color: #fff;
+	z-index: 100;
+	-webkit-transition: all 300ms ease-out;
+	-moz-transition: all 300ms ease-out;
+	-o-transition: all 300ms ease-out;
+	-ms-transition: all 300ms ease-out;
+	transition: all 300ms ease-out;
+	left: 0;
+}
+/** Caption 2: Full Width & Height **/
+#appWrapper .box .full-caption {
+	width: 100%;
+	height: 120%;
+	top: 200px;
+	text-align: left;
+	padding: 0 15px;
+}
+#appWrapper .box .full-caption h3 {
+	margin:0;
+	padding:10px 0;
+	font-weight:bold;
+}
+/** Full Caption :hover Behaviour **/
+#appWrapper .box:hover .full-caption {
+	-moz-transform: translateY(-25%);
+	-o-transform: translateY(-25%);
+	-webkit-transform: translateY(-25%);
+	opacity: 1;
+	transform: translateY(-20%);
+}
+.dBlock {
+	display:block
+}
+.thumbPop {
+	text-align:center;
+	padding:0;
+}
+.thumbPop img {
+	border:1px #ccc solid;
+	border-radius:20px;
+	margin-bottom:10px;
+}
+.logoSmall {
+	text-align:left;
+	margin-bottom:10px
+}
+h1.popTitle {
+	padding:0 0 20px 0;
+	font-size:42px;
+	border-bottom:1px #ccc solid;
+	margin-bottom:20px
+}
+h1.iconTitle {
+	padding:0 0 20px 0;
+	font-size:42px;
+	border-bottom:1px #ccc solid;
+	margin-bottom:20px !important;
+	padding-top:0 !important
+}
