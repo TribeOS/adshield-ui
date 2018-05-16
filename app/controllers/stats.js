@@ -13,7 +13,8 @@ export default Controller.extend({
 		var self = this;
 		self.poll = function() {
 			later(function() {
-				self.get('store').findAll('adshieldstat').then(function(data) {
+				self.get('store').findAll('adshieldstat').then(function(data) 
+				{
 					self.set("model", data);
 					var stat = self.model.get('firstObject').get('stat');
 					var cData = self.get("chartData");

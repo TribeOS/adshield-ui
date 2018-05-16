@@ -2,6 +2,18 @@
 
 
 
+define("adshield-front/adapters/adshieldstat", ["exports", "adshield-front/adapters/application"], function (exports, _application) {
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = _application.default.extend({
+		pathForType() {
+			return "adshieldstats";
+		}
+	});
+});
 define("adshield-front/adapters/application", ["exports", "ember-data"], function (exports, _emberData) {
 	"use strict";
 
@@ -9,9 +21,20 @@ define("adshield-front/adapters/application", ["exports", "ember-data"], functio
 		value: true
 	});
 	exports.default = _emberData.default.RESTAdapter.extend({
-		host: "https://api.adshield.tribeos.io/abcdefg",
-		// host : "http://localhost:90/abcdefg",
-		namespace: ""
+		host: "https://api.adshield.tribeos.io/abcdefg"
+		// host : "http://localhost:91/abcdefg"
+	});
+});
+define("adshield-front/adapters/ipaccesslist", ["exports", "adshield-front/adapters/application"], function (exports, _application) {
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = _application.default.extend({
+		pathForType() {
+			return "ipaccesslist";
+		}
 	});
 });
 define('adshield-front/app', ['exports', 'adshield-front/resolver', 'ember-load-initializers', 'adshield-front/config/environment'], function (exports, _resolver, _emberLoadInitializers, _environment) {
@@ -872,13 +895,37 @@ define('adshield-front/components/data-graph', ['exports'], function (exports) {
   });
   exports.default = Ember.Component.extend({});
 });
-define('adshield-front/components/data-table', ['exports'], function (exports) {
-	'use strict';
+define("adshield-front/components/data-table", ["exports"], function (exports) {
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-	exports.default = Ember.Component.extend({});
+	exports.default = Ember.Component.extend({
+
+		// pageCount : computed(function() {
+		// 	const total = this.get('source.last_page') || this.get('source.current_page');
+		// 	if (!total) return [];
+		// 	return new Array(total+1).join('x').split('').map((e,i) => i+1);
+		// }),	
+
+
+		actions: {
+			firstPage() {
+				this.sendAction("firstPage");
+			},
+			previousPage() {
+				this.sendAction("previousPage");
+			},
+			nextPage() {
+				this.sendAction("nextPage");
+			},
+			lastPage() {
+				this.sendAction("lastPage");
+			}
+		}
+
+	});
 });
 define('adshield-front/components/div-overlay-layer', ['exports', 'ember-leaflet/components/div-overlay-layer'], function (exports, _divOverlayLayer) {
   'use strict';
@@ -976,19 +1023,6 @@ define('adshield-front/components/marker-layer', ['exports', 'ember-leaflet/comp
     enumerable: true,
     get: function () {
       return _markerLayer.default;
-    }
-  });
-});
-define('adshield-front/components/page-numbers', ['exports', 'ember-cli-pagination/components/page-numbers'], function (exports, _pageNumbers) {
-  'use strict';
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  Object.defineProperty(exports, 'default', {
-    enumerable: true,
-    get: function () {
-      return _pageNumbers.default;
     }
   });
 });
@@ -1117,12 +1151,53 @@ define("adshield-front/controllers/apiaccesslist", ["exports"], function (export
 	});
 	exports.default = Ember.Controller.extend({
 
-		// sample data
-		data: {
-			headers: ["IP", "URL", "Website", "Created On"],
-			data: [{
-				value: ["192.168.0.1", "test url", "AdOS", "2018-01-01 10:01:10"]
-			}]
+		page: 0,
+		limit: 10,
+		filter: { dateFrom: "", dateTo: "", userKey: "" },
+
+		listData: Ember.computed(function () {}),
+
+		init: function () {
+			this._super();
+			this.refreshList(this.page, this.limit, this.filter);
+		},
+
+		refreshList: function (page, limit, filter) {
+			var self = this;
+			self.get('store').queryRecord("ipaccesslist", { page: page, limit: limit, filter: filter }).then(function (data) {
+				self.set("model", data);
+				self.set("listData", self.get("model").get("listData"));
+				var listData = self.get("listData");
+				listData.headers = ['IP', 'Recorded on', 'Visited Url'];
+			});
+		},
+
+		actions: {
+			firstPage() {
+				this.set("page", 1);
+				this.refreshList(this.page, this.limit, this.filter);
+			},
+			nextPage() {
+				var listData = this.get("listData");
+				if (listData.current_page == listData.last_page) return;
+				this.set("page", parseInt(this.page) + 1);
+				this.refreshList(this.page, this.limit, this.filter);
+			},
+			previousPage() {
+				var listData = this.get("listData");
+				if (listData.current_page == 1) return;
+				this.set("page", parseInt(this.page) - 1);
+				this.refreshList(this.page, this.limit, this.filter);
+			},
+			lastPage() {
+				var listData = this.get("listData");
+				this.set("page", listData.last_page);
+				this.refreshList(this.page, this.limit, this.filter);
+			},
+			refresh() {
+				this.set("page", 1);
+				this.refreshList(this.page, this.limit, this.filter);
+			}
 		}
 
 	});
@@ -1265,6 +1340,25 @@ define('adshield-front/controllers/stats', ['exports'], function (exports) {
 
 	});
 });
+define('adshield-front/helpers/and', ['exports', 'ember-truth-helpers/helpers/and'], function (exports, _and) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _and.default;
+    }
+  });
+  Object.defineProperty(exports, 'and', {
+    enumerable: true,
+    get: function () {
+      return _and.and;
+    }
+  });
+});
 define('adshield-front/helpers/app-version', ['exports', 'adshield-front/config/environment', 'ember-cli-app-version/utils/regexp'], function (exports, _environment, _regexp) {
   'use strict';
 
@@ -1370,6 +1464,25 @@ define('adshield-front/helpers/div-icon', ['exports', 'ember-leaflet/helpers/div
     }
   });
 });
+define('adshield-front/helpers/eq', ['exports', 'ember-truth-helpers/helpers/equal'], function (exports, _equal) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _equal.default;
+    }
+  });
+  Object.defineProperty(exports, 'equal', {
+    enumerable: true,
+    get: function () {
+      return _equal.equal;
+    }
+  });
+});
 define("adshield-front/helpers/format-number", ["exports"], function (exports) {
 	"use strict";
 
@@ -1382,6 +1495,44 @@ define("adshield-front/helpers/format-number", ["exports"], function (exports) {
 	}
 
 	exports.default = Ember.Helper.helper(formatNumber);
+});
+define('adshield-front/helpers/gt', ['exports', 'ember-truth-helpers/helpers/gt'], function (exports, _gt) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _gt.default;
+    }
+  });
+  Object.defineProperty(exports, 'gt', {
+    enumerable: true,
+    get: function () {
+      return _gt.gt;
+    }
+  });
+});
+define('adshield-front/helpers/gte', ['exports', 'ember-truth-helpers/helpers/gte'], function (exports, _gte) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _gte.default;
+    }
+  });
+  Object.defineProperty(exports, 'gte', {
+    enumerable: true,
+    get: function () {
+      return _gte.gte;
+    }
+  });
 });
 define('adshield-front/helpers/icon', ['exports', 'ember-leaflet/helpers/icon'], function (exports, _icon) {
   'use strict';
@@ -1402,6 +1553,44 @@ define('adshield-front/helpers/icon', ['exports', 'ember-leaflet/helpers/icon'],
     }
   });
 });
+define('adshield-front/helpers/is-array', ['exports', 'ember-truth-helpers/helpers/is-array'], function (exports, _isArray) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _isArray.default;
+    }
+  });
+  Object.defineProperty(exports, 'isArray', {
+    enumerable: true,
+    get: function () {
+      return _isArray.isArray;
+    }
+  });
+});
+define('adshield-front/helpers/is-equal', ['exports', 'ember-truth-helpers/helpers/is-equal'], function (exports, _isEqual) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _isEqual.default;
+    }
+  });
+  Object.defineProperty(exports, 'isEqual', {
+    enumerable: true,
+    get: function () {
+      return _isEqual.isEqual;
+    }
+  });
+});
 define('adshield-front/helpers/lat-lng-bounds', ['exports', 'ember-leaflet/helpers/lat-lng-bounds'], function (exports, _latLngBounds) {
   'use strict';
 
@@ -1418,6 +1607,101 @@ define('adshield-front/helpers/lat-lng-bounds', ['exports', 'ember-leaflet/helpe
     enumerable: true,
     get: function () {
       return _latLngBounds.latLngBounds;
+    }
+  });
+});
+define('adshield-front/helpers/lt', ['exports', 'ember-truth-helpers/helpers/lt'], function (exports, _lt) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _lt.default;
+    }
+  });
+  Object.defineProperty(exports, 'lt', {
+    enumerable: true,
+    get: function () {
+      return _lt.lt;
+    }
+  });
+});
+define('adshield-front/helpers/lte', ['exports', 'ember-truth-helpers/helpers/lte'], function (exports, _lte) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _lte.default;
+    }
+  });
+  Object.defineProperty(exports, 'lte', {
+    enumerable: true,
+    get: function () {
+      return _lte.lte;
+    }
+  });
+});
+define('adshield-front/helpers/not-eq', ['exports', 'ember-truth-helpers/helpers/not-equal'], function (exports, _notEqual) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _notEqual.default;
+    }
+  });
+  Object.defineProperty(exports, 'notEq', {
+    enumerable: true,
+    get: function () {
+      return _notEqual.notEq;
+    }
+  });
+});
+define('adshield-front/helpers/not', ['exports', 'ember-truth-helpers/helpers/not'], function (exports, _not) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _not.default;
+    }
+  });
+  Object.defineProperty(exports, 'not', {
+    enumerable: true,
+    get: function () {
+      return _not.not;
+    }
+  });
+});
+define('adshield-front/helpers/or', ['exports', 'ember-truth-helpers/helpers/or'], function (exports, _or) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _or.default;
+    }
+  });
+  Object.defineProperty(exports, 'or', {
+    enumerable: true,
+    get: function () {
+      return _or.or;
     }
   });
 });
@@ -1491,6 +1775,25 @@ define('adshield-front/helpers/task', ['exports', 'ember-concurrency/helpers/tas
     enumerable: true,
     get: function () {
       return _task.task;
+    }
+  });
+});
+define('adshield-front/helpers/xor', ['exports', 'ember-truth-helpers/helpers/xor'], function (exports, _xor) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _xor.default;
+    }
+  });
+  Object.defineProperty(exports, 'xor', {
+    enumerable: true,
+    get: function () {
+      return _xor.xor;
     }
   });
 });
@@ -1667,6 +1970,16 @@ define("adshield-front/models/adshieldstat", ["exports", "ember-data"], function
 		meta: _emberData.default.attr("string")
 	});
 });
+define('adshield-front/models/ipaccesslist', ['exports', 'ember-data'], function (exports, _emberData) {
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = _emberData.default.Model.extend({
+		listData: _emberData.default.attr()
+	});
+});
 define('adshield-front/resolver', ['exports', 'ember-resolver'], function (exports, _emberResolver) {
   'use strict';
 
@@ -1726,6 +2039,19 @@ define('adshield-front/routes/stats', ['exports'], function (exports) {
 
 	});
 });
+define('adshield-front/serializers/ipaccesslist', ['exports', 'ember-data'], function (exports, _emberData) {
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = _emberData.default.RESTSerializer.extend({
+		normalizeResponse(store, primaryModelClass, payload, id, requestType) {
+			payload = { ipaccesslists: payload };
+			return this._super(store, primaryModelClass, payload, id, requestType);
+		}
+	});
+});
 define('adshield-front/services/ajax', ['exports', 'ember-ajax/services/ajax'], function (exports, _ajax) {
   'use strict';
 
@@ -1745,7 +2071,7 @@ define("adshield-front/templates/apiaccesslist", ["exports"], function (exports)
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "UtrhbGYg", "block": "{\"symbols\":[],\"statements\":[[6,\"div\"],[9,\"class\",\"row\"],[7],[0,\"\\n\\t\"],[6,\"div\"],[9,\"class\",\"col-md-12\"],[7],[0,\"\\n\\t\\t\"],[6,\"h3\"],[7],[0,\"Api Access List\"],[8],[0,\"\\n\\t\"],[8],[0,\"\\n\"],[8],[0,\"\\n\\n\"],[6,\"div\"],[9,\"class\",\"row\"],[7],[0,\"\\n\\t\"],[6,\"div\"],[9,\"class\",\"col-md-12\"],[7],[0,\"\\n\"],[4,\"data-table\",null,[[\"data\"],[[20,[\"data\"]]]],{\"statements\":[],\"parameters\":[]},null],[0,\"\\t\"],[8],[0,\"\\n\"],[8]],\"hasEval\":false}", "meta": { "moduleName": "adshield-front/templates/apiaccesslist.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "vjbmYX+s", "block": "{\"symbols\":[],\"statements\":[[6,\"div\"],[9,\"class\",\"row\"],[7],[0,\"\\n\\t\"],[6,\"div\"],[9,\"class\",\"col-md-12\"],[7],[0,\"\\n\\t\\t\"],[6,\"h3\"],[7],[0,\"Api Access List\"],[8],[0,\"\\n\\t\\t\"],[6,\"form\"],[9,\"class\",\"form-inline\"],[7],[0,\"\\n\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"form-group\"],[7],[0,\"\\n\\t\\t\\t\\t\"],[6,\"label\"],[7],[0,\"From this date \"],[8],[0,\"\\n\\t\\t\\t\\t\"],[1,[25,\"input\",null,[[\"type\",\"class\",\"name\",\"value\"],[\"date\",\"form-control\",\"dateFrom\",[20,[\"filter\",\"dateFrom\"]]]]],false],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"form-group\"],[7],[0,\"\\n\\t\\t\\t\\t\"],[6,\"label\"],[7],[0,\" up to \"],[8],[0,\"\\n\\t\\t\\t\\t\"],[1,[25,\"input\",null,[[\"type\",\"class\",\"name\",\"value\"],[\"date\",\"form-control\",\"dateTo\",[20,[\"filter\",\"dateTo\"]]]]],false],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\\t\"],[6,\"button\"],[9,\"class\",\"btn\"],[3,\"action\",[[19,0,[]],\"refresh\"]],[7],[0,\"Refresh\"],[8],[0,\"\\n\\t\\t\"],[8],[0,\"\\n\\t\"],[8],[0,\"\\n\"],[8],[0,\"\\n\\n\"],[6,\"div\"],[9,\"class\",\"row\"],[7],[0,\"\\n\\t\"],[6,\"div\"],[9,\"class\",\"col-md-12\"],[7],[0,\"\\n\"],[4,\"data-table\",null,[[\"source\",\"nextPage\",\"firstPage\",\"lastPage\",\"previousPage\"],[[20,[\"listData\"]],\"nextPage\",\"firstPage\",\"lastPage\",\"previousPage\"]],{\"statements\":[],\"parameters\":[]},null],[0,\"\\t\"],[8],[0,\"\\n\"],[8]],\"hasEval\":false}", "meta": { "moduleName": "adshield-front/templates/apiaccesslist.hbs" } });
 });
 define("adshield-front/templates/application", ["exports"], function (exports) {
   "use strict";
@@ -1769,7 +2095,7 @@ define("adshield-front/templates/components/data-table", ["exports"], function (
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "/r2Xct4K", "block": "{\"symbols\":[\"rows\",\"value\",\"header\"],\"statements\":[[6,\"table\"],[9,\"class\",\"table\"],[9,\"width\",\"100%\"],[7],[0,\"\\n\\t\"],[6,\"thead\"],[9,\"class\",\"thead-light\"],[7],[0,\"\\n\\t\\t\"],[6,\"tr\"],[7],[0,\"\\n\"],[4,\"each\",[[20,[\"data\",\"headers\"]]],null,{\"statements\":[[0,\"\\t\\t\\t\\t\"],[6,\"th\"],[7],[1,[19,3,[]],false],[8],[0,\"\\n\"]],\"parameters\":[3]},null],[0,\"\\t\\t\"],[8],[0,\"\\n\\t\"],[8],[0,\"\\n\\t\"],[6,\"tbody\"],[7],[0,\"\\n\"],[4,\"each\",[[20,[\"data\",\"data\"]]],null,{\"statements\":[[0,\"\\t\\t\\t\"],[6,\"tr\"],[7],[0,\"\\n\"],[4,\"each\",[[19,1,[\"value\"]]],null,{\"statements\":[[0,\"\\t\\t\\t\\t\\t\"],[6,\"td\"],[7],[1,[19,2,[]],false],[8],[0,\"\\n\"]],\"parameters\":[2]},null],[0,\"\\t\\t\\t\"],[8],[0,\"\\n\"]],\"parameters\":[1]},null],[0,\"\\t\"],[8],[0,\"\\n\"],[8],[0,\"\\n\"],[2,\" insert pagination here \"]],\"hasEval\":false}", "meta": { "moduleName": "adshield-front/templates/components/data-table.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "PBwO2erk", "block": "{\"symbols\":[\"rows\",\"key\",\"value\",\"header\"],\"statements\":[[6,\"table\"],[9,\"class\",\"table table-striped\"],[9,\"width\",\"100%\"],[7],[0,\"\\n\\t\"],[6,\"thead\"],[9,\"class\",\"thead-light\"],[7],[0,\"\\n\\t\\t\"],[6,\"tr\"],[7],[0,\"\\n\"],[4,\"each\",[[20,[\"source\",\"headers\"]]],null,{\"statements\":[[0,\"\\t\\t\\t\\t\"],[6,\"th\"],[7],[1,[19,4,[]],false],[8],[0,\"\\n\"]],\"parameters\":[4]},null],[0,\"\\t\\t\"],[8],[0,\"\\n\\t\"],[8],[0,\"\\n\\t\"],[6,\"tbody\"],[7],[0,\"\\n\"],[4,\"each\",[[20,[\"source\",\"data\"]]],null,{\"statements\":[[0,\"\\t\\t\\t\"],[6,\"tr\"],[7],[0,\"\\n\"],[4,\"each\",[[25,\"-each-in\",[[19,1,[]]],null]],null,{\"statements\":[[0,\"\\t\\t\\t\\t\\t\"],[6,\"td\"],[7],[1,[19,3,[]],false],[8],[0,\"\\n\"]],\"parameters\":[2,3]},null],[0,\"\\t\\t\\t\"],[8],[0,\"\\n\"]],\"parameters\":[1]},null],[0,\"\\t\"],[8],[0,\"\\n\"],[8],[0,\"\\n\\n\"],[2,\" insert pagination here \"],[0,\"\\n\"],[6,\"nav\"],[9,\"aria-label\",\"Page navigation example\"],[7],[0,\"\\n\\t\"],[6,\"ul\"],[9,\"class\",\"pagination\"],[7],[0,\"\\n\\t\\t\"],[6,\"li\"],[9,\"class\",\"page-item\"],[7],[0,\"\\n\\t\\t\\t\"],[6,\"a\"],[9,\"class\",\"page-link\"],[9,\"href\",\"#\"],[9,\"aria-label\",\"First\"],[3,\"action\",[[19,0,[]],\"firstPage\"]],[7],[0,\"\\n\\t\\t\\t\\t\"],[6,\"span\"],[7],[0,\"First\"],[8],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\"],[8],[0,\"\\n\\t\\t\"],[6,\"li\"],[9,\"class\",\"page-item\"],[7],[0,\"\\n\\t\\t\\t\"],[6,\"a\"],[9,\"class\",\"page-link\"],[9,\"href\",\"#\"],[9,\"aria-label\",\"Previous\"],[3,\"action\",[[19,0,[]],\"previousPage\"]],[7],[0,\"\\n\\t\\t\\t\\t\"],[6,\"span\"],[9,\"aria-hidden\",\"true\"],[7],[0,\"«\"],[8],[0,\"\\n\\t\\t\\t\\t\"],[6,\"span\"],[9,\"class\",\"sr-only\"],[7],[0,\"Previous\"],[8],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\"],[8],[0,\"\\n\\t\\t\"],[6,\"li\"],[9,\"class\",\"page-item\"],[7],[0,\"\\n\\t\\t\\t\"],[6,\"a\"],[9,\"class\",\"page-link\"],[9,\"href\",\"#\"],[7],[0,\"\\n\\t\\t\\t\\t\"],[6,\"span\"],[7],[1,[20,[\"source\",\"total\"]],false],[0,\" rows\"],[8],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\"],[8],[0,\"\\n\\t\\t\"],[6,\"li\"],[9,\"class\",\"page-item\"],[7],[0,\"\\n\\t\\t\\t\"],[6,\"a\"],[9,\"class\",\"page-link\"],[9,\"href\",\"#\"],[9,\"aria-label\",\"Next\"],[3,\"action\",[[19,0,[]],\"nextPage\"]],[7],[0,\"\\n\\t\\t\\t\\t\"],[6,\"span\"],[9,\"aria-hidden\",\"true\"],[7],[0,\"»\"],[8],[0,\"\\n\\t\\t\\t\\t\"],[6,\"span\"],[9,\"class\",\"sr-only\"],[7],[0,\"Next\"],[8],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\"],[8],[0,\"\\n\\t\\t\"],[6,\"li\"],[9,\"class\",\"page-item\"],[7],[0,\"\\n\\t\\t\\t\"],[6,\"a\"],[9,\"class\",\"page-link\"],[9,\"href\",\"#\"],[9,\"aria-label\",\"Last\"],[3,\"action\",[[19,0,[]],\"lastPage\"]],[7],[0,\"\\n\\t\\t\\t\\t\"],[6,\"span\"],[7],[0,\"Last\"],[8],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\"],[8],[0,\"\\n\\t\"],[8],[0,\"\\n\"],[8],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "adshield-front/templates/components/data-table.hbs" } });
 });
 define('adshield-front/templates/components/ember-popper', ['exports', 'ember-popper/templates/components/ember-popper'], function (exports, _emberPopper) {
   'use strict';
@@ -1822,6 +2148,6 @@ catch(err) {
 });
 
 if (!runningTests) {
-  require("adshield-front/app")["default"].create({"LOG_RESOLVER":true,"LOG_ACTIVE_GENERATION":true,"LOG_TRANSITIONS":true,"LOG_TRANSITIONS_INTERNAL":true,"LOG_VIEW_LOOKUPS":true,"name":"adshield-front","version":"0.0.0+eb906516"});
+  require("adshield-front/app")["default"].create({"LOG_RESOLVER":true,"LOG_ACTIVE_GENERATION":true,"LOG_TRANSITIONS":true,"LOG_TRANSITIONS_INTERNAL":true,"LOG_VIEW_LOOKUPS":true,"name":"adshield-front","version":"0.0.0+d12bca00"});
 }
 //# sourceMappingURL=adshield-front.map
