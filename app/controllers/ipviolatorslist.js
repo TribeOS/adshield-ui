@@ -5,8 +5,8 @@ export default Controller.extend({
 
 	page : 0,
 	limit : 10,
-	filter : { dateFrom : "", dateTo : "", userKey : "" },
-	sort : { by : "date_added", dir : "asc" },
+	filter : { dateFrom : "", dateTo : "", userKey : "", status : 0, ip : "" },
+	sort : { by : "last_updated", dir : "asc" },
 
 	listData : computed(function() {}),
 
@@ -17,11 +17,11 @@ export default Controller.extend({
 
 	refreshList : function(page, limit, filter, sort) {
 		var self = this;
-		self.get('store').queryRecord("ipaccesslist", { page : page, limit : limit, filter : filter, sort : sort }).then(function(data) {
+		self.get('store').queryRecord("ipviolatorslist", { page : page, limit : limit, filter : filter, sort : sort }).then(function(data) {
 			self.set("model", data);
 			self.set("listData", self.get("model").get("listData"));
 			var listData = self.get("listData");
-			listData.headers = ['IP', 'Recorded on', 'Visited Url'];
+			listData.headers = ['IP', 'Status', 'Last Updated'];
 		});
 	},
 
