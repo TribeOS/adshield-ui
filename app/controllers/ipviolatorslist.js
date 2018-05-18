@@ -3,7 +3,7 @@ import { computed } from "@ember/object";
 
 export default Controller.extend({
 
-	page : 0,
+	page : 1,
 	limit : 10,
 	filter : { dateFrom : "", dateTo : "", userKey : "", status : 0, ip : "" },
 	sort : { by : "last_updated", dir : "asc" },
@@ -22,6 +22,23 @@ export default Controller.extend({
 			self.set("listData", self.get("model").get("listData"));
 			var listData = self.get("listData");
 			listData.headers = ['IP', 'Status', 'Last Updated'];
+			listData.data.forEach((item, index) => {
+				//use this code to turn a column value on the table into a link.
+				let old = item.ip;
+				item.ip = { 
+					type : 'link', route : "ipviolatorgraph", 
+					params : [
+						"ipviolatorgraph", //route name
+						{
+							isQueryParams : true,
+							values : {
+								ip : old //route param:values
+							}
+						}
+					],
+					value : old
+				}
+			});
 		});
 	},
 
@@ -50,6 +67,9 @@ export default Controller.extend({
 		refresh() {
 			this.set("page", 1);
 			this.refreshList(this.page, this.limit, this.filter, this.sort);
+		},
+		rowClicked(row) {
+			console.log(row);
 		}
 	}
 

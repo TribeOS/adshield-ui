@@ -11,7 +11,7 @@ Router.map(function() {
   this.route('dash');
   this.route('ipaccesslist');
   this.route('ipviolatorslist');
-  this.route('ipviolatorgraph');
+  this.route('ipviolatorgraph', {queryParams : 'ip'});
 });
 
 export default Router;

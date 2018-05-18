@@ -946,6 +946,9 @@ define("adshield-front/components/data-table", ["exports"], function (exports) {
 			},
 			lastPage() {
 				this.sendAction("lastPage");
+			},
+			rowClicked(row) {
+				this.sendAction("rowClicked", row);
 			}
 		}
 
@@ -1227,38 +1230,39 @@ define("adshield-front/controllers/ipaccesslist", ["exports"], function (exports
 
 	});
 });
-define("adshield-front/controllers/ipviolatorgraph", ["exports"], function (exports) {
-	"use strict";
+define('adshield-front/controllers/ipviolatorgraph', ['exports'], function (exports) {
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
 	exports.default = Ember.Controller.extend({
 
-		ip: "",
+		queryParams: ['ip'],
+		ip: null,
 		filter: { dateFrom: "", dateTo: "", userKey: "", ip: "" },
 
 		chartData: Ember.computed(function () {}),
 
 		init: function () {
 			this._super();
-			this.refreshGraph(this.filter);
 		},
 
 		refreshGraph: function (filter) {
-			var self = this;
+			let self = this;
+			filter.ip = this.get("ip");
 			self.get('store').queryRecord("ipviolatorgraph", { filter: filter }).then(function (data) {
 				self.set("model", data);
-				var stat = self.get("model").get('graphData');
-				var chartData = {};
+				let stat = self.get("model").get('graphData');
+				let chartData = {};
 				chartData.datasets = [];
 				chartData.labels = stat.dates;
 				chartData.datasets.push({
 					label: "",
 					data: stat.totals,
-					backgroundColor: ['rgba(109,186,252,1)', 'rgba(109,186,252,1)'],
-					borderColor: ['rgba(109,186,252,1)', 'rgba(109,186,252,1)'],
-					borderWidth: 1
+					backgroundColor: ['rgba(109,186,252,1)'],
+					borderColor: ['rgba(109,186,252,1)'],
+					borderWidth: 2
 				});
 				self.set("chartData", chartData);
 			});
@@ -1283,8 +1287,8 @@ define("adshield-front/controllers/ipviolatorgraph", ["exports"], function (expo
 					display: false
 				},
 				title: {
-					display: true,
-					text: ""
+					display: false,
+					text: "Recorded Stats"
 				},
 				tooltips: {
 					enabled: true
@@ -1295,8 +1299,11 @@ define("adshield-front/controllers/ipviolatorgraph", ["exports"], function (expo
 						borderWidth: 1
 					},
 					line: {
-						fill: false
+						fill: true
 					}
+				},
+				padding: {
+					top: 50
 				}
 			};
 			return options;
@@ -1318,7 +1325,7 @@ define("adshield-front/controllers/ipviolatorslist", ["exports"], function (expo
 	});
 	exports.default = Ember.Controller.extend({
 
-		page: 0,
+		page: 1,
 		limit: 10,
 		filter: { dateFrom: "", dateTo: "", userKey: "", status: 0, ip: "" },
 		sort: { by: "last_updated", dir: "asc" },
@@ -1337,6 +1344,21 @@ define("adshield-front/controllers/ipviolatorslist", ["exports"], function (expo
 				self.set("listData", self.get("model").get("listData"));
 				var listData = self.get("listData");
 				listData.headers = ['IP', 'Status', 'Last Updated'];
+				listData.data.forEach((item, index) => {
+					//use this code to turn a column value on the table into a link.
+					let old = item.ip;
+					item.ip = {
+						type: 'link', route: "ipviolatorgraph",
+						params: ["ipviolatorgraph", //route name
+						{
+							isQueryParams: true,
+							values: {
+								ip: old //route param:values
+							}
+						}],
+						value: old
+					};
+				});
 			});
 		},
 
@@ -1365,6 +1387,9 @@ define("adshield-front/controllers/ipviolatorslist", ["exports"], function (expo
 			refresh() {
 				this.set("page", 1);
 				this.refreshList(this.page, this.limit, this.filter, this.sort);
+			},
+			rowClicked(row) {
+				console.log(row);
 			}
 		}
 
@@ -2194,7 +2219,7 @@ define('adshield-front/router', ['exports', 'adshield-front/config/environment']
     this.route('dash');
     this.route('ipaccesslist');
     this.route('ipviolatorslist');
-    this.route('ipviolatorgraph');
+    this.route('ipviolatorgraph', { queryParams: 'ip' });
   });
 
   exports.default = Router;
@@ -2215,13 +2240,20 @@ define('adshield-front/routes/ipaccesslist', ['exports'], function (exports) {
   });
   exports.default = Ember.Route.extend({});
 });
-define('adshield-front/routes/ipviolatorgraph', ['exports'], function (exports) {
-  'use strict';
+define("adshield-front/routes/ipviolatorgraph", ["exports"], function (exports) {
+	"use strict";
 
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.default = Ember.Route.extend({});
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = Ember.Route.extend({
+
+		setupController(controller, model) {
+			this._super(controller, model);
+			controller.refreshGraph(controller.get("filter"));
+		}
+
+	});
 });
 define('adshield-front/routes/ipviolatorslist', ['exports'], function (exports) {
   'use strict';
@@ -2321,7 +2353,7 @@ define("adshield-front/templates/components/data-graph", ["exports"], function (
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "FZY99+Q3", "block": "{\"symbols\":[],\"statements\":[[6,\"div\"],[7],[0,\"\\n\\t\"],[1,[25,\"ember-chart\",null,[[\"type\",\"data\",\"options\",\"animate\"],[\"line\",[20,[\"chartData\"]],[20,[\"chartOptions\"]],true]]],false],[0,\"\\n\"],[8]],\"hasEval\":false}", "meta": { "moduleName": "adshield-front/templates/components/data-graph.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "Ot0mP5AZ", "block": "{\"symbols\":[],\"statements\":[[1,[25,\"ember-chart\",null,[[\"type\",\"data\",\"options\",\"animate\"],[\"line\",[20,[\"chartData\"]],[20,[\"chartOptions\"]],true]]],false]],\"hasEval\":false}", "meta": { "moduleName": "adshield-front/templates/components/data-graph.hbs" } });
 });
 define("adshield-front/templates/components/data-table", ["exports"], function (exports) {
   "use strict";
@@ -2329,7 +2361,7 @@ define("adshield-front/templates/components/data-table", ["exports"], function (
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "PBwO2erk", "block": "{\"symbols\":[\"rows\",\"key\",\"value\",\"header\"],\"statements\":[[6,\"table\"],[9,\"class\",\"table table-striped\"],[9,\"width\",\"100%\"],[7],[0,\"\\n\\t\"],[6,\"thead\"],[9,\"class\",\"thead-light\"],[7],[0,\"\\n\\t\\t\"],[6,\"tr\"],[7],[0,\"\\n\"],[4,\"each\",[[20,[\"source\",\"headers\"]]],null,{\"statements\":[[0,\"\\t\\t\\t\\t\"],[6,\"th\"],[7],[1,[19,4,[]],false],[8],[0,\"\\n\"]],\"parameters\":[4]},null],[0,\"\\t\\t\"],[8],[0,\"\\n\\t\"],[8],[0,\"\\n\\t\"],[6,\"tbody\"],[7],[0,\"\\n\"],[4,\"each\",[[20,[\"source\",\"data\"]]],null,{\"statements\":[[0,\"\\t\\t\\t\"],[6,\"tr\"],[7],[0,\"\\n\"],[4,\"each\",[[25,\"-each-in\",[[19,1,[]]],null]],null,{\"statements\":[[0,\"\\t\\t\\t\\t\\t\"],[6,\"td\"],[7],[1,[19,3,[]],false],[8],[0,\"\\n\"]],\"parameters\":[2,3]},null],[0,\"\\t\\t\\t\"],[8],[0,\"\\n\"]],\"parameters\":[1]},null],[0,\"\\t\"],[8],[0,\"\\n\"],[8],[0,\"\\n\\n\"],[2,\" insert pagination here \"],[0,\"\\n\"],[6,\"nav\"],[9,\"aria-label\",\"Page navigation example\"],[7],[0,\"\\n\\t\"],[6,\"ul\"],[9,\"class\",\"pagination\"],[7],[0,\"\\n\\t\\t\"],[6,\"li\"],[9,\"class\",\"page-item\"],[7],[0,\"\\n\\t\\t\\t\"],[6,\"a\"],[9,\"class\",\"page-link\"],[9,\"href\",\"#\"],[9,\"aria-label\",\"First\"],[3,\"action\",[[19,0,[]],\"firstPage\"]],[7],[0,\"\\n\\t\\t\\t\\t\"],[6,\"span\"],[7],[0,\"First\"],[8],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\"],[8],[0,\"\\n\\t\\t\"],[6,\"li\"],[9,\"class\",\"page-item\"],[7],[0,\"\\n\\t\\t\\t\"],[6,\"a\"],[9,\"class\",\"page-link\"],[9,\"href\",\"#\"],[9,\"aria-label\",\"Previous\"],[3,\"action\",[[19,0,[]],\"previousPage\"]],[7],[0,\"\\n\\t\\t\\t\\t\"],[6,\"span\"],[9,\"aria-hidden\",\"true\"],[7],[0,\"«\"],[8],[0,\"\\n\\t\\t\\t\\t\"],[6,\"span\"],[9,\"class\",\"sr-only\"],[7],[0,\"Previous\"],[8],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\"],[8],[0,\"\\n\\t\\t\"],[6,\"li\"],[9,\"class\",\"page-item\"],[7],[0,\"\\n\\t\\t\\t\"],[6,\"a\"],[9,\"class\",\"page-link\"],[9,\"href\",\"#\"],[7],[0,\"\\n\\t\\t\\t\\t\"],[6,\"span\"],[7],[1,[20,[\"source\",\"total\"]],false],[0,\" rows\"],[8],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\"],[8],[0,\"\\n\\t\\t\"],[6,\"li\"],[9,\"class\",\"page-item\"],[7],[0,\"\\n\\t\\t\\t\"],[6,\"a\"],[9,\"class\",\"page-link\"],[9,\"href\",\"#\"],[9,\"aria-label\",\"Next\"],[3,\"action\",[[19,0,[]],\"nextPage\"]],[7],[0,\"\\n\\t\\t\\t\\t\"],[6,\"span\"],[9,\"aria-hidden\",\"true\"],[7],[0,\"»\"],[8],[0,\"\\n\\t\\t\\t\\t\"],[6,\"span\"],[9,\"class\",\"sr-only\"],[7],[0,\"Next\"],[8],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\"],[8],[0,\"\\n\\t\\t\"],[6,\"li\"],[9,\"class\",\"page-item\"],[7],[0,\"\\n\\t\\t\\t\"],[6,\"a\"],[9,\"class\",\"page-link\"],[9,\"href\",\"#\"],[9,\"aria-label\",\"Last\"],[3,\"action\",[[19,0,[]],\"lastPage\"]],[7],[0,\"\\n\\t\\t\\t\\t\"],[6,\"span\"],[7],[0,\"Last\"],[8],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\"],[8],[0,\"\\n\\t\"],[8],[0,\"\\n\"],[8],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "adshield-front/templates/components/data-table.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "JCRhMVcn", "block": "{\"symbols\":[\"rows\",\"key\",\"value\",\"header\"],\"statements\":[[6,\"table\"],[9,\"class\",\"table table-striped\"],[9,\"width\",\"100%\"],[7],[0,\"\\n\\t\"],[6,\"thead\"],[9,\"class\",\"thead-light\"],[7],[0,\"\\n\\t\\t\"],[6,\"tr\"],[7],[0,\"\\n\"],[4,\"each\",[[20,[\"source\",\"headers\"]]],null,{\"statements\":[[0,\"\\t\\t\\t\\t\"],[6,\"th\"],[7],[1,[19,4,[]],false],[8],[0,\"\\n\"]],\"parameters\":[4]},null],[0,\"\\t\\t\"],[8],[0,\"\\n\\t\"],[8],[0,\"\\n\\t\"],[6,\"tbody\"],[7],[0,\"\\n\"],[4,\"each\",[[20,[\"source\",\"data\"]]],null,{\"statements\":[[0,\"\\t\\t\\t\"],[6,\"tr\"],[7],[0,\"\\n\"],[4,\"each\",[[25,\"-each-in\",[[19,1,[]]],null]],null,{\"statements\":[[0,\"\\t\\t\\t\\t\\t\"],[6,\"td\"],[7],[0,\"\\n\"],[4,\"if\",[[25,\"eq\",[[19,3,[\"type\"]],\"link\"],null]],null,{\"statements\":[[4,\"link-to\",null,[[\"params\"],[[19,3,[\"params\"]]]],{\"statements\":[[0,\"\\t\\t\\t\\t\\t\\t\\t\\t\"],[1,[19,3,[\"value\"]],false],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[]},{\"statements\":[[0,\"\\t\\t\\t\\t\\t\\t\\t\"],[1,[19,3,[]],false],[0,\"\\n\"]],\"parameters\":[]}],[0,\"\\t\\t\\t\\t\\t\"],[8],[0,\"\\n\"]],\"parameters\":[2,3]},null],[0,\"\\t\\t\\t\"],[8],[0,\"\\n\"]],\"parameters\":[1]},null],[0,\"\\t\"],[8],[0,\"\\n\"],[8],[0,\"\\n\\n\"],[2,\" insert pagination here \"],[0,\"\\n\"],[6,\"nav\"],[9,\"aria-label\",\"Page navigation example\"],[7],[0,\"\\n\\t\"],[6,\"ul\"],[9,\"class\",\"pagination\"],[7],[0,\"\\n\\t\\t\"],[6,\"li\"],[9,\"class\",\"page-item\"],[7],[0,\"\\n\\t\\t\\t\"],[6,\"a\"],[9,\"class\",\"page-link\"],[9,\"href\",\"#\"],[9,\"aria-label\",\"First\"],[3,\"action\",[[19,0,[]],\"firstPage\"]],[7],[0,\"\\n\\t\\t\\t\\t\"],[6,\"span\"],[7],[0,\"First\"],[8],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\"],[8],[0,\"\\n\\t\\t\"],[6,\"li\"],[9,\"class\",\"page-item\"],[7],[0,\"\\n\\t\\t\\t\"],[6,\"a\"],[9,\"class\",\"page-link\"],[9,\"href\",\"#\"],[9,\"aria-label\",\"Previous\"],[3,\"action\",[[19,0,[]],\"previousPage\"]],[7],[0,\"\\n\\t\\t\\t\\t\"],[6,\"span\"],[9,\"aria-hidden\",\"true\"],[7],[0,\"«\"],[8],[0,\"\\n\\t\\t\\t\\t\"],[6,\"span\"],[9,\"class\",\"sr-only\"],[7],[0,\"Previous\"],[8],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\"],[8],[0,\"\\n\\t\\t\"],[6,\"li\"],[9,\"class\",\"page-item\"],[7],[0,\"\\n\\t\\t\\t\"],[6,\"a\"],[9,\"class\",\"page-link\"],[9,\"href\",\"#\"],[7],[0,\"\\n\\t\\t\\t\\t\"],[6,\"span\"],[7],[1,[20,[\"source\",\"total\"]],false],[0,\" rows\"],[8],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\"],[8],[0,\"\\n\\t\\t\"],[6,\"li\"],[9,\"class\",\"page-item\"],[7],[0,\"\\n\\t\\t\\t\"],[6,\"a\"],[9,\"class\",\"page-link\"],[9,\"href\",\"#\"],[9,\"aria-label\",\"Next\"],[3,\"action\",[[19,0,[]],\"nextPage\"]],[7],[0,\"\\n\\t\\t\\t\\t\"],[6,\"span\"],[9,\"aria-hidden\",\"true\"],[7],[0,\"»\"],[8],[0,\"\\n\\t\\t\\t\\t\"],[6,\"span\"],[9,\"class\",\"sr-only\"],[7],[0,\"Next\"],[8],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\"],[8],[0,\"\\n\\t\\t\"],[6,\"li\"],[9,\"class\",\"page-item\"],[7],[0,\"\\n\\t\\t\\t\"],[6,\"a\"],[9,\"class\",\"page-link\"],[9,\"href\",\"#\"],[9,\"aria-label\",\"Last\"],[3,\"action\",[[19,0,[]],\"lastPage\"]],[7],[0,\"\\n\\t\\t\\t\\t\"],[6,\"span\"],[7],[0,\"Last\"],[8],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\"],[8],[0,\"\\n\\t\"],[8],[0,\"\\n\"],[8],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "adshield-front/templates/components/data-table.hbs" } });
 });
 define('adshield-front/templates/components/ember-popper', ['exports', 'ember-popper/templates/components/ember-popper'], function (exports, _emberPopper) {
   'use strict';
@@ -2366,7 +2398,7 @@ define("adshield-front/templates/ipviolatorgraph", ["exports"], function (export
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "DiP7LABe", "block": "{\"symbols\":[],\"statements\":[[6,\"div\"],[9,\"class\",\"row\"],[7],[0,\"\\n\\t\"],[6,\"div\"],[9,\"class\",\"col-md-12\"],[7],[0,\"\\n\\t\\t\"],[6,\"h3\"],[7],[0,\"Known IP Violators Graph\"],[8],[0,\"\\n\\t\"],[8],[0,\"\\n\"],[8],[0,\"\\n\\n\"],[6,\"div\"],[9,\"class\",\"row\"],[7],[0,\"\\n\\t\"],[6,\"div\"],[9,\"class\",\"col-md-12\"],[7],[0,\"\\n\"],[4,\"data-graph\",null,[[\"chartData\",\"chartOptions\"],[[20,[\"chartData\"]],[20,[\"chartOptions\"]]]],{\"statements\":[],\"parameters\":[]},null],[0,\"\\t\"],[8],[0,\"\\n\"],[8]],\"hasEval\":false}", "meta": { "moduleName": "adshield-front/templates/ipviolatorgraph.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "dNH7bnr8", "block": "{\"symbols\":[],\"statements\":[[6,\"div\"],[9,\"class\",\"row\"],[7],[0,\"\\n\\t\"],[6,\"div\"],[9,\"class\",\"col-md-12\"],[7],[0,\"\\n\\t\\t\"],[6,\"h3\"],[7],[0,\"Known IP Violators Graph - \"],[1,[20,[\"filter\",\"ip\"]],false],[8],[0,\"\\n\\t\\t\"],[6,\"form\"],[9,\"class\",\"form-inline\"],[7],[0,\"\\n\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"form-group\"],[7],[0,\"\\n\\t\\t\\t\\t\"],[6,\"label\"],[7],[0,\"From this date \"],[8],[0,\"\\n\\t\\t\\t\\t\"],[1,[25,\"input\",null,[[\"type\",\"class\",\"name\",\"value\"],[\"date\",\"form-control\",\"dateFrom\",[20,[\"filter\",\"dateFrom\"]]]]],false],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"form-group\"],[7],[0,\"\\n\\t\\t\\t\\t\"],[6,\"label\"],[7],[0,\" up to \"],[8],[0,\"\\n\\t\\t\\t\\t\"],[1,[25,\"input\",null,[[\"type\",\"class\",\"name\",\"value\"],[\"date\",\"form-control\",\"dateTo\",[20,[\"filter\",\"dateTo\"]]]]],false],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\\t\"],[6,\"button\"],[9,\"class\",\"btn\"],[3,\"action\",[[19,0,[]],\"refresh\"]],[7],[0,\"Refresh\"],[8],[0,\"\\n\\t\\t\"],[8],[0,\"\\n\\t\"],[8],[0,\"\\n\"],[8],[0,\"\\n\\n\"],[6,\"div\"],[9,\"class\",\"row\"],[7],[0,\"\\n\\t\"],[6,\"div\"],[9,\"class\",\"col-md-12\"],[7],[0,\"\\n\"],[4,\"data-graph\",null,[[\"chartData\",\"chartOptions\"],[[20,[\"chartData\"]],[20,[\"chartOptions\"]]]],{\"statements\":[],\"parameters\":[]},null],[0,\"\\t\"],[8],[0,\"\\n\"],[8]],\"hasEval\":false}", "meta": { "moduleName": "adshield-front/templates/ipviolatorgraph.hbs" } });
 });
 define("adshield-front/templates/ipviolatorslist", ["exports"], function (exports) {
   "use strict";
@@ -2374,7 +2406,7 @@ define("adshield-front/templates/ipviolatorslist", ["exports"], function (export
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "bh2a7Svb", "block": "{\"symbols\":[],\"statements\":[[6,\"div\"],[9,\"class\",\"row\"],[7],[0,\"\\n\\t\"],[6,\"div\"],[9,\"class\",\"col-md-12\"],[7],[0,\"\\n\\t\\t\"],[6,\"h3\"],[7],[0,\"Known IP Violators List\"],[8],[0,\"\\n\\t\\t\"],[6,\"form\"],[9,\"class\",\"form-inline\"],[7],[0,\"\\n\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"form-group\"],[7],[0,\"\\n\\t\\t\\t\\t\"],[6,\"label\"],[7],[0,\"From this date \"],[8],[0,\"\\n\\t\\t\\t\\t\"],[1,[25,\"input\",null,[[\"type\",\"class\",\"value\"],[\"text\",\"form-control\",[20,[\"filter\",\"ip\"]]]]],false],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\\t\"],[6,\"button\"],[9,\"class\",\"btn\"],[3,\"action\",[[19,0,[]],\"refresh\"]],[7],[0,\"Refresh\"],[8],[0,\"\\n\\t\\t\"],[8],[0,\"\\n\\t\"],[8],[0,\"\\n\"],[8],[0,\"\\n\\n\"],[6,\"div\"],[9,\"class\",\"row\"],[7],[0,\"\\n\\t\"],[6,\"div\"],[9,\"class\",\"col-md-12\"],[7],[0,\"\\n\"],[4,\"data-table\",null,[[\"source\",\"nextPage\",\"firstPage\",\"lastPage\",\"previousPage\"],[[20,[\"listData\"]],\"nextPage\",\"firstPage\",\"lastPage\",\"previousPage\"]],{\"statements\":[],\"parameters\":[]},null],[0,\"\\t\"],[8],[0,\"\\n\"],[8]],\"hasEval\":false}", "meta": { "moduleName": "adshield-front/templates/ipviolatorslist.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "M0P37BfT", "block": "{\"symbols\":[],\"statements\":[[6,\"div\"],[9,\"class\",\"row\"],[7],[0,\"\\n\\t\"],[6,\"div\"],[9,\"class\",\"col-md-12\"],[7],[0,\"\\n\\t\\t\"],[6,\"h3\"],[7],[0,\"Known IP Violators List\"],[8],[0,\"\\n\\t\\t\"],[6,\"form\"],[9,\"class\",\"form-inline\"],[7],[0,\"\\n\\t\\t\\t\"],[6,\"div\"],[9,\"class\",\"form-group\"],[7],[0,\"\\n\\t\\t\\t\\t\"],[6,\"label\"],[7],[0,\"From this date \"],[8],[0,\"\\n\\t\\t\\t\\t\"],[1,[25,\"input\",null,[[\"type\",\"class\",\"value\"],[\"text\",\"form-control\",[20,[\"filter\",\"ip\"]]]]],false],[0,\"\\n\\t\\t\\t\"],[8],[0,\"\\n\\t\\t\\t\"],[6,\"button\"],[9,\"class\",\"btn\"],[3,\"action\",[[19,0,[]],\"refresh\"]],[7],[0,\"Refresh\"],[8],[0,\"\\n\\t\\t\"],[8],[0,\"\\n\\t\"],[8],[0,\"\\n\"],[8],[0,\"\\n\\n\"],[6,\"div\"],[9,\"class\",\"row\"],[7],[0,\"\\n\\t\"],[6,\"div\"],[9,\"class\",\"col-md-12\"],[7],[0,\"\\n\\t\\t\\n\"],[4,\"data-table\",null,[[\"source\",\"nextPage\",\"firstPage\",\"lastPage\",\"previousPage\"],[[20,[\"listData\"]],\"nextPage\",\"firstPage\",\"lastPage\",\"previousPage\"]],{\"statements\":[],\"parameters\":[]},null],[0,\"\\n\\t\"],[8],[0,\"\\n\"],[8]],\"hasEval\":false}", "meta": { "moduleName": "adshield-front/templates/ipviolatorslist.hbs" } });
 });
 define("adshield-front/templates/stats", ["exports"], function (exports) {
   "use strict";
@@ -2406,6 +2438,6 @@ catch(err) {
 });
 
 if (!runningTests) {
-  require("adshield-front/app")["default"].create({"LOG_RESOLVER":true,"LOG_ACTIVE_GENERATION":true,"LOG_TRANSITIONS":true,"LOG_TRANSITIONS_INTERNAL":true,"LOG_VIEW_LOOKUPS":true,"name":"adshield-front","version":"0.0.0+db14cd4e"});
+  require("adshield-front/app")["default"].create({"LOG_RESOLVER":true,"LOG_ACTIVE_GENERATION":true,"LOG_TRANSITIONS":true,"LOG_TRANSITIONS_INTERNAL":true,"LOG_VIEW_LOOKUPS":true,"name":"adshield-front","version":"0.0.0+295ce13c"});
 }
 //# sourceMappingURL=adshield-front.map

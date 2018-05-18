@@ -3,22 +3,23 @@ import { computed } from "@ember/object";
 
 export default Controller.extend({
 
-	ip : "",
+	queryParams : ['ip'],
+	ip : null,
 	filter : { dateFrom : "", dateTo : "", userKey : "", ip : "" },
 
 	chartData : computed(function() {}),
 
 	init : function() {
 		this._super();
-		this.refreshGraph(this.filter);
 	},
 
 	refreshGraph : function(filter) {
-		var self = this;
+		let self = this;
+		filter.ip = this.get("ip");
 		self.get('store').queryRecord("ipviolatorgraph", { filter : filter }).then(function(data) {
 			self.set("model", data);
-			var stat = self.get("model").get('graphData');
-			var chartData = {};
+			let stat = self.get("model").get('graphData');
+			let chartData = {};
 			chartData.datasets = [];
 			chartData.labels = stat.dates;
 			chartData.datasets.push({
@@ -26,13 +27,11 @@ export default Controller.extend({
 	            data : stat.totals,
 				backgroundColor : [
 					'rgba(109,186,252,1)',
-					'rgba(109,186,252,1)'
 				],
 				borderColor: [
 	                'rgba(109,186,252,1)',
-	                'rgba(109,186,252,1)',
 	            ],
-	            borderWidth : 1
+	            borderWidth : 2
 			});
 			self.set("chartData", chartData);
 		});
@@ -57,8 +56,8 @@ export default Controller.extend({
 				display:false
 			},
 			title : {
-				display : true,
-				text : ""
+				display : false,
+				text : "Recorded Stats"
 			},
 			tooltips : {
 				enabled : true
@@ -69,8 +68,11 @@ export default Controller.extend({
 					borderWidth : 1
 				},
 				line : {
-					fill : false
+					fill : true
 				}
+			},
+			padding : {
+				top : 50
 			}
 		}
 		return options;

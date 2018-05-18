@@ -22,6 +22,9 @@ export default Component.extend({
 		},
 		lastPage() {
 			this.sendAction("lastPage");
+		},
+		rowClicked(row) {
+			this.sendAction("rowClicked", row);
 		}
 	}
 

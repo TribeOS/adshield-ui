@@ -10,7 +10,15 @@
 		{{#each source.data as |rows|}}
 			<tr>
 				{{#each-in rows as |key value|}}
-					<td>{{value}}</td>
+					<td>
+						{{#if (eq value.type "link")}}
+							{{#link-to params=value.params }}
+								{{value.value}}
+							{{/link-to}}
+						{{else}}
+							{{value}}
+						{{/if}}
+					</td>
 				{{/each-in}}
 			</tr>
 		{{/each}}
