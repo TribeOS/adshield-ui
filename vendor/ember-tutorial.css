@@ -167,11 +167,11 @@ span.total {
 	padding:0 !important
 }
 .boxgrid .list-group .list-group-item {
-	padding:20px 15px;
+	padding:15px 15px;
 	text-decoration:none
 }
 .boxgrid .list-group .list-group-item a li.list-group-item:active {
-	padding:20px 15px;
+	padding:15px 15px;
 	text-decoration:none !important
 }
 .boxgrid .list-group .list-group-item .img-title {
@@ -341,17 +341,16 @@ span.total {
 
 .boxgrid button {
 	width:100%;
-	background:transparent;
+	background:#fff;
 	border:none;
 	border-radius:0;
-	padding:20px 0 20px 20px;
 	color:#666;
 	text-align:left;
 }
 
 .boxgrid button:hover {
 	color:#f2602c;
-	background:transparent;
+	background:#fff;
 	outline:none !important;
 }
 

@@ -22,80 +22,67 @@
             <ul id="sortable3" class="connectedSortable">
                 <li class="boxgrid">
                     <ul class="list-group">
-                        <li class="list-group-item nopad" style="text-align:center"> <span><img style="width:100%" src="assets/images/db_img.jpg"></span>                          
+                        <li class="list-group-item nopad" style="text-align:center"> <span><img style="width:100%" src="assets/images/db_img.jpg"></span>  </li>                        
+							<li class="list-group-item"> 
 							{{#bs-modal-simple open=modal1 title="Dashboard" size="lg" onHidden=(action (mut modal1) false)}}
-							 <div class="boxpad">
-							<div class="container" style="margin-bottom:10px">
-							<div class="row"><button type="button" class="btn btn-primary">Add Domain</button> <span style="display:inline-block; padding:0 10px; font-size:16px">Show results from:</span> <select class="custom-select" style="display: none;">
-							<option selected="" value="Last 7 Days">Last 7 Days</option>
-							<option value="1">One</option>
-							<option value="2">Two</option>
-							<option value="3">Three</option>
-							</select><span id="" class="selectboxit-container selectboxit-container" role="combobox" aria-haspopup="true" aria-expanded="false" aria-owns=""><span id="" class="selectboxit custom-select selectboxit-enabled selectboxit-btn" name="" tabindex="0" unselectable="on" style="width: 114px;"><span class="selectboxit-option-icon-container"><i id="" class="selectboxit-default-icon selectboxit-option-icon selectboxit-container" unselectable="on"></i></span><span id="" class="selectboxit-text" unselectable="on" data-val="Last 7 Days" aria-live="polite">Last 7 Days</span><span id="" class="selectboxit-arrow-container" unselectable="on"><i id="" class="selectboxit-arrow selectboxit-default-arrow" unselectable="on"></i></span></span><ul class="selectboxit-options selectboxit-list" tabindex="-1" role="listbox" aria-hidden="true" style="min-width: 114px;"><li data-id="0" data-val="Last 7 Days" data-disabled="false" class="selectboxit-option  selectboxit-option-first selectboxit-selected" role="option"><a class="selectboxit-option-anchor"><span class="selectboxit-option-icon-container"><i class="selectboxit-option-icon  selectboxit-container"></i></span>Last 7 Days</a></li><li data-id="1" data-val="1" data-disabled="false" class="selectboxit-option" role="option"><a class="selectboxit-option-anchor"><span class="selectboxit-option-icon-container"><i class="selectboxit-option-icon  selectboxit-container"></i></span>One</a></li><li data-id="2" data-val="2" data-disabled="false" class="selectboxit-option" role="option"><a class="selectboxit-option-anchor"><span class="selectboxit-option-icon-container"><i class="selectboxit-option-icon  selectboxit-container"></i></span>Two</a></li><li data-id="3" data-val="3" data-disabled="false" class="selectboxit-option  selectboxit-option-last" role="option"><a class="selectboxit-option-anchor"><span class="selectboxit-option-icon-container"><i class="selectboxit-option-icon  selectboxit-container"></i></span>Three</a></li></ul></span></div>
-							</div>
-							<table class="table common">
-							<thead>
-							<tr>
-							<th colspan="5">Domain Name</th>
-							</tr>
-							<tr>
-							<th scope="col" class="t-center">Humans</th>
-							<th scope="col" class="t-center">Whitelisted</th>
-							<th scope="col" class="t-center">Good Bots</th>
-							<th scope="col" class="t-center">Bad Bots</th>
-							<th scope="col" class="t-center">Total</th>
-							</tr>
-							</thead>
-							<tbody>  	
-							<tr><td colspan="5">share.cat</td>
-							</tr><tr class="t-center">
-							<td>269</td>
-							<td>31</td>
-							<td>2,330</td>
-							<td>2,516</td>
-							<td>5,146</td>
-							</tr>
-							</tbody>
-							</table>
-							</div>
+							Content Here
 							{{/bs-modal-simple}}
-							{{#bs-button onClick=(action (mut modal1) true)}}Dashboard <span style="float:right; padding-right:20px" aria-hidden="true" class="glyphicon glyphicon-menu-right small-icon"></span>{{/bs-button}}
+							{{#bs-button onClick=(action (mut modal1) true)}}Dashboard <span style="float:right;" aria-hidden="true" class="glyphicon glyphicon-menu-right small-icon"></span>{{/bs-button}}</li>
 							
-                        </li>
+                        
                     </ul>
                 </li>
                 <li class="boxgrid">
                     <ul class="list-group">
                         <li class="list-group-item"> <span class="circle"><img src="assets/images/icon_stat.png"></span> <span class="title">Threats Summary</span></li>
-                        <a data-toggle="modal" data-target="#threatsSummary" href="#">
-                            <li class="list-group-item">Summary <span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>
-                        </a>
-                        <a data-toggle="modal" data-target="#badbots" href="#">
-                            <li class="list-group-item">Automated Traffic <span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>
-                        </a>
-                        <a data-toggle="modal" data-target="#threatsbyorg" href="#">
-                            <li class="list-group-item">Traffic by Organization <span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>
-                        </a>
-                        <a data-toggle="modal" data-target="#malicious" href="#">
-                            <li class="list-group-item">Suspicious Countries <span class="carousel-control-next-icon" aria-hidden="true"></span></li>
-                        </a>
+                       <li class="list-group-item"> 
+					   {{#bs-modal-simple open=modal2 title="Summary" size="lg" onHidden=(action (mut modal2) false)}}
+						Content Here							{{/bs-modal-simple}}
+						{{#bs-button onClick=(action (mut modal2) true)}}Summary <span style="float:right" aria-hidden="true" class="glyphicon glyphicon-menu-right small-icon"></span>{{/bs-button}}
+						</li>
+						
+						<li class="list-group-item"> 
+                       {{#bs-modal-simple open=modal3 title="Automated Traffic" size="lg" onHidden=(action (mut modal3) false)}}
+						Content Here							{{/bs-modal-simple}}
+						{{#bs-button onClick=(action (mut modal3) true)}}Automated Traffic <span style="float:right;" aria-hidden="true" class="glyphicon glyphicon-menu-right small-icon"></span>{{/bs-button}}</li>
+						
+						<li class="list-group-item"> 
+                       {{#bs-modal-simple open=modal4 title="Traffic by Organization" size="lg" onHidden=(action (mut modal4) false)}}
+						Content Here							{{/bs-modal-simple}}
+						{{#bs-button onClick=(action (mut modal4) true)}}Traffic by Organization <span style="float:right;" aria-hidden="true" class="glyphicon glyphicon-menu-right small-icon"></span>{{/bs-button}}</li>
+						
+						<li class="list-group-item"> 
+                       {{#bs-modal-simple open=modal5 title="Suspicious Countries" size="lg" onHidden=(action (mut modal5) false)}}
+						Content Here							{{/bs-modal-simple}}
+						{{#bs-button onClick=(action (mut modal5) true)}}Suspicious Countries <span style="float:right; " aria-hidden="true" class="glyphicon glyphicon-menu-right small-icon"></span>{{/bs-button}}</li>
+
+
                     </ul>
                 </li>
                 <li class="boxgrid">
                     <ul class="list-group">
                         <li class="list-group-item"> <span class="circle"><img src="assets/images/icon_sell.png"></span> <span class="title">Summary Reports</span></li>
-                        <a data-toggle="modal" data-target="#clickfraud" href="#">
-                            <li class="list-group-item">Click Fraud <span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>
-                        </a>
-                        <a data-toggle="modal" data-target="#captchareq" href="#">
-                            <li class="list-group-item">Captcha Requests <span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>
-                        </a>
-                        <a data-toggle="modal" data-target="#goodbots" href="#">
-                            <li class="list-group-item">Desirable Automated Traffic <span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>
-                        </a>
-                        <a data-toggle="modal" data-target="#targetcon" href="#">
-                            <li class="list-group-item">Targeted Content <span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>
-                        </a>
+                        
+						<li class="list-group-item"> 
+                       {{#bs-modal-simple open=modal6 title="Click Fraud" size="lg" onHidden=(action (mut modal6) false)}}
+						Content Here							{{/bs-modal-simple}}
+						{{#bs-button onClick=(action (mut modal6) true)}}Click Fraud<span style="float:right; " aria-hidden="true" class="glyphicon glyphicon-menu-right small-icon"></span>{{/bs-button}}</li>
+						
+						<li class="list-group-item"> 
+                       {{#bs-modal-simple open=modal7 title="Captcha Requests" size="lg" onHidden=(action (mut modal7) false)}}
+						Content Here							{{/bs-modal-simple}}
+						{{#bs-button onClick=(action (mut modal7) true)}}Captcha Requests<span style="float:right; " aria-hidden="true" class="glyphicon glyphicon-menu-right small-icon"></span>{{/bs-button}}</li>
+						
+						<li class="list-group-item"> 
+                       {{#bs-modal-simple open=modal8 title="Desirable Automated Traffic" size="lg" onHidden=(action (mut modal8) false)}}
+						Content Here							{{/bs-modal-simple}}
+						{{#bs-button onClick=(action (mut modal8) true)}}Desirable Automated Traffic<span style="float:right; " aria-hidden="true" class="glyphicon glyphicon-menu-right small-icon"></span>{{/bs-button}}</li>
+						
+						<li class="list-group-item"> 
+                       {{#bs-modal-simple open=modal9 title="Targeted Content" size="lg" onHidden=(action (mut modal9) false)}}
+						Content Here							{{/bs-modal-simple}}
+						{{#bs-button onClick=(action (mut modal9) true)}}Targeted Content<span style="float:right; " aria-hidden="true" class="glyphicon glyphicon-menu-right small-icon"></span>{{/bs-button}}</li>
+						
                     </ul>
                 </li>
             </ul>
@@ -105,43 +92,70 @@
                 <li class="boxgrid">
                     <ul class="list-group">
                         <li class="list-group-item"> <span class="circle"><img src="assets/images/icon_settings.png"></span> <span class="title">Settings</span></li>
-                        <a data-toggle="modal" data-target="#contentprotect" href="#">
-                            <li class="list-group-item">Content Protection <span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>
-                        </a> <a data-toggle="modal" data-target="#custompage" href="#">
-                        <li class="list-group-item">Custom Pages <span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>
-                    </a>
-                    {{#link-to "ipaccesslist" }}
-                    <li class="list-group-item">IP Access List <span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>
-                    {{/link-to}}
-                    <a data-toggle="modal" data-target="#countryblock" href="#">
-                        <li class="list-group-item">Country Block List <span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>
-                    </a>
-                    <a data-toggle="modal" data-target="#contentdis" href="#">
-                        <li class="list-group-item">Content Distribution <span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>
-                    </a>
-                    <a data-toggle="modal" data-target="#accountman" href="#">
-                        <li class="list-group-item">Account Management <span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>
-                    </a>
+                       
+					   <li class="list-group-item"> 
+                       {{#bs-modal-simple open=modal10 title="Content Protection" size="lg" onHidden=(action (mut modal10) false)}}
+						Content Here							{{/bs-modal-simple}}
+						{{#bs-button onClick=(action (mut modal10) true)}}Content Protection<span style="float:right; " aria-hidden="true" class="glyphicon glyphicon-menu-right small-icon"></span>{{/bs-button}}</li>
+						
+						<li class="list-group-item"> 
+                       {{#bs-modal-simple open=modal11 title="Custom Pages" size="lg" onHidden=(action (mut modal11) false)}}
+						Content Here							{{/bs-modal-simple}}
+						{{#bs-button onClick=(action (mut modal11) true)}}Custom Pages<span style="float:right; " aria-hidden="true" class="glyphicon glyphicon-menu-right small-icon"></span>{{/bs-button}}</li>
+						
+						<li class="list-group-item"> 
+                       {{#bs-modal-simple open=modal12 title="IP Access List" size="lg" onHidden=(action (mut modal12) false)}}
+						Content Here							{{/bs-modal-simple}}
+						{{#bs-button onClick=(action (mut modal12) true)}}IP Access List<span style="float:right; " aria-hidden="true" class="glyphicon glyphicon-menu-right small-icon"></span>{{/bs-button}}</li>
+						
+						<li class="list-group-item"> 
+                       {{#bs-modal-simple open=modal13 title="Country Block List" size="lg" onHidden=(action (mut modal13) false)}}
+						Content Here							{{/bs-modal-simple}}
+						{{#bs-button onClick=(action (mut modal13) true)}}Country Block List<span style="float:right; " aria-hidden="true" class="glyphicon glyphicon-menu-right small-icon"></span>{{/bs-button}}</li>
+						
+						<li class="list-group-item"> 
+                       {{#bs-modal-simple open=modal14 title="Content Distribution" size="lg" onHidden=(action (mut modal14) false)}}
+						Content Here							{{/bs-modal-simple}}
+						{{#bs-button onClick=(action (mut modal14) true)}}Content Distribution<span style="float:right; " aria-hidden="true" class="glyphicon glyphicon-menu-right small-icon"></span>{{/bs-button}}</li>
+						
+						<li class="list-group-item"> 
+                       {{#bs-modal-simple open=modal15 title="Account Management" size="lg" onHidden=(action (mut modal15) false)}}
+						Content Here							{{/bs-modal-simple}}
+						{{#bs-button onClick=(action (mut modal15) true)}}Account Management<span style="float:right; " aria-hidden="true" class="glyphicon glyphicon-menu-right small-icon"></span>{{/bs-button}}</li>
+					   
                 </ul>
             </li>
             <li class="boxgrid">
-                <ul class="list-group">
-                    <li class="list-group-item nopad" style="text-align:center"><a data-toggle="modal" data-target="#auditlog" href="#">
-                        <div class="img-title"> <span class="title dBlock">Complete Log</span> </div>
-                    </a>
-                </li>
+                <ul class="list-group">                   				
+				<li class="list-group-item"> 
+                       {{#bs-modal-simple open=modal16 title="Complete Log" size="lg" onHidden=(action (mut modal16) false)}}
+						Content Here							{{/bs-modal-simple}}
+						{{#bs-button onClick=(action (mut modal16) true)}}Complete Log<span style="float:right; " aria-hidden="true" class="glyphicon glyphicon-menu-right small-icon"></span>{{/bs-button}}</li>
             </ul>
         </li>
         <li class="boxgrid">
             <ul class="list-group">
                 <li class="list-group-item"> <span class="circle"><img src="assets/images/icon_buy.png"></span> <span class="title">Traffic Summary</span></li>
-                <a data-toggle="modal" data-target="#trafficSummary" href="#">
-                    <li class="list-group-item">Summary <span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>
-                </a> <a data-toggle="modal" data-target="#cacheanalysis" href="#">
-                <li class="list-group-item">Cache Analysis <span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>
-            </a> <a data-toggle="modal" data-target="#upstream" href="#">
-            <li class="list-group-item">Upstream HTTP Errors <span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>
-        </a>
+                
+				<li class="list-group-item"> 
+				{{#bs-modal-simple open=modal17 title="Summary" size="lg" onHidden=(action (mut modal17) false)}}
+				Content Here							{{/bs-modal-simple}}
+				{{#bs-button onClick=(action (mut modal17) true)}}Summary<span style="float:right; " aria-hidden="true" class="glyphicon glyphicon-menu-right small-icon"></span>{{/bs-button}}</li>
+				
+				<li class="list-group-item"> 
+				{{#bs-modal-simple open=modal18 title="Cache Analysis" size="lg" onHidden=(action (mut modal18) false)}}
+				Content Here							{{/bs-modal-simple}}
+				{{#bs-button onClick=(action (mut modal18) true)}}Cache Analysis<span style="float:right; " aria-hidden="true" class="glyphicon glyphicon-menu-right small-icon"></span>{{/bs-button}}</li>
+				
+				
+				<li class="list-group-item"> 
+				{{#bs-modal-simple open=modal19 title="Upstream HTTP Errors" size="lg" onHidden=(action (mut modal19) false)}}
+				Content Here							{{/bs-modal-simple}}
+				{{#bs-button onClick=(action (mut modal19) true)}}Upstream HTTP Errors<span style="float:right; " aria-hidden="true" class="glyphicon glyphicon-menu-right small-icon"></span>{{/bs-button}}</li>
+				
+				
+
+				
     </ul>
 </li>
 </ul>
@@ -151,48 +165,77 @@
         <li class="boxgrid">
             <ul class="list-group">
                 <li class="list-group-item"> <span class="circle"><img src="assets/images/icon_support.png"></span> <span class="title">Protection Summary</span></li>
-                <a data-toggle="modal" data-target="#trapSummary" href="#">
-                    <li class="list-group-item">Overview <span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>
-                </a>
-                {{#link-to "ipviolatorslist"}}
-                <li class="list-group-item">Known Violators <span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>
-                {{/link-to}}
-                <a data-toggle="modal" data-target="#javacheck" href="#">
-                    <li class="list-group-item">JavaScript Check Failed <span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>
-                </a>
-                <a data-toggle="modal" data-target="#javanot" href="#">
-                    <li class="list-group-item">JavaScript Not Loaded <span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>
-                </a>
-                <a data-toggle="modal" data-target="#knownviolatorsagent" href="#">
-                    <li class="list-group-item">Known Violator User Agent <span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>
-                </a>
-                <a data-toggle="modal" data-target="#baduser" href="#">
-                    <li class="list-group-item">Suspicious User Agents<span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>
-                </a>
-                <a data-toggle="modal" data-target="#browserinteg" href="#">
-                    <li class="list-group-item">Browser Integrity Check <span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>
-                </a>
-                <a data-toggle="modal" data-target="#knownviolatorscenter" href="#">
-                    <li class="list-group-item">Known Violator Data Center <span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>
-                </a>
-                <a data-toggle="modal" data-target="#pagespermin" href="#">
-                    <li class="list-group-item">Pages Per Minute Exceeded <span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>
-                </a>
-                <a data-toggle="modal" data-target="#sessionlength" href="#">
-                    <li class="list-group-item">Session Length Exceeded <span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>
-                </a>
-                <a data-toggle="modal" data-target="#pagesperses" href="#">
-                    <li class="list-group-item">Pages Per Session Exceeded <span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>
-                </a>
-                <a data-toggle="modal" data-target="#blockedcountry" href="#">
-                    <li class="list-group-item">Blocked Country <span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>
-                </a>
-                <a data-toggle="modal" data-target="#agguser" href="#">
-                    <li class="list-group-item">Aggregator User Agents <span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>
-                </a>
-                <a data-toggle="modal" data-target="#knownviolatorstool" href="#">
-                    <li class="list-group-item">Known Violator Automation Tool <span class="glyphicon glyphicon-menu-right small-icon" aria-hidden="true"></span></li>
-                </a>
+                
+				<li class="list-group-item"> 
+				{{#bs-modal-simple open=modal20 title="Overview" size="lg" onHidden=(action (mut modal20) false)}}
+				Content Here							{{/bs-modal-simple}}
+				{{#bs-button onClick=(action (mut modal20) true)}}Overview<span style="float:right; " aria-hidden="true" class="glyphicon glyphicon-menu-right small-icon"></span>{{/bs-button}}</li>
+				
+				<li class="list-group-item"> 
+				{{#bs-modal-simple open=modal21 title="Known Violators" size="lg" onHidden=(action (mut modal21) false)}}
+				Content Here							{{/bs-modal-simple}}
+				{{#bs-button onClick=(action (mut modal21) true)}}Known Violators<span style="float:right; " aria-hidden="true" class="glyphicon glyphicon-menu-right small-icon"></span>{{/bs-button}}</li>
+				
+				<li class="list-group-item"> 
+				{{#bs-modal-simple open=modal22 title="JavaScript Check Failed" size="lg" onHidden=(action (mut modal22) false)}}
+				Content Here							{{/bs-modal-simple}}
+				{{#bs-button onClick=(action (mut modal22) true)}}JavaScript Check Failed<span style="float:right; " aria-hidden="true" class="glyphicon glyphicon-menu-right small-icon"></span>{{/bs-button}}</li>
+				
+				<li class="list-group-item"> 
+				{{#bs-modal-simple open=modal23 title="JavaScript Not Loaded" size="lg" onHidden=(action (mut modal23) false)}}
+				Content Here							{{/bs-modal-simple}}
+				{{#bs-button onClick=(action (mut modal23) true)}}JavaScript Not Loaded<span style="float:right; " aria-hidden="true" class="glyphicon glyphicon-menu-right small-icon"></span>{{/bs-button}}</li>
+				
+				<li class="list-group-item"> 
+				{{#bs-modal-simple open=modal24 title="Known Violator User Agent" size="lg" onHidden=(action (mut modal24) false)}}
+				Content Here							{{/bs-modal-simple}}
+				{{#bs-button onClick=(action (mut modal24) true)}}Known Violator User Agent<span style="float:right; " aria-hidden="true" class="glyphicon glyphicon-menu-right small-icon"></span>{{/bs-button}}</li>
+
+				<li class="list-group-item"> 
+				{{#bs-modal-simple open=modal25 title="Suspicious User Agents" size="lg" onHidden=(action (mut modal25) false)}}
+				Content Here							{{/bs-modal-simple}}
+				{{#bs-button onClick=(action (mut modal25) true)}}Suspicious User Agents<span style="float:right; " aria-hidden="true" class="glyphicon glyphicon-menu-right small-icon"></span>{{/bs-button}}</li>
+
+				<li class="list-group-item"> 
+				{{#bs-modal-simple open=modal26 title="Browser Integrity Check" size="lg" onHidden=(action (mut modal26) false)}}
+				Content Here							{{/bs-modal-simple}}
+				{{#bs-button onClick=(action (mut modal26) true)}}Browser Integrity Check<span style="float:right; " aria-hidden="true" class="glyphicon glyphicon-menu-right small-icon"></span>{{/bs-button}}</li>
+
+				<li class="list-group-item"> 
+				{{#bs-modal-simple open=modal27 title="Known Violator Data Center" size="lg" onHidden=(action (mut modal27) false)}}
+				Content Here							{{/bs-modal-simple}}
+				{{#bs-button onClick=(action (mut modal27) true)}}Known Violator Data Center<span style="float:right; " aria-hidden="true" class="glyphicon glyphicon-menu-right small-icon"></span>{{/bs-button}}</li>
+
+				<li class="list-group-item"> 
+				{{#bs-modal-simple open=modal28 title="Pages Per Minute Exceeded" size="lg" onHidden=(action (mut modal28) false)}}
+				Content Here							{{/bs-modal-simple}}
+				{{#bs-button onClick=(action (mut modal28) true)}}Pages Per Minute Exceeded<span style="float:right; " aria-hidden="true" class="glyphicon glyphicon-menu-right small-icon"></span>{{/bs-button}}</li>
+
+				<li class="list-group-item"> 
+				{{#bs-modal-simple open=modal29 title="Session Length Exceeded" size="lg" onHidden=(action (mut modal29) false)}}
+				Content Here							{{/bs-modal-simple}}
+				{{#bs-button onClick=(action (mut modal29) true)}}Session Length Exceeded<span style="float:right; " aria-hidden="true" class="glyphicon glyphicon-menu-right small-icon"></span>{{/bs-button}}</li>
+
+				<li class="list-group-item"> 
+				{{#bs-modal-simple open=modal30 title="Pages Per Session Exceeded" size="lg" onHidden=(action (mut modal30) false)}}
+				Content Here							{{/bs-modal-simple}}
+				{{#bs-button onClick=(action (mut modal30) true)}}Pages Per Session Exceeded<span style="float:right; " aria-hidden="true" class="glyphicon glyphicon-menu-right small-icon"></span>{{/bs-button}}</li>
+
+				<li class="list-group-item"> 
+				{{#bs-modal-simple open=modal31 title="Blocked Country" size="lg" onHidden=(action (mut modal31) false)}}
+				Content Here							{{/bs-modal-simple}}
+				{{#bs-button onClick=(action (mut modal31) true)}}Blocked Country<span style="float:right; " aria-hidden="true" class="glyphicon glyphicon-menu-right small-icon"></span>{{/bs-button}}</li>
+
+				<li class="list-group-item"> 
+				{{#bs-modal-simple open=modal32 title="Aggregator User Agents" size="lg" onHidden=(action (mut modal32) false)}}
+				Content Here							{{/bs-modal-simple}}
+				{{#bs-button onClick=(action (mut modal32) true)}}Aggregator User Agents<span style="float:right; " aria-hidden="true" class="glyphicon glyphicon-menu-right small-icon"></span>{{/bs-button}}</li>
+
+				<li class="list-group-item"> 
+				{{#bs-modal-simple open=modal33 title="Known Violator Automation Tool" size="lg" onHidden=(action (mut modal33) false)}}
+				Content Here							{{/bs-modal-simple}}
+				{{#bs-button onClick=(action (mut modal33) true)}}Known Violator Automation Tool<span style="float:right; " aria-hidden="true" class="glyphicon glyphicon-menu-right small-icon"></span>{{/bs-button}}</li>
+
             </ul>
         </li>
     </ul>
