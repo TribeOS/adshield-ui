@@ -11,6 +11,25 @@
 	
 /* by joey */	
 
+@font-face {
+  font-family: 'Glyphicons Halflings';
+  src: url("fonts/glyphicons-halflings-regular.eot");
+  src: url("fonts/glyphicons-halflings-regular.eot?#iefix") format("embedded-opentype"), url("fonts/glyphicons-halflings-regular.woff2") format("woff2"), url("fonts/glyphicons-halflings-regular.woff") format("woff"), url("fonts/glyphicons-halflings-regular.ttf") format("truetype"), url("fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular") format("svg"); }
+
+.glyphicon {
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
+.glyphicon-menu-right:before{content:"\e258"}
+
+
 body {
 	font-family: 'Lato', sans-serif;
 	background:#f2f2f2
@@ -269,6 +288,11 @@ span.total {
 	border:none;
 	border-radius:0
 }
+
+.modal-lg {
+	max-width:1170px !important
+}
+
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
 	outline:none
 }
@@ -314,6 +338,42 @@ span.total {
 	width:auto;
 	margin-bottom:30px
 }
+
+.boxgrid button {
+	width:100%;
+	background:transparent;
+	border:none;
+	border-radius:0;
+	padding:20px 0 20px 20px;
+	color:#666;
+	text-align:left;
+}
+
+.boxgrid button:hover {
+	color:#f2602c;
+	background:transparent;
+	outline:none !important;
+}
+
+.boxgrid button:focus {
+	color:#666 !important;
+	background:#fff !important;
+	outline:none !important;
+	box-shadow: none !important;
+}
+
+.boxgrid button:active {
+	background:#transparent !important;
+	outline:none !important;
+	border:0 !important	
+}
+
+h5.modal-title {
+	color:#666 !important;
+	font-size:28px
+}
+
+
 #sortable1, #sortable2, #sortable3 {
 	list-style-type: none;
 	width:100%;
