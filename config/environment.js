@@ -2,7 +2,8 @@
 
 module.exports = function(environment) {
   let ENV = {
-    modulePrefix: 'adshield-front',
+    modulePrefix: 'adshield-ui',
+    podModulePrefix: 'adshield-ui/pods',
     environment,
     rootURL: '/',
     locationType: 'auto',

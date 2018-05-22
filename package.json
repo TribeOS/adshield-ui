@@ -1,8 +1,8 @@
 {
-  "name": "adshield-front",
+  "name": "adshield-ui",
   "version": "0.0.0",
   "private": true,
-  "description": "Small description for adshield-front goes here",
+  "description": "Small description for adshield-ui goes here",
   "license": "MIT",
   "author": "",
   "directories": {
