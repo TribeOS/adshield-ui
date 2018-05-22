@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row">
-		<div class="col-lg-12">
+		<div class="col-lg-5">
 		<h3 style="color:#666; margin-top:20px">Known IP Violators List</h3>		
 		<form class="form-inline"  style="margin-bottom:10px">
 			<div class="form-group">
@@ -9,10 +9,27 @@
 			</div>&nbsp;
 			<button class="btn" {{action "refresh"}}>Refresh</button>
 		</form>
-		</div>
-		<div class="col-lg-12">
-		{{#data-table source=listData nextPage="nextPage" firstPage="firstPage" lastPage="lastPage" previousPage="previousPage"}}
+				{{#data-table source=listData nextPage="nextPage" firstPage="firstPage" lastPage="lastPage" previousPage="previousPage"}}
 		{{/data-table}}
+
+		</div>
+        
+        <div class="col-lg-7">
+		<h3 style="color:#666; margin-top:20px">Known IP Violators Graph - {{ filter.ip }}</h3>		
+		<form class="form-inline">
+			<div class="form-group">
+				<label style="color:#666">From this date &nbsp;</label>
+				{{input type="date" class="form-control" name="dateFrom" value=filter.dateFrom }}
+			</div>
+			<div class="form-group">
+				<label style="color:#666"> &nbsp;up to &nbsp;</label>
+				{{input type="date" class="form-control" name="dateTo" value=filter.dateTo }}
+			</div>&nbsp;
+			<button class="btn" {{action "refresh"}}>Refresh</button>
+		</form>
+		{{#data-graph chartData=chartData chartOptions=chartOptions}}
+		{{/data-graph}}
+
 		</div>
 	</div>
 </div>
