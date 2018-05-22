@@ -105,7 +105,7 @@
 						
 						<li class="list-group-item"> 
 							{{#bs-modal-simple open=modal12 title="IP Access List" size="lg" onHidden=(action (mut modal12) false) onShow=(action "refreshIpAccessList")}}							
-								{{#ipaccess-list source=listData nextPage="nextPage" firstPage="firstPage" lastPage="lastPage" previousPage="previousPage" refresh="refreshIpAccessList"}}{{/ipaccess-list}}
+								{{#ipaccess-list source=listData nextPage="nextPage" firstPage="firstPage" lastPage="lastPage" previousPage="previousPage" refresh="refreshList"}}{{/ipaccess-list}}
 							{{/bs-modal-simple}}
 							{{#bs-button onClick=(action (mut modal12) true)}}IP Access List<span style="float:right; " aria-hidden="true" class="glyphicon glyphicon-menu-right small-icon"></span>{{/bs-button}}
 						</li>

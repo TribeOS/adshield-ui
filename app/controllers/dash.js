@@ -13,6 +13,9 @@ export default Controller.extend({
 	//var for graph data
 	graphData : computed(function() {}),
 
+	refreshList : function() {},
+	refreshGraph : function() {},
+
 	init : function() {
 		this._super();
 		this.filter = { dateFrom : "", dateTo : "", userKey : "" };
@@ -47,38 +50,41 @@ export default Controller.extend({
 		 * @param  {[type]} filter [description]
 		 * @return {[type]}        [description]
 		 */
-		refreshIpAccessList(filter) {
-			console.log(filter);
-			this.filter = filter;
+		refreshIpAccessList() {
 			this.listIpAccessList(this.page, this.limit, this.filter, this.sort);
+			this.refreshList = this.listIpAccessList;
 		},
 
 
 		//pagination actions
 		firstPage() {
 			this.set("page", 1);
-			this.listIpAccessList(this.page, this.limit, this.filter, this.sort);
+			this.refreshList(this.page, this.limit, this.filter, this.sort);
 		},
 		nextPage() {
 			var listData = this.get("listData");
 			if (listData.current_page == listData.last_page) return;
 			this.set("page", parseInt(this.page) + 1);
-			this.listIpAccessList(this.page, this.limit, this.filter, this.sort);
+			this.refreshList(this.page, this.limit, this.filter, this.sort);
 		},
 		previousPage() {
 			var listData = this.get("listData");
 			if (listData.current_page == 1) return;
 			this.set("page", parseInt(this.page) - 1);
-			this.listIpAccessList(this.page, this.limit, this.filter, this.sort);
+			this.refreshList(this.page, this.limit, this.filter, this.sort);
 		},
 		lastPage() {
 			var listData = this.get("listData");
 			this.set("page", listData.last_page);
-			this.listIpAccessList(this.page, this.limit, this.filter, this.sort);
+			this.refreshList(this.page, this.limit, this.filter, this.sort);
 		},
-		refresh() {
+		refreshList(filter) {
+			this.filter = filter;
 			this.set("page", 1);
-			this.listIpAccessList(this.page, this.limit, this.filter, this.sort);
+			this.refreshList(this.page, this.limit, this.filter, this.sort);
+		},
+		refreshGraph(filter) {
+
 		}
 
 	}
