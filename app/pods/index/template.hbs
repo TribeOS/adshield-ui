@@ -1,0 +1,35 @@
+<div class="container ad-container">
+	<div class="row">
+		{{#each index as |col|}}
+			<div class="col-md-4 col-sm-4 col-xs-12 marBot" id="appWrapper">
+				<ul id="sortable3" class="connectedSortable">
+					{{#each col.menu as |menu|}}
+						<li class="boxgrid">
+							<ul class="list-group">
+								{{#if (or menu.bgimage menu.icon)}}
+									<li class="list-group-item {{if menu.bgimage "nopad"}}" style="{{if menu.bgimage "text-align: center;"}}">
+										{{#if menu.bgimage}}
+											<span><img style="width: 100%;" src="{{menu.bgimage}}"></span>
+										{{/if}}
+										{{#if menu.icon}}
+											<span class="circle"><img src="{{menu.icon}}"></span> <span class="title">{{menu.title}}</span>
+										{{/if}}
+									</li>
+								{{/if}}
+								{{#each menu.items as |item|}}
+									<li class="list-group-item">
+										{{#link-to item.route class="item-group-item-action"}}
+											{{item.title}} <span style="float: right;" aria-hidden="true" class="glyphicon glyphicon-menu-right small-icon"></span>
+										{{/link-to}}
+									</li>
+								{{/each}}
+							</ul>
+						</li>
+					{{/each}}
+				</ul>
+			</div>
+		{{/each}}
+	</div>
+</div>
+
+{{outlet}}
