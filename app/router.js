@@ -9,7 +9,6 @@ const Router = EmberRouter.extend({
 Router.map(function() {
   this.route('stats');
   this.route('dash');
-  this.route('ipaccesslist');
   this.route('ipviolatorslist');
   this.route('ipviolatorgraph', {queryParams : 'ip'});
 });

@@ -11,7 +11,7 @@ module.exports = function(defaults) {
     },
     fingerprint: {
       exclude: [
-		'images/layers-2x.png',
+        'images/layers-2x.png',
         'images/layers.png',
         'images/marker-icon-2x.png',
         'images/marker-icon.png',
@@ -19,8 +19,8 @@ module.exports = function(defaults) {
       ]
   }
   });
-	app.import('bower_components/bootstrap/dist/css/bootstrap.min.css')
-	app.import('bower_components/bootstrap/dist/js/bootstrap.js')
+    app.import('bower_components/bootstrap/dist/css/bootstrap.min.css')
+    app.import('bower_components/bootstrap/dist/js/bootstrap.js')
 
 
   // Use `app.import` to add additional libraries to the generated
