@@ -1,0 +1,36 @@
+{{#bs-modal-simple open=1 size="lg" title="Known IP Violators List" onHide=(action "onHide") }}
+	<div class="container">
+	    <div class="row">
+			<div class="col-lg-5">
+			<form class="form-inline"  style="margin-bottom:10px">
+				<div class="form-group">
+					<label style="color:#666">From this date &nbsp;</label>
+					{{input type="text" class="form-control" value=filter.ip }}
+				</div>&nbsp;
+				<button class="btn" {{action "refresh"}}>Refresh</button>
+			</form>
+			{{#data-table source=listData nextPage="nextPage" firstPage="firstPage" lastPage="lastPage" previousPage="previousPage"}}
+			{{/data-table}}
+
+			</div>
+	        
+	        <div class="col-lg-7">
+			<h3 style="color:#666; margin-top:20px">Known IP Violators Graph - {{ filter.ip }}</h3>		
+			<form class="form-inline">
+				<div class="form-group">
+					<label style="color:#666">From this date &nbsp;</label>
+					{{input type="date" class="form-control" name="dateFrom" value=filter.dateFrom }}
+				</div>
+				<div class="form-group">
+					<label style="color:#666"> &nbsp;up to &nbsp;</label>
+					{{input type="date" class="form-control" name="dateTo" value=filter.dateTo }}
+				</div>&nbsp;
+				<button class="btn" {{action "refresh"}}>Refresh</button>
+			</form>
+			{{#data-graph chartData=chartData chartOptions=chartOptions}}
+			{{/data-graph}}
+
+			</div>
+		</div>
+	</div>
+{{/bs-modal-simple}}

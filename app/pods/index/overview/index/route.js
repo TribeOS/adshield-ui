@@ -4,8 +4,8 @@ import ModalRouteMixin from 'ember-routable-modal/mixins/route';
 
 export default Route.extend(ModalRouteMixin, {
 	setupController: function(controller, model) {
-		controller.set("listData", model.listData);
-		controller.set("listData.data", controller.get("listData.data").sort(custom_sort));
+		// controller.set("listData", model.listData);
+		// controller.set("listData.data", controller.get("listData.data").sort(custom_sort));
 	},
 	model: function() {
 		return RSVP.hash({

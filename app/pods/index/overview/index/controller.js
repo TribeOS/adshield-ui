@@ -1,6 +1,7 @@
 import Controller from '@ember/controller';
 
 export default Controller.extend({
+	
 	init: function() {
 		this._super(...arguments);
 		this.ip = "";
@@ -102,13 +103,17 @@ export default Controller.extend({
 			]
 		};
 	},
+
 	actions: {
-		ok: function() {
-			// do something else
+
+		ok : function() {
 			this.get("modal").close();
 		},
-		cancel: function() {
+
+		cancel : function() {
 			this.get("modal").close();
 		}
+
 	}
+
 });
