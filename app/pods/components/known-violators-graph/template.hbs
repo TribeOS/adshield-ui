@@ -1,0 +1,28 @@
+<div class="contentbox t-center">
+	<h4>All threats from {{info.ip}}</h4>
+	{{ember-chart type='pie' data=chartData options=chartOptions animate=true }}
+	<div style="padding:20px 20px 0 20px">
+		<table class="table table-bordered">
+			<thead>
+			</thead>
+			<tbody>
+				<tr>
+					<td align="right" width="50%">IP</td>
+					<td align="left" width="50%">{{info.ip}}</td>
+				</tr>
+				<tr>
+					<td align="right">ISP</td>
+					<td width="30%" align="left">{{info.isp}}</td>
+				</tr>
+				<tr>
+					<td align="right">Organization</td>
+					<td width="30%" align="left">{{info.org}}</td>
+				</tr>
+				<tr>
+					<td align="right">Location</td>
+					<td width="30%" align="left">{{info.loc}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

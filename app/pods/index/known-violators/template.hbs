@@ -1,35 +1,27 @@
-{{#bs-modal-simple open=1 size="lg" title="Known IP Violators List" onHide=(action "onHide") }}
+{{#bs-modal-simple open=1 size="lg" title="Known IP Violators List" onHide=(action "onHide") onShow=(action "refresh") }}
 	<div class="container">
 	    <div class="row">
-			<div class="col-lg-5">
-			<form class="form-inline"  style="margin-bottom:10px">
-				<div class="form-group">
-					<label style="color:#666">From this date &nbsp;</label>
-					{{input type="text" class="form-control" value=filter.ip }}
-				</div>&nbsp;
-				<button class="btn" {{action "refresh"}}>Refresh</button>
-			</form>
-			{{#data-table source=listData nextPage="nextPage" firstPage="firstPage" lastPage="lastPage" previousPage="previousPage"}}
-			{{/data-table}}
-
+	    	<div class="container">
+	    		<form class="form-inline"  style="margin-bottom:10px">
+					<div class="form-group">
+						<label style="color:#666">Show results from &nbsp;</label> 
+						<select class="form-control" onChange={{action "onSelectDay" value="target.value"}}>
+							<option value="0">Show All</option>
+							<option value="7">Last 7 Days</option>
+							<option value="60">Last 60 Days</option>
+						</select>
+					</div>
+					<button class="btn btn-default btn-sm" {{action "refresh"}}>Refresh</button>
+				</form>
+	    	</div>
+	    	
+			<div class="col-lg-5">				
+				{{#data-table source=listData nextPage="nextPage" firstPage="firstPage" lastPage="lastPage" previousPage="previousPage" onClick="onIpClick"}}
+				{{/data-table}}
 			</div>
 	        
 	        <div class="col-lg-7">
-			<h3 style="color:#666; margin-top:20px">Known IP Violators Graph - {{ filter.ip }}</h3>		
-			<form class="form-inline">
-				<div class="form-group">
-					<label style="color:#666">From this date &nbsp;</label>
-					{{input type="date" class="form-control" name="dateFrom" value=filter.dateFrom }}
-				</div>
-				<div class="form-group">
-					<label style="color:#666"> &nbsp;up to &nbsp;</label>
-					{{input type="date" class="form-control" name="dateTo" value=filter.dateTo }}
-				</div>&nbsp;
-				<button class="btn" {{action "refresh"}}>Refresh</button>
-			</form>
-			{{#data-graph chartData=chartData chartOptions=chartOptions}}
-			{{/data-graph}}
-
+				{{#known-violators-graph chartData=chartData chartOptions=chartOptions info=violatorInfo}}{{/known-violators-graph}}
 			</div>
 		</div>
 	</div>

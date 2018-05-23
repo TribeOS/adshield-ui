@@ -44,8 +44,6 @@ Router.map(function() {
         this.route('aggregator-user-agents');
         this.route('known-violator-automation-tool');
   });
-  this.route('ipviolatorslist');
-  this.route('ipviolatorgraph', {queryParams : 'ip'});
 });
 
 export default Router;

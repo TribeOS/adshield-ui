@@ -14,7 +14,6 @@ export default Controller.extend({
 	init : function() {
 		this.filter = { dateFrom : "", dateTo : "", userKey : "" };
 		this.sort = { by : "date_added", dir : "asc" };
-		this.refreshList(this.page, this.limit, this.filter, this.sort);
 	},
 
 	/**

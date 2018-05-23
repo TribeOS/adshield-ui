@@ -16,8 +16,8 @@ export default Component.extend({
 		lastPage() {
 			this.sendAction("lastPage");
 		},
-		rowClicked(row) {
-			this.sendAction("rowClicked", row);
+		onItemClick(item) {
+			this.sendAction("onClick", item);
 		}
 	}
 

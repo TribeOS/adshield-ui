@@ -17,9 +17,13 @@
 									{{value.value}}
 								{{/link-to}}
 							{{else}}
-								{{#link-to value.route }}
-									{{value.value}}
-								{{/link-to}}
+								{{#if (eq value.type "action")}}
+									<a href='#' {{action "onItemClick" value}}>{{ value.value }}</a>
+								{{else}}
+									{{#link-to value.route }}
+										{{value.value}}
+									{{/link-to}}
+								{{/if}}
 							{{/if}}
 						{{else}}
 							{{value}}
