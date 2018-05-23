@@ -170,10 +170,7 @@ span.total {
 	padding:15px 15px;
 	text-decoration:none
 }
-.boxgrid .list-group .list-group-item a li.list-group-item:active {
-	padding:15px 15px;
-	text-decoration:none !important
-}
+
 .boxgrid .list-group .list-group-item .img-title {
 	padding:12px 0
 }
@@ -241,17 +238,7 @@ span.total {
 	top:18px;
 	font-size:20px
 }
-.boxgrid .list-group a li:hover {
-	color:#f2602c;
-}
-.boxgrid .list-group-item:first-child {
-	border-radius: 0 !important;
-	border-bottom:none
-}
-.boxgrid .list-group-item:last-child {
-	border-radius: 0 !important;
-	border-bottom:none
-}
+
 /*Bootstrap Overrides*/
 
 .ados-input {
