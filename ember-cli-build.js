@@ -15,13 +15,10 @@ module.exports = function(defaults) {
         'images/layers.png',
         'images/marker-icon-2x.png',
         'images/marker-icon.png',
-      	'images/marker-shadow.png'
+        'images/marker-shadow.png'
       ]
-  }
+    }
   });
-    // app.import('bower_components/bootstrap/dist/css/bootstrap.min.css')
-    // app.import('bower_components/bootstrap/dist/js/bootstrap.js')
-
 
   // Use `app.import` to add additional libraries to the generated
   // output files.

@@ -1,0 +1,16 @@
+<div class="modal-dialog modal-lg">
+	<div class="modal-content">
+		<div class="modal-header">
+			<h4 class="modal-title">Overview - {{ ip }}</h4>
+			{{routable-modal-close-button class="routable-modal--close"}}
+		</div>
+		<div class="modal-body">
+			{{#data-graph chartData=chartData chartOptions=chartOptions}}
+			{{/data-graph}}
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-secondary" {{action "cancel"}}>Cancel</button>
+			<button class="btn btn-primary" {{action "ok"}}>OK</button>
+		</div>
+	</div>
+</div>

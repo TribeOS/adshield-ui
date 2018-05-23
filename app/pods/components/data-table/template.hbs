@@ -11,10 +11,16 @@
 			<tr>
 				{{#each-in rows as |key value|}}
 					<td>
-						{{#if (eq value.type "link")}}
-							{{#link-to params=value.params }}
-								{{value.value}}
-							{{/link-to}}
+						{{#if value.route}}
+							{{#if (and value.route value.param)}}
+								{{#link-to value.route value.param }}
+									{{value.value}}
+								{{/link-to}}
+							{{else}}
+								{{#link-to value.route }}
+									{{value.value}}
+								{{/link-to}}
+							{{/if}}
 						{{else}}
 							{{value}}
 						{{/if}}

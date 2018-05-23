@@ -2,7 +2,8 @@
 
 module.exports = function(environment) {
   let ENV = {
-    modulePrefix: 'adshield-front',
+    modulePrefix: 'adshield-ui',
+    podModulePrefix: 'adshield-ui/pods',
     environment,
     rootURL: '/',
     locationType: 'auto',
@@ -21,6 +22,11 @@ module.exports = function(environment) {
       // Here you can pass flags/options to your application instance
       // when it is created
     }
+  };
+
+  ENV['ember-routable-modal'] = {
+    modalClassNames: ["modal"],
+    modalOpenBodyClassName: 'modal-body'
   };
 
   if (environment === 'development') {
