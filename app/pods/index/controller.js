@@ -102,7 +102,7 @@ export default Controller.extend({
 					route: "index.known-violators",
 					title: "Known Violators"
 				},{
-					route: "index.javascript-check-failed",
+					route: "index.js-check-failed",
 					title: "JavaScript Check Failed"
 				},{
 					route: "index.javascript-not-loaded",

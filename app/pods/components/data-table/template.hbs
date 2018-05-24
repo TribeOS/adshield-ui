@@ -11,22 +11,17 @@
 			<tr>
 				{{#each-in rows as |key value|}}
 					<td>
-						{{#if value.route}}
-							{{#if (and value.route value.param)}}
+
+						{{#if (eq value.type "action")}}
+							<a href='#' {{action "onItemClick" value}}>{{ value.value }}</a>
+						{{else}}
+							{{#if (eq value.type "link")}}
 								{{#link-to value.route value.param }}
 									{{value.value}}
 								{{/link-to}}
 							{{else}}
-								{{#if (eq value.type "action")}}
-									<a href='#' {{action "onItemClick" value}}>{{ value.value }}</a>
-								{{else}}
-									{{#link-to value.route }}
-										{{value.value}}
-									{{/link-to}}
-								{{/if}}
+								{{value}}
 							{{/if}}
-						{{else}}
-							{{value}}
 						{{/if}}
 					</td>
 				{{/each-in}}
