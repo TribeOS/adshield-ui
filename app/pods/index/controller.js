@@ -105,13 +105,13 @@ export default Controller.extend({
 					route: "index.js-check-failed",
 					title: "JavaScript Check Failed"
 				},{
-					route: "index.javascript-not-loaded",
+					route: "index.js-not-loaded",
 					title: "JavaScript Not Loaded"
 				},{
 					route: "index.known-violator-user-agent",
 					title: "Known Violator User Agent"
 				},{
-					route: "index.suspicious-user-agents",
+					route: "index.susp-user-agent",
 					title: "Suspicious User Agents"
 				},{
 					route: "index.browser-integrity-check",

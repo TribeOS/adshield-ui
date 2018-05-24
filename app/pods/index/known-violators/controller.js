@@ -50,25 +50,13 @@ export default IpBaseController.extend({
 				backgroundColor : [
 					'rgba(254,204,88,1)',
 					'rgba(254,99,131,1)',
+					'rgb(255, 159, 64)'
 				],
 			});
 			self.set("chartData", chartData);
 			self.set("violatorInfo", graphData.info);
 		});
 	},
-
-
-	chartOptions : computed(function() {
-		var options = {
-			legend:{
-				display:true
-			},
-			tooltips : {
-				enabled : true
-			},
-		}
-		return options;
-	}),
 
 
 });

@@ -11,9 +11,7 @@ export default IpBaseController.extend({
 
 	refreshList : function(page, limit, filter, sort) {
 		var self = this;
-		self.get('store').queryRecord("jsCheckFail", { page : page, limit : limit, filter : filter, sort : sort }).then(function(data) {
-			self.set("model", data);
-			self.set("listData", self.get("model").get("listData"));
+		self.get('store').queryRecord("browserIntegrityCheck", { page : page, limit : limit, filter : filter, sort : sort }).then(function(data) {
 			var listData = data.get("listData");
 			listData.headers = ['IP', '# of Violations'];
 			listData.data.forEach((item, index) => {
@@ -33,6 +31,7 @@ export default IpBaseController.extend({
 					value : old
 				}
 			});
+			self.set("listData", listData);
 		});
 	},
 
@@ -40,8 +39,8 @@ export default IpBaseController.extend({
 	refreshGraph : function(ip) {
 		let self = this;
 		this.filter.ip = ip;
-		self.get('store').queryRecord("jsCheckFailGraph", { filter : this.filter }).then(function(violator) {
-			let graphData = violator.get("graphData");
+		self.get('store').queryRecord("browserIntegrityCheckGraph", { filter : this.filter }).then(function(data) {
+			let graphData = data.get("graphData");
 			let chartData = {};
 			chartData.datasets = [];
 			chartData.labels = graphData.label;
@@ -50,6 +49,7 @@ export default IpBaseController.extend({
 				backgroundColor : [
 					'rgba(254,204,88,1)',
 					'rgba(254,99,131,1)',
+					'rgb(255, 159, 64)'
 				],
 			});
 			self.set("chartData", chartData);

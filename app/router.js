@@ -33,9 +33,9 @@ Router.map(function() {
     });
     this.route('known-violators');
     this.route('js-check-failed');
-    this.route('javascript-not-loaded');
+    this.route('js-not-loaded');
     this.route('known-violator-user-agent');
-    this.route('suspicious-user-agents');
+    this.route('susp-user-agent');
     this.route('browser-integrity-check');
     this.route('known-violator-data-centre');
     this.route('pages-per-minute-exceeded');
@@ -43,6 +43,7 @@ Router.map(function() {
     this.route('blocked-country');
     this.route('aggregator-user-agents');
     this.route('known-violator-automation-tool');
+    this.route('jsNotLoaded');
   });
 });
 

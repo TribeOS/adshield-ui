@@ -11,7 +11,7 @@ export default IpBaseController.extend({
 
 	refreshList : function(page, limit, filter, sort) {
 		var self = this;
-		self.get('store').queryRecord("jsCheckFail", { page : page, limit : limit, filter : filter, sort : sort }).then(function(data) {
+		self.get('store').queryRecord("knownViolatorUserAgent", { page : page, limit : limit, filter : filter, sort : sort }).then(function(data) {
 			self.set("model", data);
 			self.set("listData", self.get("model").get("listData"));
 			var listData = data.get("listData");
@@ -40,8 +40,8 @@ export default IpBaseController.extend({
 	refreshGraph : function(ip) {
 		let self = this;
 		this.filter.ip = ip;
-		self.get('store').queryRecord("jsCheckFailGraph", { filter : this.filter }).then(function(violator) {
-			let graphData = violator.get("graphData");
+		self.get('store').queryRecord("knownViolatorUserAgentGraph", { filter : this.filter }).then(function(data) {
+			let graphData = data.get("graphData");
 			let chartData = {};
 			chartData.datasets = [];
 			chartData.labels = graphData.label;

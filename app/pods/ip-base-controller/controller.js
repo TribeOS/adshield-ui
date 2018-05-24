@@ -26,7 +26,8 @@ export default Controller.extend({
 	chartOptions : computed(function() {
 		var options = {
 			legend:{
-				display:true
+				display : true,
+				position : "right"
 			},
 			tooltips : {
 				enabled : true
