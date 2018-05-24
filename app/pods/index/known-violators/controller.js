@@ -48,14 +48,8 @@ export default IpBaseController.extend({
 			chartData.datasets.push({
 				data : graphData.data,
 				backgroundColor : [
-<<<<<<< HEAD
-					'rgba(109,186,252,1)',
-					'rgba(109,16,22,1)',
-=======
 					'rgba(254,204,88,1)',
 					'rgba(254,99,131,1)',
-					'rgba(254,158,66,1)'
->>>>>>> 3d7640c5a1188492e3bdfa91659c8c2d2325f7c4
 				],
 			});
 			self.set("chartData", chartData);
