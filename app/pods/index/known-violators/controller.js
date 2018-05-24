@@ -56,9 +56,9 @@ export default Controller.extend({
 			chartData.datasets.push({
 				data : graphData.data,
 				backgroundColor : [
-					'rgba(109,186,252,1)',
-					'rgba(109,16,22,1)',
-					'rgba(129,186,52,1)'
+					'rgba(254,204,88,1)',
+					'rgba(254,99,131,1)',
+					'rgba(254,158,66,1)'
 				],
 			});
 			self.set("chartData", chartData);
