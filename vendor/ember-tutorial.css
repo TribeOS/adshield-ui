@@ -124,7 +124,8 @@ span.total {
 }
 .nav-ados {
 	background:#fff;
-	padding:15px 0 20px 0
+	padding:15px 0 20px 0;
+	box-shadow:inset 0 1px 0 rgba(255,255,255,0.15), 0 1px 5px rgba(0,0,0,0.075) !important
 }
 .logo-ados {
 	padding:0 0 0 15px !important;
