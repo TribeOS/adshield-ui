@@ -365,6 +365,26 @@ h5.modal-title {
 	font-weight:400 !important
 }
 
+.btn-primary {
+	background:#f2602c !important;
+	border:1px #f2602c solid !important
+	
+}
+
+.btn-primary:hover {
+	background:#d15123 !important;
+	border:1px #d15123 solid !important
+
+}
+
+.page-link {
+	color:#333 !important
+}
+
+.page-link:hover {
+	color:#f2602c !important
+}
+
 #sortable1, #sortable2, #sortable3 {
 	list-style-type: none;
 	width:100%;
