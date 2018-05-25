@@ -360,6 +360,10 @@ h5.modal-title {
 	font-weight:700
 }
 
+.contentbox  h4 {
+	color:#666;
+	font-weight:400 !important
+}
 
 #sortable1, #sortable2, #sortable3 {
 	list-style-type: none;
