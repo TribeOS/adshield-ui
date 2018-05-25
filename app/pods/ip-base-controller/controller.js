@@ -3,6 +3,9 @@ import { computed } from "@ember/object";
 
 export default Controller.extend({
 
+	listModelName : "",
+	graphModelName : "",
+
 	page : 1,
 	limit : 10,
 	filter : null,
@@ -10,6 +13,10 @@ export default Controller.extend({
 	choiceDay : null,
 
 	listData : computed(function() {}),
+	chartData : computed(function() {}),
+
+	ipSelected : false,
+	no_ip_selected_message : "Select an IP to view...",
 
 	init : function() {
 		this._super(...arguments);
@@ -17,10 +24,55 @@ export default Controller.extend({
 		this.sort = { by : "last_updated", dir : "asc" };
 	},
 
-	refreshList : function(page, limit, filter, sort) {},
+	refreshList : function(page, limit, filter, sort) {
+		let self = this;
+		self.get('store').queryRecord(this.listModelName, { page : page, limit : limit, filter : filter, sort : sort }).then(function(data) {
+			self.set("model", data);
+			self.set("listData", self.get("model").get("listData"));
+			var listData = data.get("listData");
+			listData.headers = ['IP', '# of Violations'];
+			listData.data.forEach((item, index) => {
+				//use this code to turn a column value on the table into a link.
+				let old = item.ip;
+				item.ip = { 
+					type : 'action', route : "", 
+					params : [
+						"", //route name
+						{
+							isQueryParams : true,
+							values : {
+								ip : old //route param:values
+							}
+						}
+					],
+					value : old
+				}
+			});
+		});
+	},
 
 
-	refreshGraph : function(ip) {},
+	refreshGraph : function(ip) {
+		let self = this;
+		this.filter.ip = ip;
+		self.get('store').queryRecord(this.graphModelName, { filter : this.filter }).then(function(data) {
+			let graphData = data.get("graphData");
+			let chartData = {};
+			chartData.datasets = [];
+			chartData.labels = graphData.label;
+			chartData.datasets.push({
+				data : graphData.data,
+				backgroundColor : [
+					//we can add more colors here in order to accommodate more data columns
+					'rgba(254,204,88,1)',
+					'rgba(254,99,131,1)',
+					'rgb(255, 159, 64)'
+				],
+			});
+			self.set("chartData", chartData);
+			self.set("violatorInfo", graphData.info);
+		});
+	},
 
 
 	chartOptions : computed(function() {
@@ -69,6 +121,7 @@ export default Controller.extend({
 			this.transitionToRoute("index");
 		},
 		onIpClick(param) {
+			this.set("ipSelected", true);
 			let ip = param.value;
 			this.refreshGraph(ip);
 		}

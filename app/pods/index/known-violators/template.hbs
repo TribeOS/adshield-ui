@@ -21,7 +21,11 @@
 			</div>
 	        
 	        <div class="col-lg-7">
-				{{#known-violators-graph chartData=chartData chartOptions=chartOptions info=violatorInfo}}{{/known-violators-graph}}
+	        	{{#if ipSelected}}
+					{{#known-violators-graph chartData=chartData chartOptions=chartOptions info=violatorInfo}}{{/known-violators-graph}}
+				{{else}}
+					<h3>{{ no_ip_selected_message }}</h3>
+	        	{{/if}}
 			</div>
 		</div>
 	</div>

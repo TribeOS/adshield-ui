@@ -37,13 +37,12 @@ Router.map(function() {
     this.route('known-violator-user-agent');
     this.route('susp-user-agent');
     this.route('browser-integrity-check');
-    this.route('known-violator-data-centre');
-    this.route('pages-per-minute-exceeded');
-    this.route('pages-per-session-exceeded');
+    this.route('known-violator-data-center');
+    this.route('pages-per-minute-exceed');
+    this.route('pages-per-session-exceed');
     this.route('blocked-country');
-    this.route('aggregator-user-agents');
+    this.route('aggregator-user-agent');
     this.route('known-violator-automation-tool');
-    this.route('jsNotLoaded');
   });
 });
 

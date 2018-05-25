@@ -117,19 +117,19 @@ export default Controller.extend({
 					route: "index.browser-integrity-check",
 					title: "Browser Integrity Check"
 				},{
-					route: "index.known-violator-data-centre",
-					title: "Known Violator Data Centre"
+					route: "index.known-violator-data-center",
+					title: "Known Violator Data Center"
 				},{
-					route: "index.pages-per-minute-exceeded",
+					route: "index.pages-per-minute-exceed",
 					title: "Pages Per Minute Exceeded"
 				},{
-					route: "index.pages-per-session-exceeded",
+					route: "index.pages-per-session-exceed",
 					title: "Pages Per Session Exceeded"
 				},{
 					route: "index.blocked-country",
 					title: "Blocked Country"
 				},{
-					route: "index.aggregator-user-agents",
+					route: "index.aggregator-user-agent",
 					title: "Aggregator User Agents"
 				},{
 					route: "index.known-violator-automation-tool",
