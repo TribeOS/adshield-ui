@@ -1,0 +1,61 @@
+{{!-- Url referrals --}}
+{{#if showStat}}	
+	<h4 class="text-center">URL Referrals this Month</h4>
+	<div>
+	{{#each stats.filteredStats as |statData|}}
+		<div class="">
+			<span class="value">{{format-number statData.count }}</span> <span class="label">{{statData.title }}</span>
+		</div>
+	{{/each}}
+	</div>
+{{/if}}
+
+
+{{!-- request count --}}
+{{#if showCount}}
+	<h4 class="text-center">Requests This Month</h4>
+	<div>
+		<div class="text-center">
+			<span class="transactions">{{format-number stats.transactions.today }}</span> <span class="label"> today</span>
+		</div>
+		<div class="text-center">
+			<span class="transactions">{{format-number stats.transactions.week }}</span> <span class="label"> this week</span>
+		</div>
+		<div class="text-center">
+			<span class="transactions">{{format-number stats.transactions.month }}</span> <span class="label"> this month</span>
+		</div>
+	</div>
+{{/if}}
+			
+{{#if showClicks}}
+	<h4 class="text-center">Ad Clicks Detected</h4>
+	<div>
+		<div class=" text-center">
+			<span class="transactions">{{format-number stats.adClicks.today }}</span> <span class="label"> today</span>
+		</div>
+		<div class=" text-center">
+			<span class="transactions">{{format-number stats.adClicks.week }}</span> <span class="label"> this week</span>
+		</div>
+		<div class=" text-center">
+			<span class="transactions">{{format-number stats.adClicks.month }}</span> <span class="label"> this month</span>
+		</div>
+	</div>
+{{/if}}
+
+{{#if showLive}}
+	<div class="statBoxHeader">
+		<div class="text-center">Live Requests Received</div>
+	</div>
+	<div>
+		{{ember-chart type='line' data=chartData options=chartOptions animate=true }}
+	</div>
+{{/if}}
+
+
+{{#if showMap}}
+	<div>
+		{{#leaflet-map lat=lat lng=lng zoom=zoom}}
+			{{tile-layer url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
+		{{/leaflet-map}}
+	</div>
+{{/if}}

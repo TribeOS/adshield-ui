@@ -17,11 +17,17 @@
 									</li>
 								{{/if}}
 								{{#each menu.items as |item|}}
-									<li class="list-group-item">
-										{{#link-to item.route class="item-group-item-action"}}
-											{{item.title}} <span style="float: right;" aria-hidden="true" class="glyphicon glyphicon-menu-right small-icon"></span>
-										{{/link-to}}
-									</li>
+									{{#if (eq item.type 'component')}}
+										<li class="list-group-item">
+											{{component item.name showStat=true stats=adshieldStats chartData=adshieldChartData}}
+										</li>
+									{{else}}
+										<li class="list-group-item">
+											{{#link-to item.route class="item-group-item-action"}}
+												{{item.title}} <span style="float: right;" aria-hidden="true" class="glyphicon glyphicon-menu-right small-icon"></span>
+											{{/link-to}}
+										</li>
+									{{/if}}
 								{{/each}}
 							</ul>
 						</li>

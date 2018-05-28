@@ -1,8 +1,8 @@
 import Controller from '@ember/controller';
 import { computed } from "@ember/object";
+import { later } from '@ember/runloop';
 
 export default Controller.extend({
-
 
 	init : function() {
 		this._super();
@@ -50,7 +50,13 @@ export default Controller.extend({
 			}
 		]},{
 			col: 1,
-			menu: [{
+			menu: [
+			{
+				items : [{
+					type : 'component',
+					name : 'adshield-stat',
+				}]
+			},{
 				icon: "assets/images/icon_settings.png",
 				title: "Settings",
 				items: [{
@@ -137,7 +143,78 @@ export default Controller.extend({
 				}]
 			}]
 		}];
+
+		this.fetchData();
+
 	},
 
+
+
+	adshieldStats : computed(function() {
+		return {};
+	}),
+
+
+	fetchData : function() {
+		var self = this;
+		self.poll = function() {
+			later(function() {
+				self.get('store').queryRecord('adshieldstat', {}).then(function(data) 
+				{
+					let asStat = data.get("stat");
+					let cData = self.get("adshieldChartData");
+					let maxPoint = 60;
+					if (cData.labels.length < maxPoint) cData.labels.push('');
+					if (cData.datasets[0].data.length == maxPoint) cData.datasets[0].data.splice(0, 1);
+					cData.datasets[0].data.push(asStat.transactionsInterval);
+					self.set("adshieldChartData", cData);
+					self.notifyPropertyChange('adshieldChartData');
+
+					asStat.filteredStats = self.getFilteredStats(asStat);
+					self.set("adshieldStats", asStat);
+					self.poll();
+				});
+			}, 2000);
+		}
+		self.poll();
+	},
+
+	/**
+	 * filtered stats to hide some data that aren't being used yet.
+	 * no point of showing it yet
+	 * @param  {[type]} ) {		var       model [description]
+	 * @return {[type]}   [description]
+	 */
+	getFilteredStats : function(stats) {
+		var newstats = stats.stat.filter(function(item) {
+			if (item.status == 6 || item.status == 1) return false;
+			return true;
+		});
+		return newstats;
+	},
+
+	adshieldChartData : computed(function() {
+		let currentStat = this.get("adshieldStats");
+		let stat = currentStat;
+		let data = {};
+		let values = 0;
+		if (typeof stat !== 'undefined') values = stat.transactionsInterval;
+		data.datasets = [];
+		data.labels = [''];
+		data.datasets.push({
+			label : "Transactions",
+            data : [values],
+			backgroundColor : [
+				'rgba(109,186,252,1)',
+				'rgba(109,186,252,1)'
+			],
+			borderColor: [
+                'rgba(109,186,252,1)',
+                'rgba(109,186,252,1)',
+            ],
+            borderWidth : 2
+		});
+		return data;
+	}),
 
 });
