@@ -52,6 +52,8 @@ export default Controller.extend({
 			col: 1,
 			menu: [
 			{
+				icon: "assets/images/icon_url.png",
+				title: "URL Referrals",				
 				items : [{
 					type : 'component',
 					name : 'adshield-stat',
