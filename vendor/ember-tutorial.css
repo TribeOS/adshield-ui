@@ -155,6 +155,12 @@ span.total {
 .no-pad-right {
 	padding-right:0
 }
+
+.boxgrid h4 {
+	color:#333 !important;
+	font-weight:400 !important
+}
+
 .boxgrid .list-group {
 	text-align:left;
 	color:#888;
