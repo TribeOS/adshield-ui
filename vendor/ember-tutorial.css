@@ -361,6 +361,11 @@ h5.modal-title {
 	font-weight:700
 }
 
+.modal-body  h3 {
+	color:#999 !important;
+	font-weight:400 !important
+}
+
 .contentbox  h4 {
 	color:#666;
 	font-weight:400 !important
