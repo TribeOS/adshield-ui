@@ -42,7 +42,7 @@ Router.map(function() {
     this.route('pages-per-session-exceed');
     this.route('blocked-country');
     this.route('aggregator-user-agent');
-    this.route('known-violator-automation-tool');
+    this.route('known-violator-auto-tool');
   });
 });
 

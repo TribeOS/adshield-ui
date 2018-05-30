@@ -140,7 +140,7 @@ export default Controller.extend({
 					route: "index.aggregator-user-agent",
 					title: "Aggregator User Agents"
 				},{
-					route: "index.known-violator-automation-tool",
+					route: "index.known-violator-auto-tool",
 					title: "Known Violator Automation Tool"
 				}]
 			}]
