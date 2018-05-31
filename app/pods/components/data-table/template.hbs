@@ -10,8 +10,7 @@
 		{{#each source.data as |rows|}}
 			<tr>
 				{{#each-in rows as |key value|}}
-					<td>
-
+					<td class="{{if value.textLeft 'text-left'}} {{if value.textRight 'text-right'}} {{if value.textCenter 'text-center'}}">
 						{{#if (eq value.type "action")}}
 							<a href='#' {{action "onItemClick" value}}>{{ value.value }}</a>
 						{{else}}
@@ -20,7 +19,7 @@
 									{{value.value}}
 								{{/link-to}}
 							{{else}}
-								{{value}}
+								{{if value.value value.value value}}
 							{{/if}}
 						{{/if}}
 					</td>

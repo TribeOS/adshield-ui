@@ -41,4 +41,10 @@ body {
 	height: 240px;
 }
 
+.leaflet-map-big {
+	min-height: 400px;
+	max-height: 600px;
+	width: 100%;
+}
+
 @import "styles";

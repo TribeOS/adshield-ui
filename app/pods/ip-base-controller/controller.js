@@ -88,6 +88,22 @@ export default Controller.extend({
 		return options;
 	}),
 
+	generateChartData : function(graphData) {
+		let chartData = {};
+		chartData.datasets = [];
+		chartData.labels = graphData.label;
+		chartData.datasets.push({
+			data : graphData.data,
+			backgroundColor : [
+				//we can add more colors here in order to accommodate more data columns
+				'rgba(254,204,88,1)',
+				'rgba(254,99,131,1)',
+				'rgb(255, 159, 64)'
+			],
+		});
+		return chartData;
+	},
+
 	actions : {
 		firstPage() {
 			this.set("page", 1);
