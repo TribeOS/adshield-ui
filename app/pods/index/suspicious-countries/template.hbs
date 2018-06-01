@@ -1,3 +1,4 @@
+
 {{#bs-modal-simple open=1 size="lg" title="Suspicious Countries" onHide=(action "onHide") onShow=(action "refresh") }}
 	<div class="container">
 	    <div class="row">
@@ -15,16 +16,21 @@
 				</form>
 	    	</div>
 	    	<div class="col-md-2">
-	    		<button class="btn btn-default btn-success">View Table</button>
+	    		<button class="btn btn-default btn-success" {{action "toggleView"}}>{{if showTable "View Map" "View Table"}}</button>
 	    	</div>
 		</div>
 
 		<div class="row">
 			<div class="col-lg-12 text-center">
 				<h3>Automated Requests Origination</h3>
-				{{#leaflet-map lat=lat lng=lng zoom=zoom class="leaflet-map-big"}}
-					{{tile-layer url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
-				{{/leaflet-map}}
+
+				{{#if showTable}}
+					{{#data-table source=listData nextPage="nextPage" firstPage="firstPage" lastPage="lastPage" previousPage="previousPage" onClick=""}}{{/data-table}}
+				{{else}}
+					{{#leaflet-map lat=lat lng=lng zoom=zoom class="leaflet-map-big"}}
+						{{tile-layer url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
+					{{/leaflet-map}}
+				{{/if}}
 			</div>
 		</div>
 	</div>

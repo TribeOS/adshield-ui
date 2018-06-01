@@ -3,6 +3,8 @@ import { computed } from "@ember/object";
 
 export default IpBaseController.extend({
 
+	showTable : false,
+
 	lat : 45.519743,
   	lng: -122.680522,
 	zoom : 2,
@@ -14,7 +16,21 @@ export default IpBaseController.extend({
 	},
 
 	refreshList : function(page, limit, filter, sort) {
-
+		let self = this;
+		this.get('store').queryRecord("suspiciousCountry", { page : page, limit : limit, filter : filter, sort : sort }).then(function(data) {
+			let listData = {};
+			listData.data = data.get("pageData");
+			listData.headers = ["Country", "Total Requests"];
+			listData.data.forEach((item, index) => {
+				//use this code to turn a column value on the table into a link.
+				let old = item.country;
+				item.country = { 
+					textLeft : true,
+					value : old
+				}
+			});
+			self.set("listData", listData);
+		});
 	},
 
 	actions : {
@@ -49,6 +65,10 @@ export default IpBaseController.extend({
 		onHide() {
 			this.transitionToRoute("index");
 		},
+		toggleView() {
+			let showTable = this.get("showTable");
+			this.set("showTable", !showTable);
+		}
 	}
 
 });
