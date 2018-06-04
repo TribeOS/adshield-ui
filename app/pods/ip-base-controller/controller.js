@@ -31,7 +31,7 @@ export default Controller.extend({
 			self.set("listData", self.get("model").get("listData"));
 			var listData = data.get("listData");
 			listData.headers = ['IP', '# of Violations'];
-			listData.data.forEach((item, index) => {
+			listData.data.forEach((item) => {
 				//use this code to turn a column value on the table into a link.
 				let old = item.ip;
 				item.ip = { 
