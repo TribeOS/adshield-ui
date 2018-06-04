@@ -35,13 +35,13 @@ export default Controller.extend({
 				icon: "assets/images/icon_sell.png",
 				title: "Summary Reports",
 				items: [{
-					route: "index.click-fraud",
+					route: "index.click-fraud-report",
 					title: "Click Fraud"
 				},{
-					route: "index.captcha-requests",
+					route: "index.captcha-request",
 					title: "Captcha Requests"
 				},{
-					route: "index.desirable-auto",
+					route: "index.desirable-automated-traffic",
 					title: "Desirable Automated Traffic"
 				},{
 					route: "index.targeted-content",

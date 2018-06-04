@@ -1,0 +1,37 @@
+{{#bs-modal-simple open=1 size="lg" title="Targeted Content" onHide=(action "onHide") onShow=(action "refresh") }}
+	<div class="container">
+	    <div class="row">
+	    	<div class="container">
+	    		<form class="form-inline"  style="margin-bottom:10px">
+					<div class="form-group">
+						<label style="color:#666">Show results from &nbsp;</label> 
+						<select class="form-control" onChange={{action "onSelectDay" value="target.value"}}>
+							<option value="0">Show All</option>
+							<option value="7">Last 7 Days</option>
+							<option value="60">Last 60 Days</option>
+						</select>
+					</div>&nbsp;
+					<button class="btn btn-default btn-sm" {{action "refresh"}}>Refresh</button>
+				</form>
+	    	</div>
+	    	
+			<div class="col-lg-8">				
+				<div>
+					{{#data-table source=listData nextPage="nextPage" firstPage="firstPage" lastPage="lastPage" previousPage="previousPage" onClick="onIpClick"}}
+				{{/data-table}}
+				</div>
+			</div>
+	        
+	        <div class="col-lg-4">
+	        	<div>
+	        		<p>View the top 100 url paths by total number of daily bad bot requests.</p>
+					<p>Breakdown of threats and response codes can be viewed by selecting a path in the table.</p>
+				</div>
+	        	<div>
+	        		<h4>Response Codes by Total Percentage</h4>
+	        		{{ember-chart type='doughnut' data=chartData.responseCodesByTotalPercentage options=chartOptions animate=true }}
+	        	</div>
+			</div>
+		</div>
+	</div>
+{{/bs-modal-simple}}

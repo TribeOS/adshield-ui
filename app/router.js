@@ -14,9 +14,9 @@ Router.map(function() {
     this.route('automated-traffic');
     this.route('traffic-by-org');
     this.route('suspicious-countries');
-    this.route('click-fraud');
-    this.route('captcha-requests');
-    this.route('desirable-auto');
+    this.route('click-fraud-report');
+    this.route('captcha-request');
+    this.route('desirable-automated-traffic');
     this.route('targeted-content');
     this.route('content-protection');
     this.route('custom-pages');
