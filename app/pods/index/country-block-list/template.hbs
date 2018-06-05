@@ -1,0 +1,43 @@
+{{#bs-modal-simple open=1 size="lg" title="Custom Pages" onHide=(action "onHide") onShow=(action "refresh") as |modal| }}
+
+<div class="boxpad row">
+	<div class="col-lg-7 no-pad-right">
+		<div class="contentbox">
+			<h1>Manage your country acccess list</h1>
+			<table class="table table-bordered" style="margin-bottom:0">
+				<thead>
+					<tr>
+						<th width="54%" scope="col">Country Code</th>
+						<th scope="col">Country</th>
+					</tr>
+				</thead>
+				<tbody>
+					{{#each blockList as |country|}}
+						<td>{{ country.name }}</td>
+						<td>{{ country.code }}</td>
+					{{/each}}
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<div class="col-lg-5">
+		<div class="contentbox">
+			<h1>Add a country to the block list</h1>
+			<label style="display:block">Country</label>
+			{{input style="width:100%; border:#ccc solid 1px; padding:5px" value="" placeholder="search by name" type="text" class="mbottom10" key-press="onSearch" }}
+			<div>
+				<ul>
+				{{#each searchResult as |country|}}
+					<li>{{ country.name }} ({{ country.code }})</li>
+				{{/each}}
+				</ul>
+			</div>
+			<button class="btn btn-primary" action="onBlock">Block Country</button>
+			<button class="btn btn-secondary">Cancel</button>
+		</div>
+	</div>
+	
+</div>
+
+{{/bs-modal-simple}}

@@ -65,7 +65,7 @@ export default Controller.extend({
 					route: "index.content-protection",
 					title: "Content Protection"
 				},{
-					route: "index.custom-pages",
+					route: "index.custom-page",
 					title: "Custom Pages"
 				},{
 					route: "index.ip-access-list",

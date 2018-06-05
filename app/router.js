@@ -19,7 +19,7 @@ Router.map(function() {
     this.route('desirable-automated-traffic');
     this.route('targeted-content');
     this.route('content-protection');
-    this.route('custom-pages');
+    this.route('custom-page');
     this.route('ip-access-list');
     this.route('country-block-list');
     this.route('content-distribution');

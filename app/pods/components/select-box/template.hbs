@@ -1,0 +1,9 @@
+<select class="" onchange={{action "setSelection" value="target.value"}}>
+	{{#each choices as |choice|}}
+		{{#if (eq choice.value throwValue)}}
+			<option value={{choice.value}} selected="selected">{{choice.label}}</option>
+		{{else}}
+			<option value={{choice.value}}>{{choice.label}}</option>
+		{{/if}}
+	{{/each}}
+</select>

@@ -1,0 +1,61 @@
+{{#bs-modal open=1 size="lg" title="Custom Pages" onHide=(action "onHide") onShow=(action "refresh") as |modal| }}
+
+	{{#modal.header}}
+		<h5 class="modal-title">Custom Pages</h5>
+	{{/modal.header}}
+
+	{{#modal.body}}
+		<div class="col-lg-12">
+			<div class="contentbox">
+				<h1>Custom CAPTCHA,block, and drop pages</h1>
+				<p>Distil Networks offers the ability for users to customize the block, drop and CAPTCHA pages that a visiting bot will receive when accessing their website. The pages exist on the protected website, allowing customers full controll over the pages they're serving as a response. For more information on how to configure these options, please view our support page on custom block, dron and cAPTCHA pages.</p>
+				
+				<div class="row">
+					<div class="col-lg-4">
+						<label style="display:block">Custom CAPTCHA page URL</label>
+						{{input value=settings.captchaPages.captchaPageUrl type="text" class="mbottom10" }}
+						{{input type="checkbox" checked=settings.captchaPages.captchaPageUrlEnabled }} Enabled?                  
+					</div>
+					<div class="col-lg-4">
+						<label style="display:block">Custom block page URL</label>
+						{{input value=settings.captchaPages.blockPageurl type="text" class="mbottom10" }}
+						{{input type="checkbox" checked=settings.captchaPages.blockPageurlEnabled }} Enabled?        
+					</div>
+					<div class="col-lg-4">
+						<label style="display:block">Custom drop page URL</label>
+						{{input value=settings.captchaPages.dropPageUrl type="text" class="mbottom10" }}
+						{{input type="checkbox" checked=settings.captchaPages.dropPageUrlEnabled }} Enabled?
+					</div>
+				</div>
+							
+			</div>
+		</div>
+
+		<div class="col-lg-12">
+			<div class="contentbox">
+				<h1>Custom Validation and Identity Pages</h1>
+				<div class="row">
+					<div class="col-lg-6">
+						<p>Shown when a POST request is received from a client that has either failed JavaScript tests or, in the case of Force Identification, is not recorded as currently having cleared JavaScript. It is basically the identity page for POST requests.</p>
+						<label style="display:block">Custom JavaScript validation URL</label>
+						{{input value=settings.validationIdentityPages.jsValidationUrl type="text" class="mbottom10" }}
+						{{input type="checkbox" checked=settings.validationIdentityPages.jsValidationUrlEnabled }} Enabled?
+					</div>
+					<div class="col-lg-6">
+						<p>Shown when an attempt is made to verify a Distil unique identified where the identifier has not been validated. </p>
+						<label style="display:block">Custom unable to identify URL</label>
+						{{input value=settings.validationIdentityPages.unableToIdentifyUrl type="text" class="mbottom10" }}
+						{{input type="checkbox" checked=settings.validationIdentityPages.unableToIdentifyUrlEnabled }} Enabled?
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	{{/modal.body}}
+
+
+	{{#modal.footer as |footer|}}
+		{{#bs-button onClick=(action "onSave") type="success"}} Save {{/bs-button}}
+	{{/modal.footer}}
+
+{{/bs-modal}}
