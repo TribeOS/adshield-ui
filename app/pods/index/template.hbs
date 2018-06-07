@@ -22,7 +22,7 @@
 											{{#if item.showStat}}
 												{{component item.name showStat=true stats=adshieldStats}}
 											{{else if item.showLive}}
-												{{component item.name showLive=true chartData=adshieldChartData}}
+												{{component item.name showLive=true chartData=adshieldChartData lastGraphData=lastGraphData}}
 											{{/if}}
 										</li>
 									{{else}}

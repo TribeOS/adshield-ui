@@ -7,12 +7,28 @@ export default Component.extend({
 	lat: 45.519743,
 	lng: -122.680522,
 	zoom: 1,
+	lastGraphData : 0,
+
+	didReceiveAttrs() {
+		if (this.get("showLive") === true) this.updateGraph();
+	},
 
 	updateGraph : function() {
 		var self = this;
 		self.poll = function() {
 			later(function() {
-				self.notifyPropertyChange('chartData');
+				let newValue = self.get("lastGraphData");
+				self.set("lastGraphData", 0);
+				let cData = self.get("chartData");
+				if (typeof cData !==  'undefined') {
+					let maxPoint = 60;
+					if (cData.labels.length < maxPoint) cData.labels.push('');
+					if (cData.datasets[0].data.length == maxPoint) cData.datasets[0].data.splice(0, 1);
+					cData.datasets[0].data.push(newValue);
+					self.set("chartData", cData);
+					self.notifyPropertyChange('chartData');
+				}
+				self.poll();
 			}, 2000);
 		}
 		self.poll();

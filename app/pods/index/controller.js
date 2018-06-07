@@ -60,11 +60,6 @@ export default Controller.extend({
 					type : 'component',
 					name : 'adshield-stat',
 					showStat : true
-				},
-				{
-					type : 'component',
-					name : 'adshield-stat',
-					showLive : true
 				}]
 			},{
 				icon: "assets/images/icon_settings.png",
@@ -160,6 +155,8 @@ export default Controller.extend({
 	},
 
 
+
+
 	lastGraphData : 0,
 
 	adshieldStats : computed(function() {
@@ -175,7 +172,7 @@ export default Controller.extend({
 		self.get('store').queryRecord('adshieldstat', {}).then(function(data) 
 		{
 			self.updateStats(data.get("stat"), true);
-			self.updateGraph();
+			// self.updateGraph();
 		});
 	},
 
@@ -196,29 +193,6 @@ export default Controller.extend({
 		this.updateStats(stats, false);
 	},
 
-	/**
-	 * updates graph's data (realtime every x seconds)
-	 * @return {[type]} [description]
-	 */
-	updateGraph : function() {
-		var self = this;
-		self.poll = function() {
-			later(function() {
-				let newValue = self.get("lastGraphData");
-				self.set("lastGraphData", 0);
-				let asStat = self.get("adshieldStats");
-				let cData = self.get("adshieldChartData");
-				let maxPoint = 60;
-				if (cData.labels.length < maxPoint) cData.labels.push('');
-				if (cData.datasets[0].data.length == maxPoint) cData.datasets[0].data.splice(0, 1);
-				cData.datasets[0].data.push(newValue);
-				self.set("adshieldChartData", cData);
-				// self.notifyPropertyChange('adshieldChartData');
-				self.set("adshieldStats", asStat);
-			}, 2000);
-		}
-		self.poll();
-	},
 
 	updateStats : function(data, includeGraph) {
 		let asStat = data
