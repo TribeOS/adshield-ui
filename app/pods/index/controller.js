@@ -1,6 +1,8 @@
 import Controller from '@ember/controller';
 import { computed } from "@ember/object";
 import { later } from '@ember/runloop';
+import { inject as service } from '@ember/service';
+
 
 export default Controller.extend({
 
@@ -57,6 +59,12 @@ export default Controller.extend({
 				items : [{
 					type : 'component',
 					name : 'adshield-stat',
+					showStat : true
+				},
+				{
+					type : 'component',
+					name : 'adshield-stat',
+					showLive : true
 				}]
 			},{
 				icon: "assets/images/icon_settings.png",
@@ -146,39 +154,87 @@ export default Controller.extend({
 			}]
 		}];
 
-		this.fetchData();
+		this.initFetchData();
+		this.initSocketIO();
 
 	},
 
 
+	lastGraphData : 0,
 
 	adshieldStats : computed(function() {
 		return {};
 	}),
 
+	socketio: service("socket-io"),
 
-	fetchData : function() {
+
+
+	initFetchData : function() {
+		var self = this;
+		self.get('store').queryRecord('adshieldstat', {}).then(function(data) 
+		{
+			self.updateStats(data.get("stat"), true);
+			self.updateGraph();
+		});
+	},
+
+	initSocketIO : function() {
+		let self = this;
+		let socket = this.get("socketio").socketFor("https://socketio.adshield.tribeos.io");
+		socket.on("connect", function() {
+			socket.on("adshield:App\\Events\\AdShieldUpdated", self.dataReceived, self);
+		});
+	},
+
+
+	dataReceived : function(data) {
+		let stats = data.stats.adshieldstats.stat;
+		console.log("data received!!!");
+		console.log(data);
+		this.set("lastGraphData", stats.transactionsInterval);
+		this.updateStats(stats, false);
+	},
+
+	/**
+	 * updates graph's data (realtime every x seconds)
+	 * @return {[type]} [description]
+	 */
+	updateGraph : function() {
 		var self = this;
 		self.poll = function() {
 			later(function() {
-				self.get('store').queryRecord('adshieldstat', {}).then(function(data) 
-				{
-					let asStat = data.get("stat");
-					let cData = self.get("adshieldChartData");
-					let maxPoint = 60;
-					if (cData.labels.length < maxPoint) cData.labels.push('');
-					if (cData.datasets[0].data.length == maxPoint) cData.datasets[0].data.splice(0, 1);
-					cData.datasets[0].data.push(asStat.transactionsInterval);
-					self.set("adshieldChartData", cData);
-					self.notifyPropertyChange('adshieldChartData');
-
-					asStat.filteredStats = self.getFilteredStats(asStat);
-					self.set("adshieldStats", asStat);
-					self.poll();
-				});
+				let newValue = self.get("lastGraphData");
+				self.set("lastGraphData", 0);
+				let asStat = self.get("adshieldStats");
+				let cData = self.get("adshieldChartData");
+				let maxPoint = 60;
+				if (cData.labels.length < maxPoint) cData.labels.push('');
+				if (cData.datasets[0].data.length == maxPoint) cData.datasets[0].data.splice(0, 1);
+				cData.datasets[0].data.push(newValue);
+				self.set("adshieldChartData", cData);
+				// self.notifyPropertyChange('adshieldChartData');
+				self.set("adshieldStats", asStat);
 			}, 2000);
 		}
 		self.poll();
+	},
+
+	updateStats : function(data, includeGraph) {
+		let asStat = data
+		
+		if (includeGraph) {
+			let cData = this.get("adshieldChartData");
+			let maxPoint = 60;
+			if (cData.labels.length < maxPoint) cData.labels.push('');
+			if (cData.datasets[0].data.length == maxPoint) cData.datasets[0].data.splice(0, 1);
+			cData.datasets[0].data.push(asStat.transactionsInterval);
+			this.set("adshieldChartData", cData);
+			this.notifyPropertyChange('adshieldChartData');
+		}
+		
+		asStat.filteredStats = this.getFilteredStats(asStat);
+		this.set("adshieldStats", asStat);
 	},
 
 	/**

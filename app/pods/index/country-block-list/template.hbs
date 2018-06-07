@@ -9,12 +9,16 @@
 					<tr>
 						<th width="54%" scope="col">Country Code</th>
 						<th scope="col">Country</th>
+						<th scope="col"></th>
 					</tr>
 				</thead>
 				<tbody>
-					{{#each blockList as |country|}}
-						<td>{{ country.name }}</td>
-						<td>{{ country.code }}</td>
+					{{#each blockList as |item|}}
+						<tr>
+							<td>{{ item.country.countryName }}</td>
+							<td>{{ item.country.countryCode }}</td>
+							<td><button class="btn btn-danger" {{action "onRemove" item}}>Remove</button></td>
+						</tr>
 					{{/each}}
 				</tbody>
 			</table>
@@ -25,16 +29,17 @@
 		<div class="contentbox">
 			<h1>Add a country to the block list</h1>
 			<label style="display:block">Country</label>
-			{{input style="width:100%; border:#ccc solid 1px; padding:5px" value="" placeholder="search by name" type="text" class="mbottom10" key-press="onSearch" }}
-			<div>
+			{{input style="width:100%; border:#ccc solid 1px; padding:5px" value=keyword placeholder="search by name" type="text" class="mbottom10" }}
+			<button class="btn btn-info" {{action "onSearch" keyword}}>Search</button>
+			<div style="max-height; 300px; y-overflow: scroll;">
 				<ul>
 				{{#each searchResult as |country|}}
-					<li>{{ country.name }} ({{ country.code }})</li>
+					<li>{{input type="checkbox" checked=country.selected }} {{ country.countryName }} ({{ country.countryCode }}) </li>
 				{{/each}}
 				</ul>
 			</div>
-			<button class="btn btn-primary" action="onBlock">Block Country</button>
-			<button class="btn btn-secondary">Cancel</button>
+			<button class="btn btn-primary" {{action "onBlock"}}>Block Country</button>
+			<button class="btn btn-secondary" {{action "onCancel"}}>Cancel</button>
 		</div>
 	</div>
 	

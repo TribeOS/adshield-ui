@@ -4,7 +4,10 @@ import { computed } from "@ember/object";
 export default IpBaseController.extend({
 
 	blockList : computed(function() {}),
+	
 	searchResult : computed(function() {}),
+	
+	keyword : "",
 
 	init : function() {
 		this._super(...arguments);
@@ -20,19 +23,40 @@ export default IpBaseController.extend({
 		});
 	},
 	
-	searchCountry : function(country) {
-		//perform search from database
-		console.log("search country");
-		// var self = this;
-		// self.get('store').queryRecord("countryBlockList", {}).then(function(data) {
-		// 	console.log(data);
-		// });
+	searchCountry : function(keyword) {
+		var self = this;
+		self.get('store').query("country", {
+			countryCode : keyword, 
+			countryName : keyword
+		}).then(function(data) {
+			let result = data;
+			result.forEach(function(item) {
+				item.set("selected", false);
+			});	
+			self.set("searchResult", result);
+		});
 	},
 
-	blockCountry : function(country) {
-		//add blocked country to list
-		//send to database for saving
-		console.log("block");
+	blockCountry : function() {
+		let result = this.get("searchResult");
+		let selectedCountries = result.filterBy('selected', true);
+		if (selectedCountries.length == 0) return;
+
+		let self = this;
+		selectedCountries.forEach(function(item) {
+			let country = self.get("store").peekRecord("country", item.id);
+			let entry = self.get("store").createRecord("countryBlockList", {
+				country : country
+			});
+			entry.save();
+		});
+		this.set("searchResult", null);
+	},
+
+	removeCountry : function(item) {
+		this.get("store").findRecord("countryBlockList", item.id, { backgroundReload : false }).then(function(record) {
+			record.destroyRecord();
+		});
 	},
 
 	actions : {
@@ -44,10 +68,17 @@ export default IpBaseController.extend({
 			this.transitionToRoute("index");
 		},
 		onBlock() {
-			this.blockCountry(country);
+			this.blockCountry();
 		},
 		onSearch(search) {
 			this.searchCountry(search);
+		},
+		onRemove(item) {
+			this.removeCountry(item);
+		},
+		onCancel() {
+			this.set("searchResult", null);
+			this.set("keyword", "");
 		}
 	},
 

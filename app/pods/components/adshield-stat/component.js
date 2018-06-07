@@ -8,6 +8,15 @@ export default Component.extend({
 	lng: -122.680522,
 	zoom: 1,
 
+	updateGraph : function() {
+		var self = this;
+		self.poll = function() {
+			later(function() {
+				self.notifyPropertyChange('chartData');
+			}, 2000);
+		}
+		self.poll();
+	},
 
 	chartOptions : computed(function() {
 		var options = {

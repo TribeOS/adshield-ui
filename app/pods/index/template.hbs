@@ -19,7 +19,11 @@
 								{{#each menu.items as |item|}}
 									{{#if (eq item.type 'component')}}
 										<li class="list-group-item">
-											{{component item.name showStat=true stats=adshieldStats chartData=adshieldChartData}}
+											{{#if item.showStat}}
+												{{component item.name showStat=true stats=adshieldStats}}
+											{{else if item.showLive}}
+												{{component item.name showLive=true chartData=adshieldChartData}}
+											{{/if}}
 										</li>
 									{{else}}
 										<li class="list-group-item">
