@@ -8,9 +8,14 @@ export default Component.extend({
 	lng: -122.680522,
 	zoom: 1,
 	lastGraphData : 0,
+	showLive : false,
+	showStat : false,
+	showCount : false,
+	showClicks : false,
+	showMap : false,
 
-	didReceiveAttrs() {
-		if (this.get("showLive") === true) this.updateGraph();
+	didInsertElement() {
+		if (this.get("showLive") == true) this.updateGraph();
 	},
 
 	updateGraph : function() {
@@ -65,8 +70,9 @@ export default Component.extend({
 			},
 			elements : {
 				point : {
-					pointStyle : 'triangle',
-					borderWidth : 1
+					pointStyle : 'circle',
+					borderWidth : 1,
+					enabled : false,
 				},
 				line : {
 					fill : false

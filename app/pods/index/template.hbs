@@ -23,6 +23,12 @@
 												{{component item.name showStat=true stats=adshieldStats}}
 											{{else if item.showLive}}
 												{{component item.name showLive=true chartData=adshieldChartData lastGraphData=lastGraphData}}
+											{{else if item.showClicks}}
+												{{component item.name showClicks=true stats=adshieldStats}}
+											{{else if item.showCount}}
+												{{component item.name showCount=true stats=adshieldStats}}
+											{{else if item.showMap}}
+												{{component item.name showMap=true stats=adshieldStats}}
 											{{/if}}
 										</li>
 									{{else}}

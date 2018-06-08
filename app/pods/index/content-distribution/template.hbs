@@ -1,0 +1,68 @@
+{{#bs-modal open=1 size="lg" onHide=(action "onHide") onShow=(action "refresh") as |modal| }}
+	
+
+	{{#modal.header}}
+		<h5 class="modal-title">Content Distribution</h5>
+	{{/modal.header}}
+
+
+	{{#modal.body}}
+		<div class="boxpad row">    
+
+			<div class="col-lg-7 no-pad-right">
+		    	<div class="contentbox">
+		        	<h1>Manage your cache</h1>
+		            <p>
+		            	{{#select-box onSelect=(action "onSelect") throwValue=settings.manageCache.enableContentCache choices=choicesBoolean }}
+		            	{{/select-box}}
+						<span class="b-bottom">  want to enable <strong>content cache</strong></span>
+		      		</p>
+		            <p>
+		            	{{#select-box onSelect=(action "onSelect") throwValue=settings.manageCache.enableUrlCache choices=choicesBoolean }}
+		            	{{/select-box}}
+						<span class="b-bottom">  I want to cache URLs without extension</span>
+		      		</p>
+		            <p>
+		            	{{#select-box onSelect=(action "onSelect") throwValue=settings.manageCache.enableMobileCache choices=choicesBoolean }}
+		            	{{/select-box}}
+						<span class="b-bottom"> I want to enable <strong>mobile cache</strong></span>
+		      		</p>
+
+		      		<h1>Cache Extensions</h1>
+	      		 	<p>I want the following file types to be cached</p>
+		      		<button class="btn {{if settings.cacheExtension.html "btn-success"}}" {{action "toggleCacheHtml"}}>html</button>
+		      		<button class="btn {{if settings.cacheExtension.css 'btn-success'}}" {{action "toggleCacheCss"}}>css</button>
+		      		<button class="btn {{if settings.cacheExtension.js 'btn-success'}}" {{action "toggleCacheJs"}}>js</button>
+		        </div>
+		    </div>      
+			<div class="col-lg-5">
+			    <div class="contentbox mBottom">
+		        	<h1>Compression &amp; Reroute</h1>
+		            <p>
+		            	{{#select-box onSelect=(action "onSelect") throwValue=settings.compressionReroute.enableReroute choices=choicesBoolean }}
+						{{/select-box}}
+		  				<span class="info"> I want to enable <a href='#' target="_blank">www.reroute</a></span>
+		  			</p>
+			      	<p>
+			      		{{#select-box onSelect=(action "onSelect") throwValue=settings.compressionReroute.enableBypassCookie choices=choicesBoolean }}
+			      		{{/select-box}}
+			      		<span class="info"> I want to enable <a href="#" target="_blank">bypass cookie</a></span>
+			      	</p>
+		        </div>
+		        <div class="contentbox">
+		        	<p>By default, we pass the requesting client IP back to your server in the X-Forwarded-For and X-Real-IP headers. If your web server requires the requesting client IP passed as a different header (for example: X-True-Client-IP), please enter it here.</p>
+		        	<h1>Custom Headers</h1>
+		            <label style="display:block">Client IP Header</label>
+		            <input style="width:100%; border:#ccc solid 1px; padding:5px" value={{settings.customHeaders.clientHeader}} type="text" class="mbottom10" />
+		        </div>
+		    </div>      
+		  
+		</div>
+	{{/modal.body}}
+
+
+	{{#modal.footer}}
+		{{#bs-button onClick=(action "onSave") type="success"}} Save {{/bs-button}}
+	{{/modal.footer}}
+
+{{/bs-modal}}

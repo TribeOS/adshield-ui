@@ -56,11 +56,28 @@ export default Controller.extend({
 			{
 				icon: "assets/images/icon_url.png",
 				title: "URL Referrals",				
-				items : [{
-					type : 'component',
-					name : 'adshield-stat',
-					showStat : true
-				}]
+				items : [
+					{
+						type : 'component',
+						name : 'adshield-stat',
+						showStat : true
+					},
+					{
+						type : 'component',
+						name : 'adshield-stat',
+						showLive : true
+					},
+					{
+						type : 'component',
+						name : 'adshield-stat',
+						showClicks : true
+					},
+					{
+						type : 'component',
+						name : 'adshield-stat',
+						showCount : true
+					}
+				]
 			},{
 				icon: "assets/images/icon_settings.png",
 				title: "Settings",
@@ -165,14 +182,11 @@ export default Controller.extend({
 
 	socketio: service("socket-io"),
 
-
-
 	initFetchData : function() {
 		var self = this;
 		self.get('store').queryRecord('adshieldstat', {}).then(function(data) 
 		{
 			self.updateStats(data.get("stat"), true);
-			// self.updateGraph();
 		});
 	},
 
@@ -187,8 +201,6 @@ export default Controller.extend({
 
 	dataReceived : function(data) {
 		let stats = data.stats.adshieldstats.stat;
-		console.log("data received!!!");
-		console.log(data);
 		this.set("lastGraphData", stats.transactionsInterval);
 		this.updateStats(stats, false);
 	},
@@ -244,7 +256,7 @@ export default Controller.extend({
                 'rgba(109,186,252,1)',
                 'rgba(109,186,252,1)',
             ],
-            borderWidth : 2
+            borderWidth : 1
 		});
 		return data;
 	}),

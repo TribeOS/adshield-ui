@@ -1,5 +1,5 @@
 import IpBaseController from '../../ip-base-controller/controller';
-import { computed } from "@ember/object";
+
 
 export default IpBaseController.extend({
 

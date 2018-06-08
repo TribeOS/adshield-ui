@@ -1,0 +1,93 @@
+{{#bs-modal open=1 size="lg" onHide=(action "onHide") onShow=(action "refresh") as |modal| }}
+	
+
+	{{#modal.header}}
+		<h5 class="modal-title">Account Management</h5>
+	{{/modal.header}}
+
+
+	{{#modal.body}}
+		<div class="boxpad row">    
+
+			<div class="col-lg-7 no-pad-right">
+		    	<div class="contentbox">
+		        	<h1>User Management</h1>
+					<table class="table table-bordered marBot">
+						<tbody>
+							{{#each settings.users as |user|}}
+								<tr>
+									<td width="35%">{{user.email}}</td>
+									<td width="40%">{{user.accessLevel}}</td>
+									<td width="25%" align="right"><span class="glyphicon glyphicon-menu-right"></span></td>
+								</tr>
+							{{/each}}
+						</tbody>
+					</table>
+		        </div>
+		    </div>      
+			<div class="col-lg-5">
+			    <div class="contentbox mBottom">
+		        	<h1>Account Information</h1>
+		            <p><strong>Company</strong></p>
+                    {{#if (eq isEditAccount false)}}
+                    	<p>{{ settings.account.company }}</p>
+                    {{else}}
+                    	{{input type="text" value=settings.account.company class="form-control"}}
+                    {{/if}}
+                    <p><strong>Address</strong></p>
+                    {{#if (eq isEditAccount false)}}
+                    	<p>{{ settings.account.address }}</p>
+                    {{else}}
+                    	{{input type="text" value=settings.account.address class="form-control"}}
+                    {{/if}}
+                    <button class="btn btn-secondary" {{action "editAccount"}}>Edit</button>
+		        </div>
+
+		        <div class="contentbox">
+					<h1>Email Notifications</h1>
+					<p>Add emails where you would like to receive various email notifications from Distil Networks</p>
+					<table class="table table-bordered marBot">
+						<tbody>
+							<tr>
+								<td width="35%" valign="middle">is@tr.be</td>
+								<td width="40%" valign="middle"><span class="glyphicon glyphicon-ok"></span> All</td>
+								<td width="25%" align="center"><button type="button" class="btn btn-default">-</button></td>
+							</tr>
+							<tr>
+								<td width="35%" valign="middle">jw@tr.be</td>
+								<td width="40%" valign="middle"><span class="glyphicon glyphicon-ok"></span> All</td>
+								<td width="25%" align="center"><button type="button" class="btn btn-default">-</button></td>
+							</tr>
+							<tr>
+								<td width="35%" valign="middle">
+									{{input style="width:100%; border:#ccc solid 1px; padding:5px" placeholder="Email Address" type="text" value=newEmailAddress }}
+								</td>
+								<td width="40%" valign="middle">
+									<select class="">
+										<option selected>Select</option>
+										<option>Yes</option>
+									</select>
+								</td>
+								<td width="25%" align="center">
+									<button type="button" class="btn btn-default">+</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+		        </div>
+
+		        <div class="contentbox">
+					<p><strong>Password Protection Settings</strong></p>
+					<button class="btn btn-secondary">Configure Settings</button>
+		        </div>
+		    </div>      
+		  
+		</div>
+	{{/modal.body}}
+
+
+	{{#modal.footer}}
+		{{#bs-button onClick=(action "onSave") type="success"}} Save {{/bs-button}}
+	{{/modal.footer}}
+
+{{/bs-modal}}
