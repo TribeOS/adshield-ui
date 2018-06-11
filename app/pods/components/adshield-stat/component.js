@@ -30,6 +30,8 @@ export default Component.extend({
 					if (cData.labels.length < maxPoint) cData.labels.push('');
 					if (cData.datasets[0].data.length == maxPoint) cData.datasets[0].data.splice(0, 1);
 					cData.datasets[0].data.push(newValue);
+					cData.datasets[0].pointRadius = 1;
+					// cData.datasets[0].pointStyle = 'line';
 					self.set("chartData", cData);
 					self.notifyPropertyChange('chartData');
 				}
@@ -55,8 +57,11 @@ export default Component.extend({
 						max : 5,
 						min : 0,
 						stepSize : 4
+					},
+					gridLines : {
+						display : false
 					}
-				}]
+				}],
 			},
 			legend:{
 				display:false
@@ -66,7 +71,7 @@ export default Component.extend({
 				text : "Transactions for the past 2 minutes"
 			},
 			tooltips : {
-				enabled : false
+				enabled : true
 			},
 			elements : {
 				point : {

@@ -109,7 +109,7 @@ export default Controller.extend({
 				icon: "assets/images/icon_buy.png",
 				title: "Traffic Summary",
 				items: [{
-					route: "index.summary",
+					route: "index.traffic-summary",
 					title: "Summary"
 				},{
 					route: "index.cache-analysis",

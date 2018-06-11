@@ -1,0 +1,37 @@
+{{#bs-modal-simple open=1 size="lg" title="Traffic Summary" onHide=(action "onHide") onShow=(action "refresh") as |modal| }}
+
+	<div class="boxpad">
+		<div class="container" style="margin-bottom:10px">
+			<div class="row" style="vertical-align:middle">
+				<form class="form-inline"  style="margin-bottom:10px">
+					<div class="form-group">
+						<label style="color:#666">Show results from &nbsp;</label> 
+						<select class="form-control" onChange={{action "onSelectDay" value="target.value"}}>
+							<option value="0">Show All</option>
+							<option value="7">Last 7 Days</option>
+							<option value="60">Last 60 Days</option>
+						</select>
+					</div>&nbsp;
+					<button class="btn btn-primary" {{action "refresh"}}>Refresh</button>
+				</form>	
+			</div>
+		</div>
+		<div class="row contentholder">
+			<div class="col-lg-4">
+				<div class="contentbox mbottom10 tcenter">
+					<h4>Threat Response Protocols Used</h4>
+					{{ember-chart type='doughnut' data=chartData.threatResponseProtocolsUsed options=chartOptions animate=true }}
+				</div>
+				<div class="contentbox tcenter">
+					<h4>Threats Averted</h4>
+					{{ember-chart type='doughnut' data=chartData.threatsAverted options=chartOptions animate=true }}
+				</div>
+			</div>
+			<div class="col-lg-8">
+				<h4>Human, Desired Automated Traffic &amp; Unwanted Automated Traffic Requests</h4>
+				{{ember-chart type='line' data=chartData.trafficGraph options=graphOption animate=true }}
+			</div>
+		</div>
+	</div>
+
+{{/bs-modal-simple}}

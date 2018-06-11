@@ -25,7 +25,7 @@ Router.map(function() {
     this.route('content-distribution');
     this.route('account-management');
     this.route('complete-log');
-    this.route('summary');
+    this.route('traffic-summary');
     this.route('cache-analysis');
     this.route('upstream-http-errors');
     this.route('overview', function() {

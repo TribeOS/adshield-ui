@@ -104,6 +104,22 @@ export default Controller.extend({
 		return chartData;
 	},
 
+
+	generateGraphData : function(graphData) {
+		let chartData = {};
+		chartData.datasets = [];
+		chartData.labels = graphData.label;
+		for(var i in graphData.datasets) {
+			chartData.datasets.push({
+				label : graphData.datasets[i].label,
+				data : graphData.datasets[i].data,
+				fill : false
+			});
+		}
+		return chartData;
+	},
+
+
 	actions : {
 		firstPage() {
 			this.set("page", 1);
