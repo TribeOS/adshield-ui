@@ -49,6 +49,11 @@ export default Controller.extend({
 					route: "index.targeted-content",
 					title: "Targeted Content"
 				}]
+			},{
+				items: [{
+					route: "index.complete-log",
+					title: "Complete Log"
+				}]
 			}
 		]},{
 			col: 1,
@@ -100,25 +105,7 @@ export default Controller.extend({
 					route: "index.account-management",
 					title: "Account Management"
 				}]
-			},{
-				items: [{
-					route: "index.complete-log",
-					title: "Complete Log"
-				}]
-			},{
-				icon: "assets/images/icon_buy.png",
-				title: "Traffic Summary",
-				items: [{
-					route: "index.summary",
-					title: "Summary"
-				},{
-					route: "index.cache-analysis",
-					title: "Cache Analysis"
-				},{
-					route: "index.upstream-http-errors",
-					title: "Upstream HTTP Errors"
-				}]
-		}]},{
+			}]},{
 			col: 2,
 			menu: [{
 				icon: "assets/images/icon_support.png",
@@ -163,7 +150,20 @@ export default Controller.extend({
 					route: "index.known-violator-auto-tool",
 					title: "Known Violator Automation Tool"
 				}]
-			}]
+			},{
+				icon: "assets/images/icon_buy.png",
+				title: "Traffic Summary",
+				items: [{
+					route: "index.summary",
+					title: "Summary"
+				},{
+					route: "index.cache-analysis",
+					title: "Cache Analysis"
+				},{
+					route: "index.upstream-http-errors",
+					title: "Upstream HTTP Errors"
+				}]
+		}]
 		}];
 
 		this.initFetchData();
