@@ -20,40 +20,11 @@ export default IpBaseController.extend({
 			let chartData = {};
 			chartData.totalTrafficVsCaptcha = self.generateChartData(pageData.totalTrafficVsCaptcha);
 			chartData.attemptsSolvedVsFailed = self.generateChartData(pageData.attemptsSolvedVsFailed);
-			chartData.captchaRequests = self.generateGraphData(pageData.captchaRequests);
+			chartData.captchaRequests = self.generateChartData(pageData.captchaRequests);
 
 			self.set("chartData", chartData);
 		});
 	},
-
-	generateGraphData : function(graphData) {
-		let chartData = {};
-		chartData.datasets = [];
-		chartData.labels = graphData.label;
-		for(var i in graphData.datasets) {
-			chartData.datasets.push({
-				label : graphData.datasets[i].label,
-				data : graphData.datasets[i].data,
-				fill : false
-			});
-		}
-		return chartData;
-	},
-
-	graphOption : computed(function() {
-		var options = {
-			title : {
-				text : "test"
-			},
-			legend:{
-				display : true,
-			},
-			tooltips : {
-				enabled : true
-			},
-		}
-		return options;
-	}),
 
 
 	actions : {

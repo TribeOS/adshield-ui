@@ -18,7 +18,7 @@ export default IpBaseController.extend({
 		self.get('store').queryRecord("upstreamHttpError", { page : page, limit : limit, filter : filter, sort : sort }).then(function(data) {
 			let pageData = data.get("pageData");
 			let chartData = {};
-			chartData = self.generateGraphData(pageData.errorGraph);
+			chartData = self.generateChartData(pageData.errorGraph);
 			self.set("chartData", chartData);
 
 			let listData = {};
@@ -26,21 +26,6 @@ export default IpBaseController.extend({
 			listData.headers = ['Time', '4XX', '5XX', 'Total Requests'];
 			self.set("listData", listData);
 		});
-	},
-
-	generateGraphData : function(graphData) {
-		let chartData = {};
-		chartData.datasets = [];
-		chartData.labels = graphData.label;
-		graphData.datasets.forEach(function(item) {
-			chartData.datasets.push({
-				label : item.label,
-				data : item.data,
-				barPercentage : 1,
-				backgroundColor : 'rgba(254,204,88,1)',
-			});
-		});
-		return chartData;
 	},
 
 

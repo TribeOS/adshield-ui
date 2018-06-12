@@ -18,7 +18,7 @@ export default IpBaseController.extend({
 		self.get('store').queryRecord("desirableAutomatedTraffic", { page : page, limit : limit, filter : filter, sort : sort }).then(function(data) {
 			let pageData = data.get("pageData");
 			let chartData = {};
-			chartData.desirableAutomatedRequests = self.generateGraphData(pageData.desirableAutomatedRequests);
+			chartData.desirableAutomatedRequests = self.generateChartData(pageData.desirableAutomatedRequests);
 			self.set("chartData", chartData);
 
 			let listData = {};
@@ -28,39 +28,6 @@ export default IpBaseController.extend({
 			console.log(listData);
 		});
 	},
-
-	generateGraphData : function(graphData) {
-		let chartData = {};
-		chartData.datasets = [];
-		chartData.labels = graphData.label;
-		let color = ['rgba(190, 50, 0, 1)', 'rgba(190, 50, 220, 1)'];
-		for(var i in graphData.datasets) {
-			chartData.datasets.push({
-				label : graphData.datasets[i].label,
-				data : graphData.datasets[i].data,
-				fill : false,
-				borderColor : [
-					color[i]
-				]
-			});
-		}
-		return chartData;
-	},
-
-	graphOption : computed(function() {
-		var options = {
-			title : {
-				text : "test"
-			},
-			legend:{
-				display : true,
-			},
-			tooltips : {
-				enabled : true
-			},
-		}
-		return options;
-	}),
 
 
 	actions : {

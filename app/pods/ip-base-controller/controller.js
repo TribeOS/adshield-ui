@@ -88,36 +88,57 @@ export default Controller.extend({
 		return options;
 	}),
 
+	/**
+	 * used for creating charts and graphs
+	 * will adjust datasets automatically depending if data passed has existing datasets already
+	 * @param  {[type]} graphData [description]
+	 * @return {[type]}           [description]
+	 */
 	generateChartData : function(graphData) {
 		let chartData = {};
 		chartData.datasets = [];
 		chartData.labels = graphData.label;
-		chartData.datasets.push({
-			data : graphData.data,
-			backgroundColor : [
+		if (typeof graphData.datasets == 'undefined') {
+			//no datasets yet, we assume we are having one dataset only
+			//mainly used for single line/bar or pie charts
+			chartData.datasets.push({
+				data : graphData.data,
+				backgroundColor : [
+					//we can add more colors here in order to accommodate more data columns
+					'rgba(254,204,88,1)',
+					'rgba(254,99,131,1)',
+					'rgb(255, 159, 64)'
+				],
+			});
+		} else {
+			let colors = [
 				//we can add more colors here in order to accommodate more data columns
 				'rgba(254,204,88,1)',
 				'rgba(254,99,131,1)',
 				'rgb(255, 159, 64)'
-			],
-		});
-		return chartData;
-	},
-
-
-	generateGraphData : function(graphData) {
-		let chartData = {};
-		chartData.datasets = [];
-		chartData.labels = graphData.label;
-		for(var i in graphData.datasets) {
-			chartData.datasets.push({
-				label : graphData.datasets[i].label,
-				data : graphData.datasets[i].data,
-				fill : false
+			];
+			//we have predefined datasets from server, assuming we have multiple datasets
+			//mostly used for bar/line graphs
+			graphData.datasets.forEach(function(item, index) {
+				chartData.datasets.push({
+					label : item.label,
+					data : item.data,
+					fill : false,
+					borderColor : colors[index],
+					backgroundColor : colors[index],
+				});
 			});
 		}
 		return chartData;
 	},
+
+	/**
+	 * for handling custom chart data
+	 * function would be implemented on the child class
+	 * @param  {[type]} data [description]
+	 * @return {[type]}      [description]
+	 */
+	customChartData : function(data) {},
 
 
 	actions : {

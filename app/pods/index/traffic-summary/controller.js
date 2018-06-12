@@ -20,7 +20,7 @@ export default IpBaseController.extend({
 			let pageData = data.get("pageData");
 			pageData.threatResponseProtocolsUsed = self.generateChartData(pageData.threatResponseProtocolsUsed);
 			pageData.threatsAverted = self.generateChartData(pageData.threatsAverted);
-			pageData.trafficGraph = self.generateGraphData(pageData.trafficGraph);
+			pageData.trafficGraph = self.generateChartData(pageData.trafficGraph);
 
 			self.set("chartData", pageData);
 		});

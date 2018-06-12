@@ -20,13 +20,13 @@ export default IpBaseController.extend({
 			let chartData = {};
 			chartData.automatedClicksVsAdClicks = self.generateChartData(pageData.automatedClicksVsAdClicks);
 			chartData.topAgencyByAutomatedClicks = self.generateChartData(pageData.topAgencyByAutomatedClicks);
-			chartData.clickFraudActivity = self.generateGraphData(pageData.clickFraudActivity);
+			chartData.clickFraudActivity = self.customChartData(pageData.clickFraudActivity);
 
 			self.set("chartData", chartData);
 		});
 	},
 
-	generateGraphData : function(graphData) {
+	customChartData : function(graphData) {
 		let chartData = {};
 		chartData.datasets = [];
 		chartData.labels = graphData.label;
@@ -36,21 +36,6 @@ export default IpBaseController.extend({
 		});
 		return chartData;
 	},
-
-	graphOption : computed(function() {
-		var options = {
-			title : {
-				text : "test"
-			},
-			legend:{
-				display : true,
-			},
-			tooltips : {
-				enabled : true
-			},
-		}
-		return options;
-	}),
 
 
 	actions : {

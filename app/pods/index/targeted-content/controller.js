@@ -25,10 +25,9 @@ export default IpBaseController.extend({
 			listData.data = pageData.listData;
 			listData.headers = ['Path', 'Undesirable Automated Requests'];
 			self.set("listData", listData);
-			console.log(listData);
 		});
 	},
-	
+
 
 	actions : {
 		firstPage() {

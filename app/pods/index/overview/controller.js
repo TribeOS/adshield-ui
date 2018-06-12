@@ -1,7 +1,7 @@
-import Controller from '@ember/controller';
+import IpBaseController from '../../ip-base-controller/controller';
 import { computed } from "@ember/object";
 
-export default Controller.extend({
+export default IpBaseController.extend({
 
 	graphModelName : "protectionOverviewGraph",
 
@@ -19,19 +19,7 @@ export default Controller.extend({
 	refreshGraph : function() {
 		let self = this;
 		self.get('store').queryRecord(this.graphModelName, { filter : this.filter }).then(function(data) {
-			let graphData = data.get("graphData");
-			let chartData = {};
-			chartData.datasets = [];
-			chartData.labels = graphData.label;
-			chartData.datasets.push({
-				data : graphData.data,
-				backgroundColor : [
-					//we can add more colors here in order to accommodate more data columns
-					'rgba(254,204,88,1)',
-					'rgba(254,99,131,1)',
-					'rgb(255, 159, 64)'
-				],
-			});
+			let chartData = self.generateChartData(data.get("graphData"));
 			self.set("chartData", chartData);
 			self.set("violatorInfo", graphData.info);
 		});
