@@ -11,6 +11,9 @@ export default Component.extend({
 	isShown : false,
 	loginError : null,
 
+	didRender() {
+		this.$("#log-username").focus();
+	},
 
 	actions : {
 

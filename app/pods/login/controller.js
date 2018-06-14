@@ -10,7 +10,7 @@ export default Controller.extend({
 			this.transitionToRoute("index");
 		},
 		onHide() {
-			this.transitionToRoute("index");
+			this.transitionToRoute("home");
 		}
 
 	}

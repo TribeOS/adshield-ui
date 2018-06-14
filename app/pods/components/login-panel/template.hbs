@@ -11,11 +11,11 @@
 		{{/if}}
 		<div class="form-group">
 			<label>Username</label>
-			{{input type="text" placeholder="Username" value=identification class="form-control" }}
+			{{input id="log-username" type="text" placeholder="Username" value=identification class="form-control" }}
 		</div>
 		<div class="form-group">
 			<label>Password</label>
-			{{input type="password" placeholder="Password" value=password class="form-control" }}
+			{{input id="log-password" type="password" placeholder="Password" value=password class="form-control" }}
 		</div>
 	{{/modal.body}}
 
@@ -25,3 +25,5 @@
 	{{/modal.footer}}
 
 {{/bs-modal}}
+
+{{outlet}}
