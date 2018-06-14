@@ -1,6 +1,6 @@
 import Component from '@ember/component';
 import Ember from 'ember';
-
+import { computed } from "@ember/object";
 
 export default Component.extend({
 
@@ -12,15 +12,25 @@ export default Component.extend({
 	isLoggedIn : false,
 	isLoginPanelShown : false,
 
+	user : computed(function() {
+		let user = this.get('session.data.authenticated');
+		return user;
+	}),
 
 	actions : {
+
 		showLogin() {
 			this.set("isLoginPanelShown", true);
 		},
-		didUserLoggedIn() {
-			this.set("isLoggedIn", true);
-			this.set("user", this.get("session").getUser());
+		
+		/**
+		 * logs out the user
+		 * @return {[type]} [description]
+		 */
+		invalidateSession() {
+			this.get("session").invalidate();
 		}
+
 	}
 
 });
