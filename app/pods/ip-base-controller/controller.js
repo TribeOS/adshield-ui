@@ -1,6 +1,7 @@
 import Controller from '@ember/controller';
 import { computed } from "@ember/object";
 
+
 export default Controller.extend({
 
 	listModelName : "",
@@ -17,6 +18,7 @@ export default Controller.extend({
 
 	ipSelected : false,
 	no_ip_selected_message : "Select an IP to view...",
+
 
 	init : function() {
 		this._super(...arguments);
@@ -138,7 +140,7 @@ export default Controller.extend({
 	 * @param  {[type]} data [description]
 	 * @return {[type]}      [description]
 	 */
-	customChartData : function(data) {},
+	customChartData : function() {},
 
 
 	actions : {

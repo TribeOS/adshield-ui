@@ -1,0 +1,21 @@
+<div class="navbar-header">
+	<!--
+	<button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+	<span class="sr-only">Toggle navigation</span>
+	<span class="icon-bar"></span>
+	<span class="icon-bar"></span>
+	<span class="icon-bar"></span>
+	</button>
+	-->
+	<a href="#" class="navbar-brand logo-ados"><img src="assets/images/tribeOSLogo.svg" /></a>
+</div>
+<div style="float:right; font-size:24px; padding-top:10px">
+	{{#if session.isAuthenticated}}
+		<h4>
+			Hello, 
+			<a href="#" {{action "invalidateSession"}}>Logout</a>
+		</h4>
+	{{else}}
+		{{#link-to "login"}}Login{{/link-to}}
+	{{/if}}
+</div>

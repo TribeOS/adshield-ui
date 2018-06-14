@@ -21,7 +21,6 @@ export default IpBaseController.extend({
 		self.get('store').queryRecord(this.graphModelName, { filter : this.filter }).then(function(data) {
 			let chartData = self.generateChartData(data.get("graphData"));
 			self.set("chartData", chartData);
-			self.set("violatorInfo", graphData.info);
 		});
 	},
 

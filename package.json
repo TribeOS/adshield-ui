@@ -44,6 +44,7 @@
     "ember-maybe-import-regenerator": "^0.1.6",
     "ember-resolver": "^4.0.0",
     "ember-routable-modal": "^0.6.0",
+    "ember-simple-auth": "^1.6.0",
     "ember-source": "~3.0.0",
     "ember-truth-helpers": "^2.0.0",
     "ember-websockets": "^7.1.1",
