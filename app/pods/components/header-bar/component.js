@@ -28,7 +28,10 @@ export default Component.extend({
 		 * @return {[type]} [description]
 		 */
 		invalidateSession() {
-			this.get("session").invalidate();
+			let self = this;
+			this.get("session").invalidate().then(() => {
+				self.sendAction("didLogOut");
+			});
 		}
 
 	}

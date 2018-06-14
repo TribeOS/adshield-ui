@@ -4,10 +4,4 @@ import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mi
 
 export default Route.extend(ApplicationRouteMixin, {
 
-	actions: {
-        invalidateSession: function() {
-            this.get('session').invalidate();
-        }
-    }
-
 });

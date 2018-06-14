@@ -22,6 +22,7 @@ export default Component.extend({
 				() => {
 					//success
 					self.set("isShown", false);
+					self.sendAction("didLoggedIn");
 				},
 				(err) => {
 					//error

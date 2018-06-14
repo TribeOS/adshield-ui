@@ -2,6 +2,7 @@ import Controller from '@ember/controller';
 import { computed } from "@ember/object";
 import { later } from '@ember/runloop';
 import { inject as service } from '@ember/service';
+import Ember from 'ember';
 
 
 export default Controller.extend({
@@ -167,12 +168,17 @@ export default Controller.extend({
 		}]
 		}];
 
-		this.initFetchData();
-		this.initSocketIO();
+		if (this.get("session").isAuthenticated) {
+			this.initFetchData();
+			this.initSocketIO();
+		} else {
+			this.transitionToRoute("login");
+		}
 
 	},
 
 
+	session : Ember.inject.service('session'),
 
 
 	lastGraphData : 0,
@@ -261,5 +267,15 @@ export default Controller.extend({
 		});
 		return data;
 	}),
+
+
+	actions : {
+
+		didLogOut() {
+			this.transitionToRoute("login");
+		}
+
+	}
+
 
 });

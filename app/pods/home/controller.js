@@ -6,12 +6,7 @@ export default Controller.extend({
 
 	actions : {
 
-		didLoggedIn() {
-			this.transitionToRoute("index");
-		},
-		onHide() {
-			this.transitionToRoute("index");
-		}
+	
 
 	}
 	
