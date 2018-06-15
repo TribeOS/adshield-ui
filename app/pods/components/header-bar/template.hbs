@@ -9,12 +9,12 @@
 	-->
 	<a href="#" class="navbar-brand logo-ados"><img src="assets/images/tribeOSLogo.svg" /></a>
 </div>
-<div style="float:right; font-size:24px; padding-top:10px">
+<div class="loginHolder">
 	{{#if session.isAuthenticated}}
-		<h4>
+		<p>
 			Hello {{ user.username }}, 
 			<a href="#" {{action "invalidateSession"}}>Logout</a>
-		</h4>
+		</p>
 	{{else}}
 		{{#link-to "login"}}Login{{/link-to}}
 	{{/if}}
