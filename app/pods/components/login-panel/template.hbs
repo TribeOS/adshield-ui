@@ -4,17 +4,17 @@
 		<div class="alert alert-danger">{{loginError}}</div>
 	{{/if}}
 
-  	{{#form.group validation=usernameValidation}}
+  	{{#form.group}}
   		<label>Username</label>
-		{{input id="log-username" type="text" placeholder="Username" value=identification class="form-control" }}
+		{{input type="text" placeholder="Username" value=identification class="form-control" }}
 	{{/form.group}}
 
-	{{#form.group validation=passwordValidation}}
+	{{#form.group}}
 		<label>Password</label>
-		{{input id="log-password" type="password" placeholder="Password" value=password class="form-control" }}
+		{{input type="password" placeholder="Password" value=password class="form-control" }}
  	{{/form.group}}
 
 
- 	<button>Login</button>
+ 	<button class="btn btn-success">Login</button>
  	
 {{/bs-form}}
