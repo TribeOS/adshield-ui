@@ -644,3 +644,15 @@ h1.iconTitle {
 	margin-bottom:20px !important;
 	padding-top:0 !important
 }
+
+.loginHolder {
+	float:right; font-size:24px; padding-top:10px
+}
+
+.loginHolder a {
+	text-decoration:none !important
+}
+
+.loginHolder p {
+	color:#f2602c
+}
