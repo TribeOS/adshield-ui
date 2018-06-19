@@ -28,19 +28,28 @@
 			<div class="col-lg-5">
 			    <div class="contentbox mBottom">
 		        	<h1>Account Information</h1>
-		            <p><strong>Company</strong></p>
-                    {{#if (eq isEditAccount false)}}
-                    	<p>{{ settings.account.company }}</p>
-                    {{else}}
-                    	{{input type="text" value=settings.account.company class="form-control"}}
-                    {{/if}}
-                    <p><strong>Address</strong></p>
-                    {{#if (eq isEditAccount false)}}
-                    	<p>{{ settings.account.address }}</p>
-                    {{else}}
-                    	{{input type="text" value=settings.account.address class="form-control"}}
-                    {{/if}}
-                    <button class="btn btn-secondary" {{action "editAccount"}}>Edit</button>
+		            
+		            <div class="form-group">
+			            <p><strong>Company</strong></p>
+	                    {{#if (eq isEditAccount false)}}
+	                    	<p>{{ settings.account.company }}</p>
+	                    {{else}}
+	                    	{{input type="text" value=settings.account.company class="form-control"}}
+	                    {{/if}}
+                   	</div>
+
+                   	<div class="form-group">
+	                    <p><strong>Address</strong></p>
+	                    {{#if (eq isEditAccount false)}}
+	                    	<p>{{ settings.account.address }}</p>
+	                    {{else}}
+	                    	{{input type="text" value=settings.account.address class="form-control"}}
+	                    {{/if}}
+	                </div>
+
+                    <button class="btn btn-secondary {{if isEditAccount "btn-success" "btn-warning" }}" {{action "editAccount"}}>
+                    	{{if isEditAccount "Save" "Edit" }}
+                    </button>
 		        </div>
 
 		        <div class="contentbox">
