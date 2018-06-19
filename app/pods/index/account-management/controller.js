@@ -1,18 +1,32 @@
 import IpBaseController from '../../ip-base-controller/controller';
 import { computed } from "@ember/object";
+import EmberObject from '@ember/object';
+
 
 export default IpBaseController.extend({
 
-
-	record : null,
 	settings : computed(function() {}),
 
 	isEditAccount : false,
+
+	record : null,
+	EmailNotification : EmberObject.extend({
+		email : "", coverage : ""
+	}),
+	newEmailNotificationEmail : "",
+	newEmailNotificationCoverage : "all",
 
 	choicesBoolean : computed(function() {
 		return [
 			{ value : 'yes', label : 'Yes' },
 			{ value : 'no', label : 'No' }
+		];
+	}),
+
+	choicesCoverage : computed(function() {
+		return [
+			{ value : 'all', label : 'All' },
+			{ value : 'settings', label : 'Settings' }
 		];
 	}),
 
@@ -71,8 +85,29 @@ export default IpBaseController.extend({
 		},
 		doneEditAccount() {
 			this.set("isEditAccount", false);
+		},
+
+
+		removeEmailNotification(emailNotification) {
+			let settings = this.get("settings");
+			settings.emailNotifications.removeObject(emailNotification);
+			this.set("settings", settings);
+		},
+		addEmailNotification(email, coverage) {
+			if (email.trim().length == 0) return false;
+
+			let settings = this.get("settings");
+			let obj = this.EmailNotification.create({
+				email : email,
+				coverage : coverage
+			});
+			settings.emailNotifications.addObject(obj)
+			this.set("newEmailNotificationCoverage", "");
+			this.set("newEmailNotificationEmail", "");
+		},
+		onEmailCoverageSelect(selection) {
+			this.set("newEmailNotificationCoverage", selection);
 		}
-		
 	},
 
 });

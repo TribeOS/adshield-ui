@@ -48,28 +48,24 @@
 					<p>Add emails where you would like to receive various email notifications from Distil Networks</p>
 					<table class="table table-bordered marBot">
 						<tbody>
-							<tr>
-								<td width="35%" valign="middle">is@tr.be</td>
-								<td width="40%" valign="middle"><span class="glyphicon glyphicon-ok"></span> All</td>
-								<td width="25%" align="center"><button type="button" class="btn btn-default">-</button></td>
-							</tr>
-							<tr>
-								<td width="35%" valign="middle">jw@tr.be</td>
-								<td width="40%" valign="middle"><span class="glyphicon glyphicon-ok"></span> All</td>
-								<td width="25%" align="center"><button type="button" class="btn btn-default">-</button></td>
-							</tr>
+							{{#each settings.emailNotifications as |emailNotification|}}
+								<tr>
+									<td width="35%" valign="middle">{{ emailNotification.email }}</td>
+									<td width="40%" valign="middle"><span class="glyphicon glyphicon-ok"></span> {{ emailNotification.coverage }}</td>
+									<td width="25%" align="center">
+										<button class="btn btn-default" {{action "removeEmailNotification" emailNotification}}>-</button>
+									</td>
+								</tr>
+							{{/each}}
 							<tr>
 								<td width="35%" valign="middle">
-									{{input style="width:100%; border:#ccc solid 1px; padding:5px" placeholder="Email Address" type="text" value=newEmailAddress }}
+									{{input class="form-control" placeholder="Email Address" type="email" required="required" value=newEmailNotificationEmail }}
 								</td>
 								<td width="40%" valign="middle">
-									<select class="">
-										<option selected>Select</option>
-										<option>Yes</option>
-									</select>
+									{{select-box choices=choicesCoverage onSelect="onEmailCoverageSelect" }}
 								</td>
 								<td width="25%" align="center">
-									<button type="button" class="btn btn-default">+</button>
+									<button type="button" class="btn btn-default" {{action "addEmailNotification" newEmailNotificationEmail newEmailNotificationCoverage }}>+</button>
 								</td>
 							</tr>
 						</tbody>
