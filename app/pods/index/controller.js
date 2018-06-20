@@ -88,6 +88,9 @@ export default Controller.extend({
 				icon: "assets/images/icon_settings.png",
 				title: "Settings",
 				items: [{
+					route : "index.api-setting",
+					title : "Api Settings"
+				},{
 					route: "index.content-protection",
 					title: "Content Protection"
 				},{
@@ -180,6 +183,7 @@ export default Controller.extend({
 
 	session : Ember.inject.service('session'),
 
+	socketServerUrl : "https://socketio.adshield.tribeos.io",
 
 	lastGraphData : 0,
 
@@ -199,7 +203,7 @@ export default Controller.extend({
 
 	initSocketIO : function() {
 		let self = this;
-		let socket = this.get("socketio").socketFor("https://socketio.adshield.tribeos.io");
+		let socket = this.get("socketio").socketFor(this.get("socketServerUrl"));
 		socket.on("connect", function() {
 			socket.on("adshield:App\\Events\\AdShieldUpdated", self.dataReceived, self);
 		});

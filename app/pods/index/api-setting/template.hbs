@@ -1,0 +1,69 @@
+{{#bs-modal open=1 size="lg" onHide=(action "onHide") onShow=(action "refresh") as |modal| }}
+	
+
+	{{#modal.header}}
+		<h5 class="modal-title">Api Settings</h5>
+	{{/modal.header}}
+
+
+	{{#modal.body}}
+		<div class="boxpad row">    
+
+			<div class="col-lg-7 no-pad-right">
+				<h4>My Websites</h4>
+		    	<div class="contentbox">
+		        	<table class="table">
+		        		<thead>
+		        			<th>Domain/Website</th>
+		        			<th>Domain Key/ID</th>
+		        			<th></th>
+		        		</thead>
+		        		{{#each userWebsites as |userWebsite|}}
+		        			<tr>
+		        				<td>{{ userWebsite.domain }}</td>
+		        				<td>{{ userWebsite.userKey }}</td>
+		        				<td><button class="btn btn-sm btn-info" {{action "viewDetail" userWebsite}}>Detail</button></td>
+		        			</tr>
+		        		{{/each}}
+		        	</table>
+		        </div>
+		    </div>      
+			<div class="col-lg-5">
+		    	<p>
+		    		Click on the "detail" button to view the website detail and how to install the JS library to it.
+		    	</p>
+		    	<h3>Create new website</h3>
+		    	<form>
+		    		<div class="form-group">
+		    			<input type="text" class="form-control" value={{newWebsiteDomain}} placeholder="yourwebsite.com" />
+		    		</div>
+		    		<div class="form-group">
+		    			<input type="text" class="form-control" value={{newWebsiteUserKey}} placeholder="Key" />
+		    		</div>
+		    		<button class="btn btn-sm btn-success" {{action "createWebsite"}}>Create Website</button>
+		    	</form>
+		    </div>      
+		  
+		</div>
+
+	{{/modal.body}}
+
+
+	{{#modal.footer}}
+		{{#bs-button onClick=(action "onSave") type="success"}} Save {{/bs-button}}
+	{{/modal.footer}}
+
+{{/bs-modal}}
+
+
+
+{{#bs-modal-simple open=isDetailShown onHide=(action "hideDetail") as |modal| }}
+	<p>
+		Copy the code below and paste it on the webpage that you want to protect/track.
+	</p>
+	<div class="contentbox mBottom">
+		<p>
+			<code>{{ installCode }}</code>
+		</p>
+	</div>
+{{/bs-modal-simple}}

@@ -28,9 +28,7 @@ export default Controller.extend({
 
 	refreshList : function(page, limit, filter, sort) {
 		let self = this;
-		self.get('store').queryRecord(this.listModelName, { page : page, limit : limit, filter : filter, sort : sort }).then(function(data) {
-			self.set("model", data);
-			self.set("listData", self.get("model").get("listData"));
+		self.get('store').queryRecord(this.get("listModelName"), { page : page, limit : limit, filter : filter, sort : sort }).then(function(data) {
 			var listData = data.get("listData");
 			listData.headers = ['IP', '# of Violations'];
 			listData.data.forEach((item) => {
@@ -50,6 +48,7 @@ export default Controller.extend({
 					value : old
 				}
 			});
+			self.set("listData", listData);
 		});
 	},
 

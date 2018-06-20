@@ -19,6 +19,7 @@ Router.map(function() {
         this.route('captcha-request');
         this.route('desirable-automated-traffic');
         this.route('targeted-content');
+        this.route('api-setting');
         this.route('content-protection');
         this.route('custom-page');
         this.route('ip-access-list');
