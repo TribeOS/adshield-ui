@@ -9,6 +9,8 @@ export default IpBaseController.extend({
 	userWebsites : null,
 	installCode : "",
 	isDetailShown : false,
+	newWebsiteUserKey : "",
+	newWebsiteDomain : "",
 
 	init : function() {
 		this._super(...arguments);
@@ -25,11 +27,17 @@ export default IpBaseController.extend({
 	},
 	
 
-	saveData : function() {
-		// let record = this.get("record");
-		// let settings = this.get("settings");
-		// record.set("pageData", settings);
-		// record.save();
+	createWebsite : function(userKey, siteDomain) {
+		let store = this.get("store");
+		let website = store.createRecord("userWebsite", {
+			userKey : userKey,
+			domain : siteDomain,
+			status : 1
+		});
+		let self = this;
+		website.save().then(() => {
+			self.fetchData();
+		});
 	},
 
 	actions : {
@@ -41,9 +49,6 @@ export default IpBaseController.extend({
 			this.transitionToRoute("index");
 		},
 		onSelect(selected) {
-		},
-		onSave() {
-			this.saveData();
 		},
 
 		viewDetail(userWebsite) {
@@ -65,13 +70,9 @@ export default IpBaseController.extend({
 			this.set("isDetailShown", false);
 		},
 		createWebsite() {
-			// let userWebsites = this.get("userWebsites");
-			// let self = this;
-			// userWebsites.addObject({
-			// 	userKey : self.get("newWebsiteUserKey"),
-			// 	domain : self.get("newWebsiteDomain")
-			// });
-			// this.set("userWebsites", userWebsites);
+			let userKey = this.get("newWebsiteUserKey");
+			let siteDomain = this.get("newWebsiteDomain");
+			this.createWebsite(userKey, siteDomain);
 		}
 		
 	},

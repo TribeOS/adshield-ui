@@ -1,12 +1,5 @@
-{{#bs-modal open=1 size="lg" onHide=(action "onHide") onShow=(action "refresh") as |modal| }}
+{{#bs-modal-simple title="Api Settings" open=1 size="lg" onHide=(action "onHide") onShow=(action "refresh") as |modal| }}
 	
-
-	{{#modal.header}}
-		<h5 class="modal-title">Api Settings</h5>
-	{{/modal.header}}
-
-
-	{{#modal.body}}
 		<div class="boxpad row">    
 
 			<div class="col-lg-7 no-pad-right">
@@ -22,7 +15,9 @@
 		        			<tr>
 		        				<td>{{ userWebsite.domain }}</td>
 		        				<td>{{ userWebsite.userKey }}</td>
-		        				<td><button class="btn btn-sm btn-info" {{action "viewDetail" userWebsite}}>Detail</button></td>
+		        				<td>
+		        					<button class="btn btn-sm btn-info" {{action "viewDetail" userWebsite}}>Detail</button>
+		        				</td>
 		        			</tr>
 		        		{{/each}}
 		        	</table>
@@ -35,10 +30,10 @@
 		    	<h3>Create new website</h3>
 		    	<form>
 		    		<div class="form-group">
-		    			<input type="text" class="form-control" value={{newWebsiteDomain}} placeholder="yourwebsite.com" />
+		    			{{input type="text" class="form-control" value=newWebsiteDomain placeholder="yourwebsite.com" }}
 		    		</div>
 		    		<div class="form-group">
-		    			<input type="text" class="form-control" value={{newWebsiteUserKey}} placeholder="Key" />
+		    			{{input type="text" class="form-control" value=newWebsiteUserKey placeholder="Key" }}
 		    		</div>
 		    		<button class="btn btn-sm btn-success" {{action "createWebsite"}}>Create Website</button>
 		    	</form>
@@ -46,14 +41,7 @@
 		  
 		</div>
 
-	{{/modal.body}}
-
-
-	{{#modal.footer}}
-		{{#bs-button onClick=(action "onSave") type="success"}} Save {{/bs-button}}
-	{{/modal.footer}}
-
-{{/bs-modal}}
+{{/bs-modal-simple}}
 
 
 
