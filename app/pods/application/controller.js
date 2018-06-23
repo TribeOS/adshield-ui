@@ -6,7 +6,7 @@ export default Controller.extend({
 
 	actions : {
 		didLogOut() {
-			this.transitionToRoute("login");
+			this.transitionToRoute("home");
 		}
 	},
 

@@ -8,6 +8,7 @@ const Router = EmberRouter.extend({
 
 Router.map(function() {
     this.route('home', { path : '/' });
+    this.route('login', { path : '/login' });
     this.route('index', { path: '/dash' }, function() {
         this.route('dashboard');
         this.route('threats-summary');
