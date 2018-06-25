@@ -20,15 +20,15 @@
 									{{#if (eq item.type 'component')}}
 										<li class="list-group-item">
 											{{#if item.showStat}}
-												{{component item.name showStat=true stats=adshieldStats}}
+												{{component item.name showStat=true stats=adshieldStats onFinishedLoading=(action "onFinishedLoading")}}
 											{{else if item.showLive}}
-												{{component item.name showLive=true chartData=adshieldChartData lastGraphData=lastGraphData}}
+												{{component item.name showLive=true chartData=adshieldChartData lastGraphData=lastGraphData onFinishedLoading=(action "onFinishedLoading")}}
 											{{else if item.showClicks}}
-												{{component item.name showClicks=true stats=adshieldStats}}
+												{{component item.name showClicks=true stats=adshieldStats onFinishedLoading=(action "onFinishedLoading")}}
 											{{else if item.showCount}}
-												{{component item.name showCount=true stats=adshieldStats}}
+												{{component item.name showCount=true stats=adshieldStats onFinishedLoading=(action "onFinishedLoading")}}
 											{{else if item.showMap}}
-												{{component item.name showMap=true stats=adshieldStats}}
+												{{component item.name showMap=true stats=adshieldStats onFinishedLoading=(action "onFinishedLoading")}}
 											{{/if}}
 										</li>
 									{{else}}

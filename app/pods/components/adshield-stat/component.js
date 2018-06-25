@@ -16,6 +16,7 @@ export default Component.extend({
 
 	didInsertElement() {
 		if (this.get("showLive") == true) this.updateGraph();
+		this.sendAction("onFinishedLoading");
 	},
 
 	updateGraph : function() {

@@ -170,14 +170,7 @@ export default Controller.extend({
 				}]
 		}]
 		}];
-
-		if (this.get("session").isAuthenticated) {
-			this.initFetchData();
-			this.initSocketIO();
-		} else {
-			this.transitionToRoute("login");
-		}
-
+	
 	},
 
 
@@ -229,8 +222,9 @@ export default Controller.extend({
 			this.set("adshieldChartData", cData);
 			this.notifyPropertyChange('adshieldChartData');
 		}
-		
-		asStat.filteredStats = this.getFilteredStats(asStat);
+		try {
+			asStat.filteredStats = this.getFilteredStats(asStat);
+		} catch (e) {}
 		this.set("adshieldStats", asStat);
 	},
 
@@ -275,6 +269,10 @@ export default Controller.extend({
 
 	actions : {
 
+		onFinishedLoading() {
+			this.initFetchData();
+			this.initSocketIO();
+		},
 		didLogOut() {
 			this.transitionToRoute("login");
 		}
