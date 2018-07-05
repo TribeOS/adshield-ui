@@ -22,7 +22,7 @@ export default Controller.extend({
 
 	init : function() {
 		this._super(...arguments);
-		this.filter = { userKey : "", duration : "0", status : 0, ip : "" };
+		this.filter = { userKey : "", duration : "0", status : 0, ip : "", dateFrom : "", dateTo : "" };
 		this.sort = { by : "last_updated", dir : "asc" };
 	},
 
@@ -174,11 +174,17 @@ export default Controller.extend({
 		onHide() {
 			this.transitionToRoute("index");
 		},
+		onFromDateChanged(dates, selectedDate, flatpickr) {
+			this.set("filter.dateFrom", selectedDate);
+		},
+		onToDateChanged(dates, selectedDate, flatpickr) {
+			this.set("filter.dateTo", selectedDate);
+		},
 		onIpClick(param) {
 			this.set("ipSelected", true);
 			let ip = param.value;
 			this.refreshGraph(ip);
-		}
+		},
 	}
 
 });
