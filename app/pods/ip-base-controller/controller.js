@@ -144,6 +144,7 @@ export default Controller.extend({
 
 	actions : {
 		firstPage() {
+			if (this.get("page") == 1) return;
 			this.set("page", 1);
 			this.refreshList(this.page, this.limit, this.filter, this.sort);
 		},
@@ -161,6 +162,7 @@ export default Controller.extend({
 		},
 		lastPage() {
 			var listData = this.get("listData");
+			if (this.get("page") == listData.last_page) return;
 			this.set("page", listData.last_page);
 			this.refreshList(this.page, this.limit, this.filter, this.sort);
 		},
@@ -168,7 +170,6 @@ export default Controller.extend({
 			this.filter.duration = value;
 		},
 		refresh() {
-			this.set("page", 1);
 			this.refreshList(this.page, this.limit, this.filter, this.sort);
 		},
 		onHide() {

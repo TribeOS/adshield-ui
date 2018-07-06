@@ -12,7 +12,7 @@ export default IpBaseController.extend({
 
 	refreshGraph : function() {
 		let self = this;
-		self.get('store').queryRecord("threatGraph", { }).then(function(data) {
+		self.get('store').queryRecord("threatGraph", { filter : this.filter }).then(function(data) {
 			let graphData = data.get("graphData");
 			let chartData = {};
 			chartData.automatedTrafficClassification = self.generateChartData(graphData.automatedTrafficClassification);

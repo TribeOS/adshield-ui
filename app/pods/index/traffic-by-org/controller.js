@@ -12,12 +12,20 @@ export default IpBaseController.extend({
 
 	refreshList : function(page, limit, filter, sort) {
 		let self = this;
-		self.get('store').queryRecord("trafficByOrg", { }).then(function(data) {
+		self.get('store').queryRecord("trafficByOrg", { filter : this.filter }).then(function(data) {
 			let listData = data.get("listData");
 			listData.headers = ['Organization', 'Total Threats', 'Top Country by Threats'];
 			
 			self.set("listData", listData);
 		});
 	},
+
+
+	actions : {
+		onSelectDay(value) {
+			this.filter.duration = value;
+			this.refreshList(this.page, this.limit, this.filter, this.sort);
+		},
+	}
 
 });

@@ -13,7 +13,7 @@ export default IpBaseController.extend({
 	},
 
 
-	fetchData : function() {
+	refreshList : function(page, limit, filter, sort) {
 		var self = this;
 		self.get('store').queryRecord("captchaRequest", { filter : self.filter }).then(function(data) {
 			let pageData = data.get("pageData");
@@ -30,9 +30,10 @@ export default IpBaseController.extend({
 	actions : {
 		onSelectDay(value) {
 			this.filter.duration = value;
+			this.refreshList(this.page, this.limit, this.filter, this.sort);
 		},
 		refresh() {
-			this.fetchData();
+			this.refreshList(this.page, this.limit, this.filter, this.sort);
 		},
 		onHide() {
 			this.transitionToRoute("index");

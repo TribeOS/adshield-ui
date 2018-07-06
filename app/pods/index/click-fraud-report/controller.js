@@ -13,9 +13,9 @@ export default IpBaseController.extend({
 	},
 
 
-	fetchData : function() {
+	refreshList : function(page, limit, filter, sort) {
 		var self = this;
-		self.get('store').queryRecord("clickFraudReport", { filter : self.filter }).then(function(data) {
+		self.get('store').queryRecord("clickFraudReport", { filter : filter }).then(function(data) {
 			let pageData = data.get("pageData");
 			let chartData = {};
 			chartData.automatedClicksVsAdClicks = self.generateChartData(pageData.automatedClicksVsAdClicks);
@@ -41,9 +41,10 @@ export default IpBaseController.extend({
 	actions : {
 		onSelectDay(value) {
 			this.filter.duration = value;
+			this.refreshList(this.page, this.limit, this.filter, this.sort);
 		},
 		refresh() {
-			this.fetchData();
+			this.refreshList(this.page, this.limit, this.filter, this.sort);
 		},
 		onHide() {
 			this.transitionToRoute("index");
