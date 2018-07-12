@@ -56,6 +56,7 @@ export default IpBaseController.extend({
 		},
 		onSelectDay(value) {
 			this.filter.duration = value;
+			this.refreshGraph(this.page, this.limit, this.filter, this.sort);
 		},
 	}
 

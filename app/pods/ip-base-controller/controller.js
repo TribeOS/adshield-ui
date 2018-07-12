@@ -168,6 +168,7 @@ export default Controller.extend({
 		},
 		onSelectDay(value) {
 			this.filter.duration = value;
+			this.refreshList(this.page, this.limit, this.filter, this.sort);
 		},
 		refresh() {
 			this.refreshList(this.page, this.limit, this.filter, this.sort);
