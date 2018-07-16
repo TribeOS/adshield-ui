@@ -54,6 +54,10 @@ export default IpBaseController.extend({
 		onSave() {
 			this.saveData();
 		},
+		onSelectDay(value) {
+			this.filter.duration = value;
+			this.fetchData();
+		},
 		
 	},
 

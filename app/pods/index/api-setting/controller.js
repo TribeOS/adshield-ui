@@ -12,6 +12,7 @@ export default IpBaseController.extend({
 	newWebsiteUserKey : "",
 	newWebsiteDomain : "",
 
+
 	init : function() {
 		this._super(...arguments);
 		this.filter = { userKey : "", duration : "0", status : 0, ip : "" };
@@ -40,14 +41,18 @@ export default IpBaseController.extend({
 		});
 	},
 
+
 	actions : {
+
 		refresh() {
 			this.set("page", 1);
 			this.fetchData();
 		},
+		
 		onHide() {
 			this.transitionToRoute("index");
 		},
+
 		onSelect(selected) {
 		},
 
@@ -66,12 +71,19 @@ export default IpBaseController.extend({
 
 			this.set("isDetailShown", true);
 		},
+
 		hideDetail() {
 			this.set("isDetailShown", false);
 		},
+
 		createWebsite() {
 			let userKey = this.get("newWebsiteUserKey");
 			let siteDomain = this.get("newWebsiteDomain");
+
+			if (userKey.trim().length == 0 || siteDomain.trim().length == 0) {
+				alert("Please fill in all the fields.");
+				return false;
+			}
 			this.createWebsite(userKey, siteDomain);
 		}
 		
