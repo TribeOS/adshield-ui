@@ -38,6 +38,8 @@ export default IpBaseController.extend({
 		let self = this;
 		website.save().then(() => {
 			self.fetchData();
+		}).catch(function(d) {
+			alert(d.errors[0].detail);
 		});
 	},
 

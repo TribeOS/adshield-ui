@@ -2,7 +2,7 @@ import OAuth2PasswordGrantAuthenticator from 'ember-simple-auth/authenticators/o
 
 export default OAuth2PasswordGrantAuthenticator.extend({
 
-	// serverTokenEndpoint: "https://api.adshield.tribeos.io/login"
-	serverTokenEndpoint: "http://localhost:90/login"
+	serverTokenEndpoint: "https://api.adshield.tribeos.io/login"
+	// serverTokenEndpoint: "http://localhost:90/login"
 
 });
