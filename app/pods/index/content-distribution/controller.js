@@ -9,8 +9,8 @@ export default IpBaseController.extend({
 
 	choicesBoolean : computed(function() {
 		return [
-			{ value : 'yes', label : 'Yes' },
-			{ value : 'no', label : 'No' }
+			{ value : 1, label : 'Yes' },
+			{ value : 0, label : 'No' }
 		];
 	}),
 
@@ -37,7 +37,11 @@ export default IpBaseController.extend({
 		let record = this.get("record");
 		let settings = this.get("settings");
 		record.set("pageData", settings);
-		record.save();
+		record.save().then(function(response) {
+			alert("Settings Saved.");
+		}).catch(function(error) {
+			alert("Error : " + error);
+		});
 	},
 
 	actions : {

@@ -22,7 +22,7 @@ export default IpBaseController.extend({
 
 	fetchData : function() {
 		var self = this;
-		self.get('store').query("userWebsite", {}).then(function(data) {
+		self.get('store').query("userWebsite", { filter : self.filter }).then(function(data) {
 			self.set("userWebsites", data);
 		});
 	},
