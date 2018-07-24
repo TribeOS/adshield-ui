@@ -7,15 +7,6 @@ export default IpBaseController.extend({
 	record : null,
 	settings : computed(function() {}),
 
-	choicesBoolean : computed(function() {
-		return [
-			{ value : 1, label : 'Yes' },
-			{ value : 0, label : 'No' }
-		];
-	}),
-
-
-
 	init : function() {
 		this._super(...arguments);
 		this.filter = { userKey : "", duration : "0", status : 0, ip : "" };

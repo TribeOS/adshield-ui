@@ -20,6 +20,36 @@ export default Controller.extend({
 	no_ip_selected_message : "Select an IP to view...",
 
 
+	/**
+	 * for dropdown choices on forms
+	 * @param  {[type]} )             {		return    [			{    value         : 'block', label : 'Block'} [description]
+	 * @param  {[type]} options.value :             'captcha' [description]
+	 * @param  {[type]} options.label :             'Captcha' [description]
+	 * @param  {[type]} ];	}         [description]
+	 * @return {[type]}               [description]
+	 */
+	choicesBlock : computed(function() {
+		return [
+			{ value : 'block', label : 'Block'},
+			{ value : 'captcha', label : 'Captcha'},
+		];
+	}),
+
+	/**
+	 * for dropdown choices on yes/no questions
+	 * @param  {[type]} )             {		return    [			{ value         :             "1", label : 'Yes' } [description]
+	 * @param  {[type]} options.value :             "0"    [description]
+	 * @param  {[type]} options.label :             'No'   }		];        [description]
+	 * @return {[type]}               [description]
+	 */
+	choicesBoolean : computed(function() {
+		return [
+			{ value : "1", label : 'Yes' },
+			{ value : "0", label : 'No' }
+		];
+	}),
+
+
 	init : function() {
 		this._super(...arguments);
 		this.filter = { userKey : "", duration : "0", status : 0, ip : "", dateFrom : "", dateTo : "" };
