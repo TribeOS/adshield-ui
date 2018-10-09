@@ -26,7 +26,6 @@ export default IpBaseController.extend({
 			self.set("userWebsites", data);
 		});
 	},
-	
 
 	createWebsite : function(userKey, siteDomain) {
 		let store = this.get("store");

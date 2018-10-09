@@ -1,6 +1,18 @@
 {{#bs-modal-simple open=1 size="lg" title="Custom Pages" onHide=(action "onHide") onShow=(action "refresh") as |modal| }}
 
 <div class="boxpad row">
+	<div class="container">
+		<form class="form-inline"  style="margin-bottom:10px">
+			<div class="form-group">
+				<label style="color:#666">Show countries for this website : &nbsp;</label>
+				<select class="form-control" onChange={{action "onSelectSite" value="target.value"}}>
+					{{#each userWebsites as |item|}}
+						<option value="{{ item.userKey }}">{{ item.domain }}</option>
+					{{/each}}
+				</select>
+			</div>
+		</form>
+	</div>
 	<div class="col-lg-7 no-pad-right">
 		<div class="contentbox">
 			<h1>Manage your country acccess list</h1>
@@ -35,6 +47,8 @@
 				<ul>
 				{{#each searchResult as |country|}}
 					<li>{{input type="checkbox" checked=country.selected }} {{ country.countryName }} ({{ country.countryCode }}) </li>
+				{{else}}
+					<dt>No result...</dt>
 				{{/each}}
 				</ul>
 			</div>
