@@ -1,11 +1,10 @@
 import DS from 'ember-data';
 import DataAdapterMixin from 'ember-simple-auth/mixins/data-adapter-mixin';
-
+import ENV from 'adshield-ui/config/environment';
 
 export default DS.RESTAdapter.extend(DataAdapterMixin, {
 
-	host : "https://api.adshield.tribeos.io",
-	// host : "http://localhost:90",
+	host : ENV.APP.HOST,
 
 	authorize(xhr) {
 	    let { access_token } = this.get('session.data.authenticated');

@@ -46,6 +46,8 @@ module.exports = function(environment) {
     ENV.APP.LOG_TRANSITIONS = true;
     ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     ENV.APP.LOG_VIEW_LOOKUPS = true;
+    ENV.APP.HOST = "http://localhost:90";
+    ENV.APP.AUTH_URL = "http://localhost:90/login";
   }
 
   if (environment === 'test') {
@@ -62,6 +64,8 @@ module.exports = function(environment) {
 
   if (environment === 'production') {
     // here you can enable a production-specific feature
+    ENV.APP.HOST = "https://api.adshield.tribeos.io";
+    ENV.APP.AUTH_URL = "https://api.adshield.tribeos.io/login";
   }
 
   return ENV;

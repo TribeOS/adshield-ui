@@ -4,7 +4,7 @@ import {
 } from "@ember/object";
 
 export default IpBaseController.extend({
-    blockList: computed(function() {}),
+    blockList: [],
     searchResult: computed(function() {}),
     keyword: "",
     userWEbsites : [],
@@ -21,7 +21,6 @@ export default IpBaseController.extend({
             by: "last_updated",
             dir: "asc"
         };
-        this.fetchMySites();
     },
     fetchData: function() {
         var self = this;
@@ -56,9 +55,7 @@ export default IpBaseController.extend({
                 userKey : self.filter.userKey
             });
             entry.save().then(function(response) {
-            	//TODO : dynamically add the newly saved entry to the blocklist 
-            	// so users can see them being added to the list
-            	//self.blockList.pushObject(entry);
+            	self.fetchData();
         	});
         });
         this.set("searchResult", null);
@@ -82,6 +79,7 @@ export default IpBaseController.extend({
         refresh() {
             this.set("page", 1);
             this.fetchData();
+            this.fetchMySites();
         },
         onHide() {
             this.transitionToRoute("index");

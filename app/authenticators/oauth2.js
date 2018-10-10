@@ -1,8 +1,8 @@
 import OAuth2PasswordGrantAuthenticator from 'ember-simple-auth/authenticators/oauth2-password-grant';
+import ENV from 'adshield-ui/config/environment';
 
 export default OAuth2PasswordGrantAuthenticator.extend({
 
-	serverTokenEndpoint: "https://api.adshield.tribeos.io/login"
-	// serverTokenEndpoint: "http://localhost:90/login"
+	serverTokenEndpoint : ENV.APP.AUTH_URL,
 
 });
