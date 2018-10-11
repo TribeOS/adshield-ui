@@ -15,6 +15,7 @@ export default IpBaseController.extend({
 	}),
 	newEmailNotificationEmail : "",
 	newEmailNotificationCoverage : "all",
+	users : [],
 
 	choicesBoolean : computed(function() {
 		return [
@@ -41,24 +42,18 @@ export default IpBaseController.extend({
 
 	fetchData : function() {
 		var self = this;
+		//get page data (account info)
 		self.get('store').queryRecord("accountManagement", {}).then(function(data) {
 			self.set("record", data);
 			let pageData = data.get("pageData");
 			self.set("settings", pageData);
 		});
+
+		//get users under this account
+		self.get('store').query("user", {}).then(function(data) {
+			self.set("users", data);
+		});
 	},
-
-
-	getAccessString : function(level) {
-		switch(level) {
-			case 1 : return "account access"; break;
-			case 2 : return "report access"; break;
-			case 3 : return "settings access"; break;
-			default: "n/a";
-		}
-
-	},
-	
 
 	saveData : function() {
 		let record = this.get("record");
@@ -107,7 +102,17 @@ export default IpBaseController.extend({
 		},
 		onEmailCoverageSelect(selection) {
 			this.set("newEmailNotificationCoverage", selection);
+		},
+
+		editUser(user) {
+			this.transitionToRoute('index.user', { queryParams : { id : user.id }});
+		},
+
+		newUser(user) {
+			this.transitionToRoute('index.user', { queryParams : { id : 0 }});
 		}
+
+
 	},
 
 });

@@ -1,5 +1,4 @@
 {{#bs-modal open=1 size="lg" onHide=(action "onHide") onShow=(action "refresh") as |modal| }}
-	
 
 	{{#modal.header}}
 		<h5 class="modal-title">Account Management</h5>
@@ -7,28 +6,30 @@
 
 
 	{{#modal.body}}
-		<div class="boxpad row">    
+		<div class="boxpad row">
 
 			<div class="col-lg-7 no-pad-right">
 		    	<div class="contentbox">
 		        	<h1>User Management</h1>
+		        	<button class="btn btn-sm btn-success pull-right" {{ action "newUser" }}>New User</button>
 					<table class="table table-bordered marBot">
 						<tbody>
-							{{#each settings.users as |user|}}
+							{{#each users as |user|}}
 								<tr>
-									<td width="35%">{{user.email}}</td>
-									<td width="40%">{{user.accessLevel}}</td>
-									<td width="25%" align="right"><span class="glyphicon glyphicon-menu-right"></span></td>
+									<td width="35%">{{ user.email }}</td>
+									<td width="40%">{{ show-access-level 2 }}</td>
+									<td width="25%" align="right">
+										<button class="btn btn-sm" {{action "editUser" user}}><i class="glyphicon glyphicon-menu-right"></i></button>
+									</td>
 								</tr>
 							{{/each}}
 						</tbody>
 					</table>
 		        </div>
-		    </div>      
+		    </div>
 			<div class="col-lg-5">
 			    <div class="contentbox mBottom">
 		        	<h1>Account Information</h1>
-		            
 		            <div class="form-group">
 			            <p><strong>Company</strong></p>
 	                    {{#if (eq isEditAccount false)}}
@@ -85,8 +86,7 @@
 					<p><strong>Password Protection Settings</strong></p>
 					<button class="btn btn-secondary">Configure Settings</button>
 		        </div>
-		    </div>      
-		  
+		    </div>
 		</div>
 	{{/modal.body}}
 

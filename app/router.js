@@ -26,6 +26,7 @@ Router.map(function() {
         this.route('country-block-list');
         this.route('content-distribution');
         this.route('account-management');
+        this.route('user');
         this.route('complete-log');
         this.route('traffic-summary');
         this.route('cache-analysis');
