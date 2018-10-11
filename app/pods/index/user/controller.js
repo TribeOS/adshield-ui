@@ -8,7 +8,9 @@ export default IpBaseController.extend({
 	queryParams : ['id'],
 	settings : computed(function() {}),
 
-	isEditAccount : false,
+	isNewUser : computed(function() {
+		return this.id == 0;
+	}),
 
 	record : null,
 	user : {},
@@ -36,14 +38,20 @@ export default IpBaseController.extend({
 	},
 
 	saveData : function() {
-		user.save().then(function(response) {
+		this.user.save().then(function(response) {
 			console.log(response);
 		});
 	},
 
 	actions : {
 		refresh() {
-			if (this.get("id") == 0) return;
+			if (this.get("id") == 0) {
+				let record = this.get('store').createRecord('user', {
+					firstname : '', lastname : '', email : '', username : '', permission : 1, password : ""
+				});
+				this.set("user", record);
+				return;
+			}
 			this.fetchData();
 		},
 		onHide() {
@@ -55,17 +63,17 @@ export default IpBaseController.extend({
 			this.saveData();
 			this.transitionToRoute("index.account-management");
 		},
-		editAccount() {
-			this.toggleProperty("isEditAccount");
-		},
-		doneEditAccount() {
-			this.set("isEditAccount", false);
+		onSelectPermission(selected) {
+			// let user = this.get("user");
+			// user.set("permission", selected);
+			// this.set("user", user);
+			this.user.set("permission", selected);
 		},
 
-		onSelectPermission(selected) {
-			console.log(selected);
-			this.user.permission = selected.value;
-		},
+
+		onChangePassword() {
+			//change password
+		}
 
 	},
 

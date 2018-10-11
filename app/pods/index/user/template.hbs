@@ -27,6 +27,12 @@
 							<label>Username</label>
 							{{input value=user.username class="form-control"}}
 						</div>
+						{{#if isNewUser}}
+							<div class="form-group">
+								<label>Password</label>
+								{{input value=user.password class="form-control" type="password"}}
+							</div>
+						{{/if}}
 						<div class="form-group">
 							<label>Permission</label>
 							<select class="form-control" onChange={{action "onSelectPermission" value="target.value"}}>
@@ -36,7 +42,22 @@
 							</select>
 						</div>
 					</div>
+					{{#bs-button onClick=(action "onSave") type="success"}} Save {{/bs-button}}
 		        </div>
+		    </div>
+		    <div class="col-6">
+		    	<div class="contentbox">
+		    		<h4>Change Password</h4>
+		    		<div class="form-group">
+		    			<label>Password</label>
+		    			{{input value="password" class="form-control" type="password"}}
+		    		</div>
+		    		<div class="form-group">
+		    			<label>Confirm Password</label>
+		    			{{input value="password" class="form-control" type="password"}}
+		    		</div>
+		    		{{#bs-button onClick=(action "onChangePassword") type="success"}} Update Password {{/bs-button}}
+	    		</div>
 		    </div>
 
 		</div>
@@ -44,7 +65,7 @@
 
 
 	{{#modal.footer}}
-		{{#bs-button onClick=(action "onSave") type="success"}} Save {{/bs-button}}
+
 	{{/modal.footer}}
 
 {{/bs-modal}}

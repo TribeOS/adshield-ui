@@ -6,4 +6,6 @@ export default DS.Model.extend({
 	username : DS.attr(),
 	email : DS.attr(),
 	accountId : DS.attr(),
+	password : DS.attr(),
+	permission : DS.attr(),
 });

@@ -17,7 +17,7 @@
 							{{#each users as |user|}}
 								<tr>
 									<td width="35%">{{ user.email }}</td>
-									<td width="40%">{{ show-access-level 2 }}</td>
+									<td width="40%">{{ show-access-level user.permission }}</td>
 									<td width="25%" align="right">
 										<button class="btn btn-sm" {{action "editUser" user}}><i class="glyphicon glyphicon-menu-right"></i></button>
 									</td>
