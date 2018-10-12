@@ -18,21 +18,20 @@ export default IpBaseController.extend({
 
 	choicesPermissions : computed(function() {
 		return [
-			{ value : '1', label : 'Account Access' },
-			{ value : '2', label : 'Reports Access' },
-			{ value : '3', label : 'Settings Access' }
+			{ value : 1, label : 'Account Access' },
+			{ value : 2, label : 'Reports Access' },
+			{ value : 3, label : 'Settings Access' }
 		];
 	}),
 
 	init : function() {
 		this._super(...arguments);
-		this.filter = { userId : this.id };
 	},
 
 
-	fetchData : function() {
+	fetchData : function(id) {
 		var self = this;
-		self.get('store').queryRecord("user", { filter : self.filter }).then(function(data) {
+		self.get('store').queryRecord("user", { id : id }).then(function(data) {
 			self.set("user", data);
 		});
 	},
@@ -52,7 +51,7 @@ export default IpBaseController.extend({
 				this.set("user", record);
 				return;
 			}
-			this.fetchData();
+			this.fetchData(this.get("id"));
 		},
 		onHide() {
 			this.transitionToRoute("index.account-management");
@@ -61,7 +60,7 @@ export default IpBaseController.extend({
 		},
 		onSave() {
 			this.saveData();
-			this.transitionToRoute("index.account-management");
+			// this.transitionToRoute("index.account-management");
 		},
 		onSelectPermission(selected) {
 			// let user = this.get("user");

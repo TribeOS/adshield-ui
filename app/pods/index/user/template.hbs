@@ -37,7 +37,11 @@
 							<label>Permission</label>
 							<select class="form-control" onChange={{action "onSelectPermission" value="target.value"}}>
 								{{#each choicesPermissions as |item|}}
-								<option value="{{ item.value }}">{{ item.label }}</option>
+									{{#if (eq item.value user.permission) }}
+										<option selected="selected" value="{{ item.value }}">{{ item.label }}</option>
+									{{else}}
+										<option value="{{ item.value }}">{{ item.label }}</option>
+									{{/if}}
 								{{/each}}
 							</select>
 						</div>
