@@ -17,7 +17,7 @@ export default IpBaseController.extend({
 
 	fetchData : function() {
 		var self = this;
-		self.get('store').queryRecord("customPage", {}).then(function(data) {
+		self.get('store').queryRecord("customPage", self.filter ).then(function(data) {
 			self.set("record", data);
 			let pageData = data.get("pageData");
 			self.set("settings", pageData);
@@ -28,9 +28,10 @@ export default IpBaseController.extend({
 	saveData : function() {
 		let record = this.get("record");
 		let settings = this.get("settings");
+		settings.userKey = this.filter.userKey;
 		record.set("pageData", settings);
 		record.save().then(function(response) {
-			alert("Settings Saved.");
+			alert("Settings saved.");
 		}).catch(function(error) {
 			alert("Error : " + error);
 		});
@@ -39,7 +40,15 @@ export default IpBaseController.extend({
 	actions : {
 		refresh() {
 			this.set("page", 1);
-			this.fetchData();
+			let self = this;
+			this.fetchMySites(function(data) {
+				try {
+					self.filter.userKey = self.userWebsites[0].userKey;
+					console.log(data);
+					self.fetchData();
+				} catch (e) {
+				};
+			});
 		},
 		onHide() {
 			this.transitionToRoute("index");
@@ -47,6 +56,10 @@ export default IpBaseController.extend({
 		onSave() {
 			this.saveData();
 		},
+		onSelectSite(item) {
+        	this.filter.userKey = item;
+        	this.fetchData();
+        },		
 	},
 
 });

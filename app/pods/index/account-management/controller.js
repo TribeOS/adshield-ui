@@ -109,7 +109,7 @@ export default IpBaseController.extend({
 		},
 
 		newUser(user) {
-			this.transitionToRoute('index.user', { queryParams : { id : 0 }});
+			this.transitionToRoute('index.user', { queryParams : { id : "0" }});
 		}
 
 

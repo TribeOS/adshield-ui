@@ -19,6 +19,8 @@ export default Controller.extend({
 	ipSelected : false,
 	no_ip_selected_message : "Select an IP to view...",
 
+	userWebsites : [],
+
 
 	/**
 	 * for dropdown choices on forms
@@ -172,6 +174,18 @@ export default Controller.extend({
 	customChartData : function() {},
 
 
+	/**
+	 * fetch websites belonging to the current logged in account/user
+	 * @return {[type]} [description]
+	 */
+	fetchMySites : function(onFetchDone) {
+    	var self = this;
+        self.get('store').query("userWebsite", { filter : {} }).then(function(data) {
+			self.set("userWebsites", data);
+			if (typeof onFetchDone !== "undefined") onFetchDone(data);
+		});
+    },
+
 	actions : {
 		firstPage() {
 			if (this.get("page") == 1) return;
@@ -217,6 +231,9 @@ export default Controller.extend({
 			let ip = param.value;
 			this.refreshGraph(ip);
 		},
+		onSelectSite(item) {
+        	this.filter.userKey = item;
+        }
 	}
 
 });

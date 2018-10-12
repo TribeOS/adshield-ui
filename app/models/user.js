@@ -7,5 +7,7 @@ export default DS.Model.extend({
 	email : DS.attr(),
 	accountId : DS.attr(),
 	password : DS.attr(),
+	password_confirmation : DS.attr(),
 	permission : DS.attr(),
+	isReset : DS.attr("boolean"),
 });

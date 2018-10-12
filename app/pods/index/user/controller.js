@@ -8,12 +8,10 @@ export default IpBaseController.extend({
 	queryParams : ['id'],
 	settings : computed(function() {}),
 
-	isNewUser : computed(function() {
-		return this.id == 0;
-	}),
-
 	record : null,
 	user : {},
+	password : "",
+	password_confirmation : "",
 	id : 0,
 
 	choicesPermissions : computed(function() {
@@ -37,9 +35,30 @@ export default IpBaseController.extend({
 	},
 
 	saveData : function() {
-		this.user.save().then(function(response) {
-			console.log(response);
+		let self = this;
+		this.user.set("isReset", false);
+		this.user.set("password", null);
+		this.user.set("password_confirmation", null);
+		this.user.save().then(function() {
+			alert("User information updated");
+			self.transitionToRoute("index.account-management");
+		}).catch(function(error) {
+			alert(error.errors[0].detail);
 		});
+	},
+
+	resetPassword : function() {
+		let self = this;
+		this.user.set("isReset", true);
+		this.user.set("password", this.get("password"));
+		this.user.set("password_confirmation", this.get("password_confirmation"));
+		this.user.save().then(function() {
+			alert("Password has been reset!");
+		}).catch(function(error) {
+			alert(error.errors[0].detail);
+		});
+		this.set("password", "");
+		this.set("password_confirmation", "");
 	},
 
 	actions : {
@@ -60,7 +79,6 @@ export default IpBaseController.extend({
 		},
 		onSave() {
 			this.saveData();
-			// this.transitionToRoute("index.account-management");
 		},
 		onSelectPermission(selected) {
 			// let user = this.get("user");
@@ -71,7 +89,7 @@ export default IpBaseController.extend({
 
 
 		onChangePassword() {
-			//change password
+			this.resetPassword();
 		}
 
 	},

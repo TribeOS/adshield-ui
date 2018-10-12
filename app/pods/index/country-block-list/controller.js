@@ -7,7 +7,7 @@ export default IpBaseController.extend({
     blockList: [],
     searchResult: computed(function() {}),
     keyword: "",
-    userWEbsites : [],
+    userWebsites : [],
 
     init: function() {
         this._super(...arguments);
