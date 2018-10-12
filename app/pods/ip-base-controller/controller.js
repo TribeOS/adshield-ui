@@ -182,7 +182,7 @@ export default Controller.extend({
     	var self = this;
         self.get('store').query("userWebsite", { filter : {} }).then(function(data) {
 			self.set("userWebsites", data);
-			if (typeof onFetchDone !== "undefined") onFetchDone(data);
+			if (typeof onFetchDone !== "undefined") onFetchDone();
 		});
     },
 
