@@ -6,16 +6,7 @@
 
 	{{#modal.body}}
 		<div class="container">
-			<form class="form-inline"  style="margin-bottom:10px">
-				<div class="form-group">
-					<label style="color:#666">Show countries for this website : &nbsp;</label>
-					<select class="form-control" onChange={{action "onSelectSite" value="target.value"}}>
-						{{#each userWebsites as |item|}}
-							<option value="{{ item.userKey }}">{{ item.domain }}</option>
-						{{/each}}
-					</select>
-				</div>
-			</form>
+			{{#website-dropdown userWebsites=userWebsites onSelect=(action "onSelectSite") }}{{/website-dropdown}}
 		</div>
 		<div class="col-lg-12">
 			<div class="contentbox">

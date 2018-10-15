@@ -11,7 +11,6 @@ export default IpBaseController.extend({
 		this.sort = { by : "date_added", dir : "asc" };
 	},
 
-	
 	refreshList : function(page, limit, filter, sort) {
 		var self = this;
 		this.set("listData", null);
@@ -22,5 +21,23 @@ export default IpBaseController.extend({
 			listData.headers = ['IP', 'Recorded on', 'Visited Url'];
 		});
 	},
+
+	actions : {
+		/**
+		 * gets called when UI is loaded
+		 */
+		refresh() {
+			this.set("page", 1);
+			let self = this;
+			this.fetchMySites(function(data) {
+				self.filter.userKey = self.userWebsites.objectAt(0).get("userKey");
+				self.refreshList(1, self.limit, self.filter, self.sort);
+			});
+		},
+		onSelectSite(item) {
+			this.filter.userKey = item;
+			this.refreshList(1, this.limit, this.filter, this.sort);
+		},
+	}
 
 });

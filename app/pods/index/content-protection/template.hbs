@@ -1,5 +1,4 @@
 {{#bs-modal open=1 size="lg" title="Content Protection" onHide=(action "onHide") onShow=(action "refresh") as |modal| }}
-	
 
 	{{#modal.header}}
 		<h5 class="modal-title">Content Protection</h5>
@@ -8,18 +7,9 @@
 
 	{{#modal.body}}
 		<div class="container">
-			<form class="form-inline"  style="margin-bottom:10px">
-				<div class="form-group">
-					<label style="color:#666">Show countries for this website : &nbsp;</label>
-					<select class="form-control" onChange={{action "onSelectSite" value="target.value"}}>
-						{{#each userWebsites as |item|}}
-							<option value="{{ item.userKey }}">{{ item.domain }}</option>
-						{{/each}}
-					</select>
-				</div>
-			</form>
+			{{#website-dropdown userWebsites=userWebsites onSelect=(action "onSelectSite") }}{{/website-dropdown}}
 		</div>
-		<div class="boxpad row">    
+		<div class="boxpad row">
 
 			<div class="col-lg-7 no-pad-right">
 		    	<div class="contentbox">
@@ -30,7 +20,6 @@
 		      			<span class="b-bottom"> requests from <strong>known violators</strong></span>
 		      		</p>
 		            <p style="border-bottom:1px #eee solid; padding-bottom:10px">Known Signatures protects you from AdShield's curated list of known content thieves and malicous bots. This is a global IP and bot signature ACL that is maintained based on information gathered from all of our customers.</p>
-		            
 		            <p>
 		            	{{#select-box onSelect=(action "onSelect") throwValue=settings.threatResponse.requestsFromKnownViolatorDataCenters choices=choicesBlock }}
 				      	{{/select-box}}

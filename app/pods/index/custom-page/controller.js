@@ -3,17 +3,14 @@ import { computed } from "@ember/object";
 
 export default IpBaseController.extend({
 
-
 	record : null,
 	settings : computed(function() {}),
-
 
 	init : function() {
 		this._super(...arguments);
 		this.filter = { userKey : "", duration : "0", status : 0, ip : "" };
 		this.sort = { by : "last_updated", dir : "asc" };
 	},
-
 
 	fetchData : function() {
 		var self = this;
@@ -23,7 +20,6 @@ export default IpBaseController.extend({
 			self.set("settings", pageData);
 		});
 	},
-	
 
 	saveData : function() {
 		let record = this.get("record");
@@ -49,13 +45,15 @@ export default IpBaseController.extend({
 		onHide() {
 			this.transitionToRoute("index");
 		},
+		onSelect(selected) {
+		},
 		onSave() {
 			this.saveData();
 		},
 		onSelectSite(item) {
         	this.filter.userKey = item;
         	this.fetchData();
-        },		
+        },
 	},
 
 });

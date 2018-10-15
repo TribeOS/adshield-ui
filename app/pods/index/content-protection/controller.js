@@ -3,7 +3,6 @@ import { computed } from "@ember/object";
 
 export default IpBaseController.extend({
 
-
 	record : null,
 	settings : computed(function() {}),
 
@@ -13,7 +12,6 @@ export default IpBaseController.extend({
 		this.sort = { by : "last_updated", dir : "asc" };
 	},
 
-
 	fetchData : function() {
 		var self = this;
 		self.get('store').queryRecord("contentProtection", self.filter).then(function(data) {
@@ -22,7 +20,6 @@ export default IpBaseController.extend({
 			self.set("settings", pageData);
 		});
 	},
-	
 
 	saveData : function() {
 		let record = this.get("record");
@@ -40,7 +37,7 @@ export default IpBaseController.extend({
 		refresh() {
 			this.set("page", 1);
 			let self = this;
-			this.fetchMySites(function() {
+			this.fetchMySites(function(data) {
 				self.filter.userKey = self.userWebsites.objectAt(0).get("userKey");
 				self.fetchData();
 			});
@@ -56,7 +53,7 @@ export default IpBaseController.extend({
 		onSelectSite(item) {
         	this.filter.userKey = item;
         	this.fetchData();
-        },		
+        },
 	},
 
 });

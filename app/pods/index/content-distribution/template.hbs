@@ -1,5 +1,4 @@
 {{#bs-modal open=1 size="lg" onHide=(action "onHide") onShow=(action "refresh") as |modal| }}
-	
 
 	{{#modal.header}}
 		<h5 class="modal-title">Content Distribution</h5>
@@ -7,8 +6,8 @@
 
 
 	{{#modal.body}}
-		<div class="boxpad row">    
-
+		{{#website-dropdown userWebsites=userWebsites onSelect=(action "onSelectSite") }}{{/website-dropdown}}
+		<div class="boxpad row">
 			<div class="col-lg-7 no-pad-right">
 		    	<div class="contentbox">
 		        	<h1>Manage your cache</h1>
