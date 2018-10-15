@@ -59,7 +59,9 @@ export default IpBaseController.extend({
 		let record = this.get("record");
 		let settings = this.get("settings");
 		record.set("pageData", settings);
-		record.save();
+		record.save().then(function() {
+			alert("Settings saved.");
+		});
 	},
 
 	actions : {

@@ -8,10 +8,14 @@ import Component from '@ember/component';
  */
 export default Component.extend({
 
+	tagName : "div",
+	classNames : ["form-group"],
+
 	init() {
 		this._super(...arguments);
 	},
-
+	
+	label : "Show data for website :",
 	userWebsites : [],
 
     actions : {

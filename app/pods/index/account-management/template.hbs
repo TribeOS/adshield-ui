@@ -49,7 +49,7 @@
 	                </div>
 
                     <button class="btn btn-secondary {{if isEditAccount "btn-success" "btn-warning" }}" {{action "editAccount"}}>
-                    	{{if isEditAccount "Save" "Edit" }}
+                    	{{if isEditAccount "OK" "Edit" }}
                     </button>
 		        </div>
 
@@ -63,7 +63,7 @@
 									<td width="35%" valign="middle">{{ emailNotification.email }}</td>
 									<td width="40%" valign="middle"><span class="glyphicon glyphicon-ok"></span> {{ emailNotification.coverage }}</td>
 									<td width="25%" align="center">
-										<button class="btn btn-default" {{action "removeEmailNotification" emailNotification}}>-</button>
+										<button class="btn btn-danger btn-sm" {{action "removeEmailNotification" emailNotification}}>{{fa-icon 'trash'}}</button>
 									</td>
 								</tr>
 							{{/each}}
@@ -75,7 +75,7 @@
 									{{select-box choices=choicesCoverage onSelect="onEmailCoverageSelect" }}
 								</td>
 								<td width="25%" align="center">
-									<button type="button" class="btn btn-default" {{action "addEmailNotification" newEmailNotificationEmail newEmailNotificationCoverage }}>+</button>
+									<button type="button" class="btn btn-success btn-sm" {{action "addEmailNotification" newEmailNotificationEmail newEmailNotificationCoverage }}>{{fa-icon 'plus-circle'}}</button>
 								</td>
 							</tr>
 						</tbody>

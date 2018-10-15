@@ -1,10 +1,6 @@
-<form class="form-inline"  style="margin-bottom:10px">
-	<div class="form-group">
-		<label style="color:#666">Show countries for this website : &nbsp;</label>
-		<select class="form-control" onChange={{action "onSelectSite" value="target.value"}}>
-			{{#each userWebsites as |item|}}
-				<option value="{{ item.userKey }}">{{ item.domain }}</option>
-			{{/each}}
-		</select>
-	</div>
-</form>
+<label style="color:#666">{{ label }} &nbsp;</label>
+<select class="form-control" onChange={{action "onSelectSite" value="target.value"}}>
+	{{#each userWebsites as |item|}}
+		<option value="{{ item.userKey }}">{{ item.domain }}</option>
+	{{/each}}
+</select>

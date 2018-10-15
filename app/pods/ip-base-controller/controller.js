@@ -13,7 +13,7 @@ export default Controller.extend({
 	sort : null,
 	choiceDay : null,
 
-	listData : computed(function() {}),
+	listData : [],
 	chartData : computed(function() {}),
 
 	ipSelected : false,
@@ -60,7 +60,8 @@ export default Controller.extend({
 
 	refreshList : function(page, limit, filter, sort) {
 		let self = this;
-		self.get('store').queryRecord(this.get("listModelName"), { page : page, limit : limit, filter : filter, sort : sort }).then(function(data) {
+		let arg = { page : page, limit : limit, filter : filter, sort : sort };
+		self.get('store').queryRecord(this.get("listModelName"), arg).then(function(data) {
 			var listData = data.get("listData");
 			listData.headers = ['IP', '# of Violations'];
 			listData.data.forEach((item) => {
@@ -212,6 +213,9 @@ export default Controller.extend({
 		},
 		onSelectDay(value) {
 			this.filter.duration = value;
+			this.refreshList(this.page, this.limit, this.filter, this.sort);
+		},
+		fetchData() {
 			this.refreshList(this.page, this.limit, this.filter, this.sort);
 		},
 		refresh() {
