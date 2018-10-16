@@ -3,6 +3,8 @@
 	    <div class="row">
 	    	<div class="container">
 	    		<form class="form-inline"  style="margin-bottom:10px">
+	    			{{#website-dropdown userWebsites=userWebsites onSelect=(action "onSelectSite") }}{{/website-dropdown}}
+	    			&nbsp;
 					<div class="form-group">
 						<label style="color:#666">Show results from &nbsp;</label> 
 						<select class="form-control" onChange={{action "onSelectDay" value="target.value"}}>
@@ -11,7 +13,7 @@
 							<option value="60">Last 60 Days</option>
 						</select>
 					</div>&nbsp;
-					<button class="btn btn-primary" {{action "refresh"}}>Refresh</button>
+					<button class="btn btn-primary" {{action "fetchData"}}>Refresh</button>
 				</form>
 	    	</div>
 	    	

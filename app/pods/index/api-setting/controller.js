@@ -68,6 +68,7 @@ export default IpBaseController.extend({
 				script += "	d.parentNode.insertBefore(sc, d);\n";
 				script += "	})();\n";
 				script += "</script>";
+				script += `<noscript><img style="display:none;" width="1" height="1" src="https://api.adshield.tribeos.io/nojs/` + userWebsite.get("userKey") + `" /></noscript>`;
 			this.set("installCode", script);
 
 			this.set("isDetailShown", true);

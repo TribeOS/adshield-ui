@@ -106,6 +106,7 @@ export default Controller.extend({
 			self.set("chartData", chartData);
 			self.set("violatorInfo", graphData.info);
 		});
+		this.filter.ip = "";
 	},
 
 
