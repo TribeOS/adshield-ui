@@ -36,6 +36,7 @@ export default IpBaseController.extend({
 		},
 		onSelectSite(item) {
 			this.filter.userKey = item;
+			this.set("page", 1);
 			this.refreshList(1, this.limit, this.filter, this.sort);
 		},
 	}

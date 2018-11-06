@@ -23,6 +23,7 @@ export default IpBaseController.extend({
         },
         onSelectSite(item) {
         	let self = this;
+        	this.set("page", 1);
         	self.filter.userKey = item;
         	self.refreshList(self.page, self.limit, self.filter, self.sort);
         }
