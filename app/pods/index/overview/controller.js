@@ -18,7 +18,7 @@ export default IpBaseController.extend({
 
 	refreshGraph : function() {
 		let self = this;
-		self.get('store').queryRecord(this.graphModelName, { filter : this.filter }).then(function(data) {
+		self.get('store').queryRecord(self.graphModelName, { filter : self.filter }).then(function(data) {
 			let chartData = self.generateChartData(data.get("graphData"));
 			self.set("chartData", chartData);
 		});
@@ -47,9 +47,16 @@ export default IpBaseController.extend({
 	}),
 
 	actions : {
+		fetchData() {
+			let self = this;
+			self.refreshGraph(self.page, self.limit, self.filter, self.sort);
+		},
 		refresh() {
-			this.set("page", 1);
-			this.refreshGraph(this.page, this.limit, this.filter, this.sort);
+			let self = this;
+            this.fetchMySites(function(data) {
+            	self.filter.userKey = self.userWebsites.objectAt(0).get("userKey");
+            	self.refreshGraph(self.page, self.limit, self.filter, self.sort);
+            });
 		},
 		onHide() {
 			this.transitionToRoute("index");
@@ -58,6 +65,12 @@ export default IpBaseController.extend({
 			this.filter.duration = value;
 			this.refreshGraph(this.page, this.limit, this.filter, this.sort);
 		},
+
+        onSelectSite(item) {
+        	let self = this;
+        	self.filter.userKey = item;
+        	self.refreshGraph(self.page, self.limit, self.filter, self.sort);
+        }, 
 	}
 
 });

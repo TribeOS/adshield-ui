@@ -142,7 +142,11 @@ export default Controller.extend({
 					//we can add more colors here in order to accommodate more data columns
 					'rgba(254,204,88,1)',
 					'rgba(254,99,131,1)',
-					'rgb(255, 159, 64)'
+					'rgb(255, 159, 64)',
+					'rgb(66, 212, 244)',
+					'rgb(126, 34, 247)',
+					'rgb(136, 221, 8)',
+					'rgb(49, 214, 161)',
 				],
 			});
 		} else {
@@ -150,7 +154,11 @@ export default Controller.extend({
 				//we can add more colors here in order to accommodate more data columns
 				'rgba(254,204,88,1)',
 				'rgba(254,99,131,1)',
-				'rgb(255, 159, 64)'
+				'rgb(255, 159, 64)',
+				'rgb(66, 212, 244)',
+				'rgb(126, 34, 247)',
+				'rgb(136, 221, 8)',
+				'rgb(49, 214, 161)',
 			];
 			//we have predefined datasets from server, assuming we have multiple datasets
 			//mostly used for bar/line graphs
