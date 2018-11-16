@@ -12,6 +12,11 @@ export default Component.extend({
 	loginError : null,
 
 	didRender() {
+		if (this.get("session").isAuthenticated)
+		{
+			this.set("isShown", false);
+			this.sendAction("didLoggedIn");
+		}
 		this.$("#log-username").focus();
 	},
 

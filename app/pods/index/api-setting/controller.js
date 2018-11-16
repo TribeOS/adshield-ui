@@ -22,7 +22,7 @@ export default IpBaseController.extend({
 
 	fetchData : function() {
 		var self = this;
-		self.get('store').query("userWebsite", { filter : self.filter }).then(function(data) {
+		self.get('store').queryRecord("userWebsite", { page : self.page, filter : self.filter }).then(function(data) {
 			self.set("userWebsites", data);
 		});
 	},
@@ -62,7 +62,7 @@ export default IpBaseController.extend({
 		viewDetail(userWebsite) {
 			let script = "<script>\n";
 				script += "	var _adshield = [];\n";
-				script += "	_adshield.push({key:'" + userWebsite.get("userKey") + "'});\n";
+				script += "	_adshield.push({key:'" + userWebsite.userKey + "'});\n";
 				script += "	(function() {\n";
 				script += '	var sc = document.createElement("script");\n';
 				script += '	sc.type = "text/javascript";sc.async=true;sc.src="https://api.adshield.tribeos.io/adshieldjs";\n';
@@ -70,7 +70,7 @@ export default IpBaseController.extend({
 				script += "	d.parentNode.insertBefore(sc, d);\n";
 				script += "	})();\n";
 				script += "</script>";
-				script += `<noscript><img style="display:none;" width="1" height="1" src="https://api.adshield.tribeos.io/nojs/` + userWebsite.get("userKey") + `" /></noscript>`;
+				script += `<noscript><img style="display:none;" width="1" height="1" src="https://api.adshield.tribeos.io/nojs/` + userWebsite.getuserKey + `" /></noscript>`;
 			this.set("installCode", script);
 
 			this.set("isDetailShown", true);
@@ -89,6 +89,12 @@ export default IpBaseController.extend({
 				return false;
 			}
 			this.createWebsite(userKey, siteDomain);
+		},
+
+		gotoPage(page) {
+			//go to a specific page
+			this.page = page;
+			this.fetchData();
 		}
 		
 	},
