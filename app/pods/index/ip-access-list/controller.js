@@ -23,6 +23,9 @@ export default IpBaseController.extend({
 	},
 
 	actions : {
+		refreshData() {
+			this.refreshList(1, this.limit, this.filter, this.sort);
+		},
 		/**
 		 * gets called when UI is loaded
 		 */
