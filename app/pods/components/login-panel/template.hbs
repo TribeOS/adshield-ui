@@ -1,18 +1,25 @@
-{{#bs-form onSubmit=(action "authenticate") as |form|}}
 
-	{{#if loginError}}
-		<div class="alert alert-danger">{{loginError}}</div>
-	{{/if}}
+{{#if session.isAuthenticated}}
+	<div class="alert alert-success">
+		Resuming your active session...
+	</div>
+{{else}}
+	{{#bs-form onSubmit=(action "authenticate") as |form|}}
 
-  	{{#form.group}}
-		{{input type="text" placeholder="Username" value=identification class="form-control" }}
-	{{/form.group}}
+		{{#if loginError}}
+			<div class="alert alert-danger">{{loginError}}</div>
+		{{/if}}
 
-	{{#form.group}}
-		{{input type="password" placeholder="Password" value=password class="form-control" }}
- 	{{/form.group}}
+	  	{{#form.group}}
+			{{input type="text" placeholder="Username" value=identification class="form-control" }}
+		{{/form.group}}
+
+		{{#form.group}}
+			{{input type="password" placeholder="Password" value=password class="form-control" }}
+	 	{{/form.group}}
 
 
- 	<button class="btn btn-success">Login</button>
- 	
-{{/bs-form}}
+	 	<button class="btn btn-success">Login</button>
+	 	
+	{{/bs-form}}
+{{/if}}

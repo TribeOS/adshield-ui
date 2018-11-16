@@ -38,7 +38,6 @@ export default IpBaseController.extend({
 				xAxes : [{
 					ticks : {
 						min : 0,
-						stepSize : 500,
 					},
 				}]
 			},

@@ -12,11 +12,14 @@ export default Component.extend({
 	loginError : null,
 
 	didRender() {
-		this.$("#log-username").focus();
+		if (this.get("session").isAuthenticated) {
+			this.sendAction("didLoggedIn");
+		} else {
+			this.$("#log-username").focus();
+		}
 	},
 
 	actions : {
-
 		authenticate() {
 			let self = this;
 			this.set("isLoginError", false);

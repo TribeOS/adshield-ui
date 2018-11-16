@@ -22,8 +22,8 @@ export default IpBaseController.extend({
 
 	fetchData : function() {
 		var self = this;
-		self.get('store').query("userWebsite", { filter : self.filter }).then(function(data) {
-			self.set("userWebsites", data);
+		self.get('store').queryRecord("userWebsite", { page : self.page, filter : self.filter }).then(function(data) {
+			self.set("userWebsites", data.get("listData"));
 		});
 	},
 
