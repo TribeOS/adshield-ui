@@ -28,12 +28,25 @@ export default IpBaseController.extend({
 			this.filter.duration = value;
 			this.refreshGraph();
 		},
-		refresh() {
+		fetchData() {
+			let self = this;
 			this.refreshGraph();
+		},
+		refresh() {
+			let self = this;
+            this.fetchMySites(function(data) {
+            	self.filter.userKey = self.userWebsites.objectAt(0).get("userKey");
+            	self.refreshGraph();
+            });
 		},
 		onHide() {
 			this.transitionToRoute("index");
-		}
+		},
+		onSelectSite(item) {
+        	let self = this;
+        	self.filter.userKey = item;
+        	self.refreshGraph();
+        }, 
 	}
 
 });

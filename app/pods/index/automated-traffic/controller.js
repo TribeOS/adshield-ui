@@ -59,11 +59,24 @@ export default IpBaseController.extend({
 			this.getData();
 		},
 		refresh() {
-			this.getData();
+			let self = this;
+            this.fetchMySites(function(data) {
+            	self.filter.userKey = self.userWebsites.objectAt(0).get("userKey");
+            	self.getData();
+            });
 		},
 		onHide() {
 			this.transitionToRoute("index");
-		}
+		},
+
+		fetchData() {
+			this.getData(this.page, this.limit, this.filter, this.sort);
+		},
+		onSelectSite(item) {
+        	let self = this;
+        	self.filter.userKey = item;
+        	self.getData(self.page, self.limit, self.filter, self.sort);
+        }, 
 	}
 
 });
