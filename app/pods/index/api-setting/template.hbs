@@ -11,7 +11,7 @@
 		        			<th>Domain Key/ID</th>
 		        			<th></th>
 		        		</thead>
-		        		{{#each userWebsites.data as |userWebsite|}}
+		        		{{#each userWebsites.listData.data as |userWebsite|}}
 		        			<tr>
 		        				<td>{{ userWebsite.domain }}</td>
 		        				<td>{{ userWebsite.userKey }}</td>
@@ -21,7 +21,7 @@
 		        			</tr>
 		        		{{/each}}
 		        	</table>
-		        	{{#data-table-page source=userWebsites}}{{/data-table-page}}
+		        	{{#data-table-page source=userWebsites.listData gotoPage=(action "gotoPage")}}{{/data-table-page}}
 		        </div>
 		    </div>      
 			<div class="col-lg-5">

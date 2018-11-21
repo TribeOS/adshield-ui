@@ -6,5 +6,5 @@ export default DS.Model.extend({
 	domain : DS.attr(),
 	createdOn : DS.attr(),
 	status : DS.attr(),
-	listData : DS.attr()
+	listData : DS.attr(),
 });
