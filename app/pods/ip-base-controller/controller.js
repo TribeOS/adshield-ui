@@ -4,6 +4,8 @@ import { computed } from "@ember/object";
 
 export default Controller.extend({
 
+	session : Ember.inject.service('session'),
+
 	listModelName : "",
 	graphModelName : "",
 
@@ -56,6 +58,8 @@ export default Controller.extend({
 		this._super(...arguments);
 		this.filter = { userKey : "", duration : "0", status : 0, ip : "", dateFrom : "", dateTo : "" };
 		this.sort = { by : "last_updated", dir : "asc" };
+
+		if (!this.get("session").isAuthenticated) this.transitionToRoute("home");
 	},
 
 	refreshList : function(page, limit, filter, sort) {
@@ -82,6 +86,10 @@ export default Controller.extend({
 				}
 			});
 			self.set("listData", listData);
+		}).catch(function(error) {
+			self.get("session").invalidate().then(() => {
+				self.transitionToRoute("home");
+			});
 		});
 	},
 
