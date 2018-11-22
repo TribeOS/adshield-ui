@@ -122,7 +122,11 @@ export default Controller.extend({
 		var options = {
 			legend:{
 				display : true,
-				position : "right"
+				position : "right",
+				fullWidth : false,
+				labels : {
+					boxWidth: 20,
+				}
 			},
 			tooltips : {
 				enabled : true
@@ -145,6 +149,7 @@ export default Controller.extend({
 			//no datasets yet, we assume we are having one dataset only
 			//mainly used for single line/bar or pie charts
 			chartData.datasets.push({
+				label : graphData.label,
 				data : graphData.data,
 				backgroundColor : [
 					//we can add more colors here in order to accommodate more data columns
@@ -169,7 +174,7 @@ export default Controller.extend({
 				'rgb(49, 214, 161)',
 			];
 			//we have predefined datasets from server, assuming we have multiple datasets
-			//mostly used for bar/line graphs
+			//mostly used for bar/line graphs with multiple datasets
 			graphData.datasets.forEach(function(item, index) {
 				chartData.datasets.push({
 					label : item.label,
@@ -180,6 +185,11 @@ export default Controller.extend({
 				});
 			});
 		}
+
+		let maxString = 25;
+		chartData.labels.forEach(function(item, index) {
+			if (item.length > maxString) chartData.labels[index] = item.substring(0, maxString) + "...";
+		});
 		return chartData;
 	},
 

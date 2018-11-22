@@ -11,7 +11,7 @@ export default IpBaseController.extend({
 
 	getData : function(page, limit, filter, sort) {
 		let self = this;
-		self.get('store').queryRecord("automatedTraffic", { filter : this.filter }).then(function(data) {
+		self.get('store').queryRecord("automatedTraffic", { page : page, limit : limit, sort : sort, filter : this.filter }).then(function(data) {
 			let mainData = data.get("pageData");
 			var listData = mainData.automatedTrafficList;
 			listData.headers = ['Undesired Automated Traffic Name', 'Classification', 'Page Requests'];
