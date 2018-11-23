@@ -34,7 +34,6 @@ export default IpBaseController.extend({
 					item.location.push(info.lon);
 					item.city = info.city;
 				});
-				console.log(pageData);
 				self.set("pageData", pageData);
 			}
 		});
