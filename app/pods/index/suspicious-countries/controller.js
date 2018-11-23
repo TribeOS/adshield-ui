@@ -3,6 +3,7 @@ import { computed } from "@ember/object";
 
 export default IpBaseController.extend({
 
+	pageData : [],
 	showTable : false,
 
 	lat : 45.519743,
@@ -17,19 +18,25 @@ export default IpBaseController.extend({
 
 	refreshList : function(page, limit, filter, sort) {
 		let self = this;
-		this.get('store').queryRecord("suspiciousCountry", { page : page, limit : limit, filter : filter, sort : sort }).then(function(data) {
-			let listData = {};
-			listData.data = data.get("pageData");
-			listData.headers = ["Country", "Total Requests"];
-			listData.data.forEach((item, index) => {
-				//use this code to turn a column value on the table into a link.
-				let old = item.country;
-				item.country = { 
-					textLeft : true,
-					value : old
-				}
-			});
-			self.set("listData", listData);
+		this.get('store').queryRecord("suspiciousCountry", { page : page, limit : limit, filter : filter, sort : sort, showTable : this.showTable }).then(function(data) {
+			if (self.showTable)
+			{
+				self.set("listData", data.get("listData"));
+			}
+			else
+			{
+				let pageData = data.get("pageData");
+				//parse gps coord
+				pageData.forEach(function(item) {
+					let info = JSON.parse(item.rawInfo);
+					item.location = [];
+					item.location.push(info.lat);
+					item.location.push(info.lon);
+					item.city = info.city;
+				});
+				console.log(pageData);
+				self.set("pageData", pageData);
+			}
 		});
 	},
 
@@ -60,8 +67,11 @@ export default IpBaseController.extend({
 			this.refreshList(this.page, this.limit, this.filter, this.sort);
 		},
 		refresh() {
-			this.set("page", 1);
-			this.refreshList(this.page, this.limit, this.filter, this.sort);
+			let self = this;
+            this.fetchMySites(function(data) {
+            	self.filter.userKey = self.userWebsites.objectAt(0).get("userKey");
+				self.refreshList(self.page, self.limit, self.filter, self.sort);
+            });
 		},
 		onHide() {
 			this.transitionToRoute("index");
@@ -69,6 +79,24 @@ export default IpBaseController.extend({
 		toggleView() {
 			let showTable = this.get("showTable");
 			this.set("showTable", !showTable);
+			this.set("page", 1);
+			this.refreshList(this.page, this.limit, this.filter, this.sort);
+		},
+
+		fetchData() {
+			let self = this;
+			self.refreshList(self.page, self.limit, self.filter, self.sort);
+		},
+		onSelectSite(item) {
+        	let self = this;
+        	this.set("page", 1);
+        	self.filter.userKey = item;
+        	self.refreshList(self.page, self.limit, self.filter, self.sort);
+        }, 
+        gotoPage(page) {
+			//go to a specific page
+			this.page = page;
+			this.refreshList(this.page, this.limit, this.filter, this.sort);
 		}
 	}
 
