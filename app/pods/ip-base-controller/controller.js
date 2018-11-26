@@ -95,6 +95,7 @@ export default Controller.extend({
 
 
 	refreshGraph : function(ip) {
+		console.log(ip);
 		let self = this;
 		this.filter.ip = ip;
 		self.get('store').queryRecord(this.graphModelName, { filter : this.filter }).then(function(data) {
