@@ -6,8 +6,9 @@ export default IpBaseController.extend({
 	pageData : [],
 	showTable : false,
 
-	lat : 45.519743,
-  	lng: -122.680522,
+	//initial position to display
+	lat : 0,
+  	lng: -9,
 	zoom : 2,
 
 	init : function() {

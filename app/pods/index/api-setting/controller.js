@@ -84,7 +84,7 @@ export default IpBaseController.extend({
 			let userKey = this.get("newWebsiteUserKey");
 			let siteDomain = this.get("newWebsiteDomain");
 
-			if (userKey.trim().length == 0 || siteDomain.trim().length == 0) {
+			if (siteDomain.trim().length == 0) {
 				alert("Please fill in all the fields.");
 				return false;
 			}

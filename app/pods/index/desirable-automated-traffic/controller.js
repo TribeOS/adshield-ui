@@ -21,47 +21,43 @@ export default IpBaseController.extend({
 			chartData.desirableAutomatedRequests = self.generateChartData(pageData.desirableAutomatedRequests);
 			self.set("chartData", chartData);
 
-			let listData = {};
-			listData.data = pageData.listData;
-			listData.headers = ['System Name', '# of Requests'];
+			let listData = pageData.listData;
 			self.set("listData", listData);
-			console.log(listData);
 		});
 	},
 
 
 	actions : {
-		firstPage() {
-			this.set("page", 1);
-			this.refreshList(this.page, this.limit, this.filter, this.sort);
-		},
-		nextPage() {
-			var listData = this.get("listData");
-			if (listData.current_page == listData.last_page) return;
-			this.set("page", parseInt(this.page) + 1);
-			this.refreshList(this.page, this.limit, this.filter, this.sort);
-		},
-		previousPage() {
-			var listData = this.get("listData");
-			if (listData.current_page == 1) return;
-			this.set("page", parseInt(this.page) - 1);
-			this.refreshList(this.page, this.limit, this.filter, this.sort);
-		},
-		lastPage() {
-			var listData = this.get("listData");
-			this.set("page", listData.last_page);
-			this.refreshList(this.page, this.limit, this.filter, this.sort);
-		},
+
 		onSelectDay(value) {
 			this.filter.duration = value;
 			this.refreshList(this.page, this.limit, this.filter, this.sort);
 		},
 		refresh() {
-			this.set("page", 1);
-			this.refreshList(this.page, this.limit, this.filter, this.sort);
+			let self = this;
+            this.set("page", 1);
+            this.fetchMySites(function(data) {
+            	self.filter.userKey = self.userWebsites.objectAt(0).get("userKey");
+            	self.refreshList(self.page, self.limit, self.filter, self.sort);
+            });
 		},
 		onHide() {
 			this.transitionToRoute("index");
+		},
+
+		fetchData() {
+			let self = this;
+        	self.refreshList(self.page, self.limit, self.filter, self.sort);
+		},
+		onSelectSite(item) {
+        	let self = this;
+        	this.set("page", 1);
+        	self.filter.userKey = item;
+        	self.refreshList(self.page, self.limit, self.filter, self.sort);
+        },
+        gotoPage(page) {
+			this.page = page;
+			this.refreshList(this.page, this.limit, this.filter, this.sort);
 		},
 	},
 

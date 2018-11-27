@@ -3,6 +3,8 @@
 	    <div class="row">
 	    	<div class="container">
 	    		<form class="form-inline"  style="margin-bottom:10px">
+	    			{{#website-dropdown userWebsites=userWebsites onSelect=(action "onSelectSite") }}{{/website-dropdown}}
+	    			&nbsp;
 					<div class="form-group">
 						<label style="color:#666">Show results from &nbsp;</label> 
 						<select class="form-control" onChange={{action "onSelectDay" value="target.value"}}>
@@ -11,14 +13,41 @@
 							<option value="60">Last 60 Days</option>
 						</select>
 					</div>&nbsp;
-					<button class="btn btn-primary" {{action "refresh"}}>Refresh</button>
+					<button class="btn btn-primary" {{action "fetchData"}}>Refresh</button>
 				</form>
 	    	</div>
 	    	
 			<div class="col-lg-8">				
 				<div>
-					{{#data-table source=listData nextPage="nextPage" firstPage="firstPage" lastPage="lastPage" previousPage="previousPage" onClick="onIpClick"}}
-				{{/data-table}}
+					<table class="table table-striped table-bordered marBot">
+						<thead>
+							<tr>
+								<th>Url</th>
+								<th>No. of Requests</th>
+							</tr>
+						</thead>
+						<tbody>
+							{{#each listData.data as |record|}}
+								<tr>
+									<td>
+										{{#if (eq record.path null) }}
+										n/a
+										{{else}}
+											{{ record.path }}
+										{{/if}}
+									</td>
+									<td class="text-center">{{format-number record.noRequests }}</td>
+								</tr>
+							{{/each}}
+						</tbody>
+						<tfoot>
+							<tr>
+								<td colspan="2">
+									{{#data-table-page source=listData gotoPage=(action "gotoPage")}}{{/data-table-page}}
+								</td>
+							</tr>
+						</tfoot>
+					</table>
 				</div>
 			</div>
 	        
