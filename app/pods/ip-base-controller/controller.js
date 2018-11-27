@@ -97,8 +97,7 @@ export default Controller.extend({
 	refreshGraph : function(ip) {
 		let self = this;
 		this.filter.ip = ip;
-		this.filter.queryIp = ip;
-		self.get('store').queryRecord(this.graphModelName, { filter : this.get("filter") }).then(function(data) {
+		self.get('store').queryRecord(this.graphModelName, { filter : this.filter }).then(function(data) {
 			let graphData = data.get("graphData");
 			let chartData = {};
 			chartData.datasets = [];
@@ -114,8 +113,8 @@ export default Controller.extend({
 			});
 			self.set("chartData", chartData);
 			self.set("violatorInfo", graphData.info);
+			this.filter.ip = "";
 		});
-		this.filter.ip = "";
 	},
 
 
