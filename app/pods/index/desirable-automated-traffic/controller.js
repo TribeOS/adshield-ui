@@ -27,6 +27,27 @@ export default IpBaseController.extend({
 	},
 
 
+	graphOption : computed(function() {
+		var options = {
+			legend:{
+				display : false,
+				position : "right"
+			},
+			tooltips : {
+				enabled : true
+			},
+			scales : {
+				yAxes : [{
+					ticks : {
+						min : 0,
+					},
+				}]
+			},
+		}
+		return options;
+	}),
+
+
 	actions : {
 
 		onSelectDay(value) {

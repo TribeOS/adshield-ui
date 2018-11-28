@@ -4,20 +4,6 @@ import { computed } from "@ember/object";
 export default IpBaseController.extend({
 
 
-	record : null,
-	settings : computed(function() {}),
-
-	isEditAccount : false,
-
-	choicesBoolean : computed(function() {
-		return [
-			{ value : 'yes', label : 'Yes' },
-			{ value : 'no', label : 'No' }
-		];
-	}),
-
-
-
 	init : function() {
 		this._super(...arguments);
 		this.filter = { userKey : "", duration : "0", status : 0, ip : "" };
@@ -27,27 +13,20 @@ export default IpBaseController.extend({
 
 	fetchData : function() {
 		var self = this;
-		self.get('store').queryRecord("completeLog", {}).then(function(data) {
-			let rows = data.get("pageData");
-			let pageData = {};
-			let count = 0;
-			rows.forEach(function(item) {
-				count ++;
-				item.count = count;
-			});
-			pageData.data = rows;
-			pageData.headers = ['#', 'Action', 'User', 'Date/Time'];
-			self.set("listData", pageData);
+		self.get('store').queryRecord("completeLog", { page : this.page, limit : this.limit, filter : this.filter }).then(function(data) {
+			let listData = data.get("listData");
+			// let pageData = {};
+			// let count = 0;
+			// rows.forEach(function(item) {
+			// 	count ++;
+			// 	item.count = count;
+			// });
+			console.log(listData);
+			self.set("listData", listData);
 		});
 	},
 	
 
-	saveData : function() {
-		let record = this.get("record");
-		let settings = this.get("settings");
-		record.set("pageData", settings);
-		record.save();
-	},
 
 	actions : {
 		refresh() {
@@ -57,17 +36,19 @@ export default IpBaseController.extend({
 		onHide() {
 			this.transitionToRoute("index");
 		},
-		onSelect(selected) {
+
+		fetchData() {
+			this.fetchData();
 		},
-		onSave() {
-			this.saveData();
+
+		gotoPage(page) {
+			this.page = page;
+			this.fetchData();
 		},
-		editAccount() {
-			this.toggleProperty("isEditAccount");
+		onSelectDay(value) {
+			this.filter.duration = value;
+			this.fetchData();
 		},
-		doneEditAccount() {
-			this.set("isEditAccount", false);
-		}
 		
 	},
 
