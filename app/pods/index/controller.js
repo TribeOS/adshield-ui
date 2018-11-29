@@ -195,6 +195,7 @@ export default Controller.extend({
 	},
 
 	initSocketIO : function() {
+		//IMPT/ TODO: need to find a way to tell server which account/userKey we want to receive
 		let self = this;
 		let socket = this.get("socketio").socketFor(this.get("socketServerUrl"));
 		socket.on("connect", function() {
@@ -205,7 +206,8 @@ export default Controller.extend({
 
 	dataReceived : function(data) {
 		let stats = data.stats.adshieldstats.stat;
-		this.set("lastGraphData", stats.transactionsInterval);
+		let graphData = stats.transactionsInterval;
+		this.set("lastGraphData", parseInt(graphData));
 		this.updateStats(stats, false);
 	},
 
