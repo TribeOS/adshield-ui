@@ -207,6 +207,7 @@ export default Controller.extend({
 	dataReceived : function(data) {
 		let stats = data.stats.adshieldstats.stat;
 		let graphData = stats.transactionsInterval;
+		// console.log(stats);
 		this.set("lastGraphData", parseInt(graphData));
 		this.updateStats(stats, false);
 	},
