@@ -24,6 +24,7 @@
 							<th>User</th>
 							<th>Date/Time</th>
 							<th>Details</th>
+							<th>Origin IP/Location</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -33,12 +34,13 @@
 								<td>{{ record.username }}</td>
 								<td>{{ record.createdOn }}</td>
 								<td>{{ record.details }}</td>
+								<td>({{ record.ipStr }}) {{ record.city }}, {{ record.country }}</td>
 							</tr>
 						{{/each}}
 					</tbody>
 					<tfoot>
 						<tr>
-							<td colspan="4">
+							<td colspan="5">
 								{{#data-table-page source=listData gotoPage=(action "gotoPage")}}{{/data-table-page}}
 							</td>
 						</tr>

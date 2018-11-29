@@ -43,6 +43,7 @@ export default IpBaseController.extend({
             self.set("searchResult", result);
         });
     },
+
     blockCountry: function() {
         let result = this.get("searchResult");
         let selectedCountries = result.filterBy('selected', true);
@@ -60,6 +61,7 @@ export default IpBaseController.extend({
         });
         this.set("searchResult", null);
     },
+
     removeCountry: function(item) {
         this.get("store").findRecord("countryBlockList", item.id, {
             backgroundReload: false
@@ -67,19 +69,16 @@ export default IpBaseController.extend({
             record.destroyRecord();
         });
     },
-
-    fetchMySites : function() {
-    	var self = this;
-        self.get('store').query("userWebsite", { filter : {} }).then(function(data) {
-			self.set("userWebsites", data);
-		});
-    },
+    
 
     actions: {
         refresh() {
             this.set("page", 1);
-            this.fetchData();
-            this.fetchMySites();
+            let self = this;
+            this.fetchMySites(function(data) {
+                self.filter.userKey = self.userWebsites.objectAt(0).get("userKey");
+                self.fetchData();
+            });
         },
         onHide() {
             this.transitionToRoute("index");
