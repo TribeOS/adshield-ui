@@ -218,8 +218,7 @@ export default Controller.extend({
 		let stats = data.stats.adshieldstats.stat;
 		let graphData = stats.transactionsInterval;
 		
-		console.log(graphData);
-		if (stats.accountId !== this.user.accountId) return;
+		if (stats.accountId != this.user.accountId) return;
 
 		this.set("lastGraphData", parseInt(graphData));
 		this.updateStats(stats, false);
