@@ -234,7 +234,7 @@ export default Controller.extend({
 			let maxPoint = 60;
 			if (cData.labels.length < maxPoint) cData.labels.push('');
 			if (cData.datasets[0].data.length == maxPoint) cData.datasets[0].data.splice(0, 1);
-			cData.datasets[0].data.push(asStat.transactionsInterval);
+			cData.datasets[0].data.push(asStat.transactionsInterval.data);
 			this.set("adshieldChartData", cData);
 			this.notifyPropertyChange('adshieldChartData');
 		}
