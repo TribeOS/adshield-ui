@@ -184,6 +184,14 @@ export default Controller.extend({
 		return {};
 	}),
 
+	//will hold account's websites
+	userWebsites : [],
+
+	//holds the websites' stats
+	websiteStats : [],
+
+	user : {},
+
 	socketio: service("socket-io"),
 
 	initFetchData : function() {
@@ -192,6 +200,8 @@ export default Controller.extend({
 		{
 			self.updateStats(data.get("stat"), true);
 		});
+
+		this.user = this.get('session.data.authenticated');
 	},
 
 	initSocketIO : function() {
@@ -207,8 +217,11 @@ export default Controller.extend({
 	dataReceived : function(data) {
 		let stats = data.stats.adshieldstats.stat;
 		let graphData = stats.transactionsInterval;
-		// console.log(stats);
-		this.set("lastGraphData", parseInt(graphData));
+		
+		console.log(graphData);
+		if (graphData.accountId !== this.user.accountId) return;
+
+		this.set("lastGraphData", parseInt(graphData.data));
 		this.updateStats(stats, false);
 	},
 
@@ -268,6 +281,20 @@ export default Controller.extend({
 		});
 		return data;
 	}),
+
+
+	/**
+	 * fetch account's websites
+	 * @param  {[type]} onFetchDone [description]
+	 * @return {[type]}             [description]
+	 */
+	fetchMySites : function(onFetchDone) {
+    	var self = this;
+        self.get('store').query("userWebsite", { filter : {} }).then(function(data) {
+			self.set("userWebsites", data);
+			if (typeof onFetchDone !== "undefined") onFetchDone();
+		});
+    },
 
 
 	actions : {

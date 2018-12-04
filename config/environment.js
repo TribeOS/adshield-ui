@@ -30,6 +30,12 @@ module.exports = function(environment) {
         'simple-auth': {
             refreshAccessTokens: true,
             authenticationRoute: 'home',
+        },
+
+        fontawesome : {
+            icons : {
+                'free-solid-svg-icons' : 'all'
+            }
         }
 
     };

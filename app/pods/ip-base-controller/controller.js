@@ -21,7 +21,11 @@ export default Controller.extend({
 	ipSelected : false,
 	no_ip_selected_message : "Select an IP to view...",
 
+	// list of websites the current account have
 	userWebsites : [],
+
+	// flag to indicate if the system is busy processing something
+	isBusy : false,
 
 
 	/**
@@ -134,6 +138,16 @@ export default Controller.extend({
 		}
 		return options;
 	}),
+
+
+	/**
+	 * indicate if system is busy or not
+	 * @param  {[type]} b [description]
+	 * @return {[type]}   [description]
+	 */
+	busy : function(b) {
+		this.set("isBusy", b);
+	},
 
 	/**
 	 * used for creating charts and graphs
