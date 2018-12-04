@@ -219,9 +219,9 @@ export default Controller.extend({
 		let graphData = stats.transactionsInterval;
 		
 		console.log(graphData);
-		if (graphData.accountId !== this.user.accountId) return;
+		if (stats.accountId !== this.user.accountId) return;
 
-		this.set("lastGraphData", parseInt(graphData.data));
+		this.set("lastGraphData", parseInt(graphData));
 		this.updateStats(stats, false);
 	},
 
@@ -234,7 +234,7 @@ export default Controller.extend({
 			let maxPoint = 60;
 			if (cData.labels.length < maxPoint) cData.labels.push('');
 			if (cData.datasets[0].data.length == maxPoint) cData.datasets[0].data.splice(0, 1);
-			cData.datasets[0].data.push(asStat.transactionsInterval.data);
+			cData.datasets[0].data.push(asStat.transactionsInterval);
 			this.set("adshieldChartData", cData);
 			this.notifyPropertyChange('adshieldChartData');
 		}
