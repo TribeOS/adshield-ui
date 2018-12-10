@@ -209,7 +209,8 @@ export default Controller.extend({
 		let self = this;
 		let socket = this.get("socketio").socketFor(this.get("socketServerUrl"));
 		socket.on("connect", function() {
-			socket.on("adshield." + this.user.accountId + ":App\\Events\\AdShieldUpdated", self.dataReceived, self);
+			// socket.on("adshield." + self.user.accountId + ":App\\Events\\AdShieldUpdated", self.dataReceived, self);
+			socket.on("adshield:App\\Events\\AdShieldUpdated", self.dataReceived, self);
 		});
 	},
 
@@ -219,7 +220,7 @@ export default Controller.extend({
 		let graphData = stats.transactionsInterval;
 		
 		// if (stats.accountId != this.user.accountId) return;
-
+		console.log(data);
 		this.set("lastGraphData", parseInt(graphData));
 		this.updateStats(stats, false);
 	},
