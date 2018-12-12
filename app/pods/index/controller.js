@@ -209,8 +209,11 @@ export default Controller.extend({
 		let self = this;
 		let socket = this.get("socketio").socketFor(this.get("socketServerUrl"));
 		socket.on("connect", function() {
+			let channel = "adshield." + self.user.access_token;
+			socket.emit("subscribe", channel);
 			// socket.on("adshield." + self.user.accountId + ":App\\Events\\AdShieldUpdated", self.dataReceived, self);
-			socket.on("adshield:App\\Events\\AdShieldUpdated", self.dataReceived, self);
+			// socket.on("adshield:App\\Events\\AdShieldUpdated", self.dataReceived, self);
+			socket.on("message", self.dataReceived);
 		});
 	},
 
