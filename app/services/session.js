@@ -15,7 +15,7 @@ export default ESASession.extend({
 
   	validateToken : function() {
       	const promise = this.get('store').queryRecord('token', {});
-		return DS.PromiseObject.create({ promise: promise });
+		    return DS.PromiseObject.create({ promise: promise });
   	}
 
 });

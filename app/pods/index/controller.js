@@ -174,6 +174,8 @@ export default Controller.extend({
 	},
 
 
+	// ajax : Ember.inject.service('ajax'),
+
 	session : Ember.inject.service('session'),
 
 	socketServerUrl : "https://socketio.adshield.tribeos.io",
