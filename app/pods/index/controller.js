@@ -194,6 +194,8 @@ export default Controller.extend({
 
 	socketio: service("socket-io"),
 
+	socketRef : null,
+
 	initFetchData : function() {
 		var self = this;
 		self.get('store').queryRecord('adshieldstat', {}).then(function(data) 
@@ -209,12 +211,18 @@ export default Controller.extend({
 		let self = this;
 		let socket = this.get("socketio").socketFor(this.get("socketServerUrl"));
 		socket.on("connect", function() {
-			let channel = "adshield." + self.user.access_token;
+			let channel = "adshield." + self.user.channelId;
 			socket.emit("subscribe", channel);
-			// socket.on("adshield." + self.user.accountId + ":App\\Events\\AdShieldUpdated", self.dataReceived, self);
 			// socket.on("adshield:App\\Events\\AdShieldUpdated", self.dataReceived, self);
-			socket.on("message", self.dataReceived);
-		});
+			socket.on("message", self.dataReceived, self);
+		}, self);
+		this.set("socketRef", socket);
+	},
+
+	endSocketIO : function() {
+		let socket = this.socketRef;
+		socket.off("message", self.dataReceived);
+		socket.off("connect");
 	},
 
 
@@ -308,6 +316,7 @@ export default Controller.extend({
 		},
 		didLogOut() {
 			this.transitionToRoute("login");
+			this.endSocketIO();
 		}
 
 	}
