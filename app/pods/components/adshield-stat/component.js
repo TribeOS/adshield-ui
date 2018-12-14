@@ -13,6 +13,7 @@ export default Component.extend({
 	showCount : false,
 	showClicks : false,
 	showMap : false,
+	showSites : false,
 
 	didInsertElement() {
 		if (this.get("showLive") == true) this.updateGraph();
@@ -87,5 +88,14 @@ export default Component.extend({
 		}
 		return options;
 	}),
+
+
+	actions : {
+
+		onSelectSite(item) {
+			this.onSelect(item)
+		}
+
+	}
 
 });

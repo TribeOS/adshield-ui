@@ -29,6 +29,8 @@
 												{{component item.name showCount=true stats=adshieldStats onFinishedLoading=(action "onFinishedLoading")}}
 											{{else if item.showMap}}
 												{{component item.name showMap=true stats=adshieldStats onFinishedLoading=(action "onFinishedLoading")}}
+											{{else if item.showSites}}
+												{{component item.name showSites=true userWebsites=userWebsites onSelect=(action "onSelectWebsite") }}
 											{{/if}}
 										</li>
 									{{else}}

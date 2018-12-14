@@ -66,6 +66,11 @@ export default Controller.extend({
 					{
 						type : 'component',
 						name : 'adshield-stat',
+						showSites : true
+					},
+					{
+						type : 'component',
+						name : 'adshield-stat',
 						showStat : true
 					},
 					{
@@ -82,7 +87,7 @@ export default Controller.extend({
 						type : 'component',
 						name : 'adshield-stat',
 						showCount : true
-					}
+					},
 				]
 			},{
 				icon: "assets/images/icon_settings.png",
@@ -194,13 +199,16 @@ export default Controller.extend({
 
 	user : {},
 
+	//for live stats, selects which website to view for live stats
+	userKey : null, //if userKey == null, live stats for whole account is shown
+
 	socketio: service("socket-io"),
 
 	socketRef : null,
 
 	initFetchData : function() {
 		var self = this;
-		self.get('store').queryRecord('adshieldstat', {}).then(function(data) 
+		self.get('store').queryRecord('adshieldstat', { userKey : self.userKey }).then(function(data) 
 		{
 			self.updateStats(data.get("stat"), true);
 		});
@@ -213,7 +221,7 @@ export default Controller.extend({
 		let self = this;
 		let socket = this.get("socketio").socketFor(this.get("socketServerUrl"));
 		socket.on("connect", function() {
-			let channel = "adshield." + self.user.channelId;
+			let channel = "adshield-" + self.user.channelId;
 			socket.emit("subscribe", channel);
 			// socket.on("adshield:App\\Events\\AdShieldUpdated", self.dataReceived, self);
 			socket.on("message", self.dataReceived, self);
@@ -229,11 +237,12 @@ export default Controller.extend({
 
 
 	dataReceived : function(data) {
+		data = JSON.parse(data).data;
+		// console.log(data);
 		let stats = data.stats.adshieldstats.stat;
 		let graphData = stats.transactionsInterval;
 		
-		// if (stats.accountId != this.user.accountId) return;
-		console.log(data);
+		if (this.userKey !== null && stats.userKey !== this.userKey) return;
 		this.set("lastGraphData", parseInt(graphData));
 		this.updateStats(stats, false);
 	},
@@ -255,6 +264,15 @@ export default Controller.extend({
 			asStat.filteredStats = this.getFilteredStats(asStat);
 		} catch (e) {}
 		this.set("adshieldStats", asStat);
+	},
+
+	resetStats : function() {
+		let cData = this.get("adshieldChartData");
+		for(var i in cData.datasets[0].data)  {
+			cData.datasets[0].data[i] = 0;
+		}
+		this.set("adshieldChartData", cData);
+		this.notifyPropertyChange('adshieldChartData');
 	},
 
 	/**
@@ -313,13 +331,24 @@ export default Controller.extend({
 	actions : {
 
 		onFinishedLoading() {
-			this.initFetchData();
-			this.initSocketIO();
+			let self = this;
+			this.fetchMySites(function() {
+				self.userKey = self.userWebsites.objectAt(0).get("userKey");
+				self.initFetchData();
+				self.initSocketIO();
+			});
 		},
+		
 		didLogOut() {
 			this.transitionToRoute("login");
 			this.endSocketIO();
-		}
+		},
+
+		onSelectWebsite(item) {
+			this.set("userKey", item);
+			this.resetStats();
+			this.initFetchData();
+		},
 
 	}
 

@@ -59,3 +59,16 @@
 		{{/leaflet-map}}
 	</div>
 {{/if}}
+
+{{#if showSites}}
+	<div class="statBoxHeader">
+		<div class="text-center">Show Stats For</div>
+	</div>
+	<div>
+		<select class="form-control" onChange={{action "onSelectSite" value="target.value"}}>
+			{{#each userWebsites as |item|}}
+				<option value="{{ item.userKey }}">{{ item.domain }}</option>
+			{{/each}}
+		</select>
+	</div>
+{{/if}}
