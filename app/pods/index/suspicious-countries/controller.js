@@ -30,10 +30,13 @@ export default IpBaseController.extend({
 				//parse gps coord
 				pageData.forEach(function(item) {
 					let info = JSON.parse(item.rawInfo);
-					item.location = [];
-					item.location.push(info.lat);
-					item.location.push(info.lon);
-					item.city = info.city;
+					if (typeof info.lat !== "undefined")
+					{
+						item.location = [];
+						item.location.push(info.lat);
+						item.location.push(info.lon);
+						item.city = info.city;
+					}
 				});
 				self.set("pageData", pageData);
 			}

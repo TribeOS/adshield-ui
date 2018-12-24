@@ -54,12 +54,14 @@
 					{{#leaflet-map lat=lat lng=lng zoom=zoom class="leaflet-map-big"}}
 						{{tile-layer url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
 						{{#each pageData as |loc|}}
-							{{#marker-layer location=loc.location}}
-								{{#popup-layer}}
-									<h3>{{ loc.city }}, {{ loc.country }}</h3>
-									{{ loc.noRequests }} Request(s)
-								{{/popup-layer}}
-							{{/marker-layer}}
+							{{#if loc.location}}
+								{{#marker-layer location=loc.location}}
+									{{#popup-layer}}
+										<h3>{{ loc.city }}, {{ loc.country }}</h3>
+										{{ loc.noRequests }} Request(s)
+									{{/popup-layer}}
+								{{/marker-layer}}
+							{{/if}}
 						{{/each}}
 					{{/leaflet-map}}
 				{{/if}}
