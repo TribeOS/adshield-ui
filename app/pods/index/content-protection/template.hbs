@@ -9,7 +9,7 @@
 		{{#website-dropdown userWebsites=userWebsites onSelect=(action "onSelectSite") }}{{/website-dropdown}}
 		<div class="boxpad row">
 
-			<div class="col-lg-7 no-pad-right">
+			<div class="col-lg-8 no-pad-right">
 		    	<div class="contentbox">
 		        	<h1>Manage your threat responses</h1>
 		            <p>
@@ -25,9 +25,7 @@
 			      	</p>
 		            <p style="border-bottom:1px #eee solid; padding-bottom:10px">Known Signatures protects you from AdShield's curated list of known content thieves and malicous bots. This is a global IP and bot signature ACL that is maintained based on information gathered from all of our customers.</p>
 		        </div>
-		    </div>      
-			<div class="col-lg-5">
-			    <div class="contentbox mBottom">
+		        <div class="contentbox">
 		        	<h1>Manage referrers &amp; proxies</h1>
 		            <p>
 		            	{{#select-box onSelect=(action "onSelect") throwValue=settings.referrersAndProxies.blockReferrers choices=choicesBoolean }}
@@ -40,10 +38,33 @@
 			      		<span class="info"> I want to block <a href="#" accesskey="#">anonymous proxies</a></span>
 			      	</p>
 		        </div>
+		    </div>      
+			<div class="col-lg-4">
+		        <div class="contentbox">
+		        	<h1>Session Settings</h1>
+		            <p>
+		            	Maximum Session Length (Seconds)
+		            	{{input type="text" class="form-control invalid" value=settings.sessions.maxSessionLength placeholder="1800" required="required" }}
+		            </p>
+		            <p>
+		            	Maximum Pages Per Session
+		            	{{input type="text" class="form-control invalid" value=settings.sessions.pagesPerSession placeholder="50" required="required" }}
+		            </p>
+		            <p>
+		            	Session Timeout (Seconds)
+		            	{{input type="text" class="form-control invalid" value=settings.sessions.sessionTimeout placeholder="1800" required="required" }}
+		            </p>
+		            <p>
+		            	Maximum Pages Per Minute
+		            	{{input type="text" class="form-control invalid" value=settings.sessions.pagesPerMinute placeholder="30" required="required" }}
+		            </p>
+		        </div>
+		        <!--
 		        <div class="contentbox">
 		        	<h1>Machine Learning Settings</h1>
 		            <p>No data found</p>
 		        </div>
+		        -->
 		    </div>      
 		  
 		</div>
