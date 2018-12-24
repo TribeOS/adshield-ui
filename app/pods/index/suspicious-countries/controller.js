@@ -27,15 +27,24 @@ export default IpBaseController.extend({
 			else
 			{
 				let pageData = data.get("pageData");
+				let storedIps = [];
 				//parse gps coord
 				pageData.forEach(function(item) {
+					let exists = false;
 					let info = JSON.parse(item.rawInfo);
-					if (typeof info.lat !== "undefined")
+
+					//skip same locations
+					for(var i in storedIps)
+					{
+						if(storedIps[i].lat == info.lat && storedIps[i].lon == info.lon) exists = true;
+					}
+					if (!exists && typeof info.lat !== "undefined")
 					{
 						item.location = [];
 						item.location.push(info.lat);
 						item.location.push(info.lon);
 						item.city = info.city;
+						storedIps.push({ lat : info.lat, lon : info.lon });
 					}
 				});
 				self.set("pageData", pageData);
