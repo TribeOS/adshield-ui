@@ -6,6 +6,8 @@ export default IpBaseController.extend({
 	pageData : [],
 	showTable : false,
 
+	loading : false,
+
 	//initial position to display
 	lat : 0,
   	lng: -9,
@@ -18,6 +20,7 @@ export default IpBaseController.extend({
 	},
 
 	refreshList : function(page, limit, filter, sort) {
+		this.set("loading", true);
 		let self = this;
 		this.get('store').queryRecord("suspiciousCountry", { page : page, limit : limit, filter : filter, sort : sort, showTable : this.showTable }).then(function(data) {
 			if (self.showTable)
@@ -49,6 +52,7 @@ export default IpBaseController.extend({
 				});
 				self.set("pageData", pageData);
 			}
+			self.set("loading", false);
 		});
 	},
 

@@ -21,12 +21,6 @@ export default IpBaseController.extend({
 			let pageData = data.get("pageData");
 			self.set("settings", pageData);
 		});
-
-		// this.get('ajax').request('/contentProtections', self.filter).then(function(data) {
-		// 	self.set("record", data);
-		// 	let pageData = data.pageData;
-		// 	self.set("settings", pageData);
-		// });
 	},
 
 	saveData : function() {
@@ -40,9 +34,6 @@ export default IpBaseController.extend({
 			alert("Error : " + error);
 		});
 
-		// this.get("ajax").post('/contentProtections', { data : settings }).then(function(response) {
-		// 	alert("Settings saved.");
-		// });
 	},
 
 	actions : {

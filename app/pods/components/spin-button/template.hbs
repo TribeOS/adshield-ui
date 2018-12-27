@@ -1,0 +1,5 @@
+{{#if isBusy }}
+	<button class="btn btn-primary" disabled > {{fa-icon "spinner" spin=true }} Loading</button>
+{{else}}
+	<button class="btn btn-primary" {{action "onClick"}} >{{yield}}</button>
+{{/if}}

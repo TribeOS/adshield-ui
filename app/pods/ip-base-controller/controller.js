@@ -4,6 +4,8 @@ import { computed } from "@ember/object";
 
 export default Controller.extend({
 
+	ajax: Ember.inject.service(),
+	
 	session : Ember.inject.service('session'),
 
 	listModelName : "",

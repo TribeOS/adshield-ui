@@ -97,7 +97,7 @@ export default Controller.extend({
 					title : "Api Settings"
 				},{
 					route: "index.content-protection",
-					title: "Content Protection"
+					title: "Ad Protection"
 				},{
 					route: "index.custom-page",
 					title: "Custom Pages"
@@ -108,9 +108,9 @@ export default Controller.extend({
 					route: "index.country-block-list",
 					title: "Country Block List"
 				},{
-					route: "index.content-distribution",
-					title: "Content Distribution"
-				},{
+				// 	route: "index.content-distribution",
+				// 	title: "Content Distribution"
+				// },{
 					route: "index.account-management",
 					title: "Account Management"
 				}]
@@ -166,13 +166,16 @@ export default Controller.extend({
 				items: [{
 					route: "index.traffic-summary",
 					title: "Summary"
-				},{
-					route: "index.cache-analysis",
-					title: "Cache Analysis"
-				},{
-					route: "index.upstream-http-errors",
-					title: "Upstream HTTP Errors"
-				}]
+				},
+				// {
+				//	Could be a feature we might offer later on
+				// 	route: "index.cache-analysis",
+				// 	title: "Cache Analysis"
+				// },{
+					// route: "index.upstream-http-errors",
+					// title: "Upstream HTTP Errors"
+				// }
+				]
 		}]
 		}];
 
