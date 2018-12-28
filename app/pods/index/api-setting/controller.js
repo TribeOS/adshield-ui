@@ -39,6 +39,7 @@ export default IpBaseController.extend({
 			self.set("newWebsiteUserKey", "");
 			self.set("newWebsiteDomain", "");
 			self.fetchData();
+			alert("New website/domain added.");
 		}).catch(function(d) {
 			alert(d.errors[0].detail);
 		});
