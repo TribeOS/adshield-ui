@@ -40,7 +40,12 @@ export default Component.extend({
 		onHide() {
 			this.set("isLoginError", false);
 			this.set("isShown", false);
-		}
+		},
+
+
+		signup() {
+
+		},
 
 	}
 

@@ -22,4 +22,30 @@
 	 	<button class="btn btn-success">Login</button>
 	 	
 	{{/bs-form}}
+
+	<div>OR</div>
+
+	{{#bs-form onSubmit=(action "signup") as |form|}}
+
+		<div style="color: #000">
+			<p class="text-info">Create an account</p>
+
+	 		{{#form.group}}
+	 			{{input type="text" placeholder="Email" value=newUser.email class="form-control"}}
+	 		{{/form.group}}
+
+	 		{{#form.group}}
+	 			{{input type="text" placeholder="Username" value=newUser.username class="form-control"}}
+	 		{{/form.group}}
+
+	 		{{#form.group}}
+	 			{{input type="password" placeholder="Password" value=newUser.password class="form-control"}}
+	 		{{/form.group}}
+
+	 		<button class="btn btn-success">Sign Up</button>
+
+	 	</div>
+
+	{{/bs-form}}
+
 {{/if}}
