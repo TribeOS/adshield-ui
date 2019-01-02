@@ -14,6 +14,15 @@ export default Controller.extend({
 			this.transitionToRoute("index");
 		},	
 
+
+		/**
+		 * sign up new user to backend
+		 * @return {[type]} [description]
+		 */
+		onSignUp(user) {
+			console.log(user);
+		},
+
 	}
 	
 

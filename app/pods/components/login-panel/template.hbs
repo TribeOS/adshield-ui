@@ -19,7 +19,7 @@
 	 	{{/form.group}}
 
 
-	 	<button class="btn btn-success">Login</button>
+	 	<button class="btn btn-success">{{fa-icon "sign-in-alt"}} Login</button>
 	 	
 	{{/bs-form}}
 
@@ -29,6 +29,14 @@
 
 		<div style="color: #000">
 			<p class="text-info">Create an account</p>
+
+			{{#form.group}}
+	 			{{input type="text" placeholder="Firstname" value=newUser.firstName class="form-control"}}
+	 		{{/form.group}}
+
+	 		{{#form.group}}
+	 			{{input type="text" placeholder="Lastname" value=newUser.lastName class="form-control"}}
+	 		{{/form.group}}
 
 	 		{{#form.group}}
 	 			{{input type="text" placeholder="Email" value=newUser.email class="form-control"}}
@@ -42,7 +50,7 @@
 	 			{{input type="password" placeholder="Password" value=newUser.password class="form-control"}}
 	 		{{/form.group}}
 
-	 		<button class="btn btn-success">Sign Up</button>
+	 		<button class="btn btn-success">{{fa-icon "user-plus"}} Sign Up</button>
 
 	 	</div>
 

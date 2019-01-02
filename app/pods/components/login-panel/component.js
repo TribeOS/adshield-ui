@@ -11,6 +11,15 @@ export default Component.extend({
 	isShown : false,
 	loginError : null,
 
+	newUser : {
+		firstName : "",
+		lastName : "",
+		username : "",
+		email : "",
+		password : "",
+	},
+
+
 	didRender() {
 		if (this.get("session").isAuthenticated)
 		{
@@ -43,8 +52,12 @@ export default Component.extend({
 		},
 
 
+		/**
+		 * send user information to controller for execution
+		 * @return {[type]} [description]
+		 */
 		signup() {
-
+			this.sendAction("onSignUp", this.newUser);
 		},
 
 	}
