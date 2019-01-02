@@ -6,6 +6,8 @@ export default IpBaseController.extend({
 	pageData : [],
 	showTable : false,
 
+	loading : false,
+
 	//initial position to display
 	lat : 0,
   	lng: -9,
@@ -18,6 +20,7 @@ export default IpBaseController.extend({
 	},
 
 	refreshList : function(page, limit, filter, sort) {
+		this.set("loading", true);
 		let self = this;
 		this.get('store').queryRecord("suspiciousCountry", { page : page, limit : limit, filter : filter, sort : sort, showTable : this.showTable }).then(function(data) {
 			if (self.showTable)
@@ -27,16 +30,29 @@ export default IpBaseController.extend({
 			else
 			{
 				let pageData = data.get("pageData");
+				let storedIps = [];
 				//parse gps coord
 				pageData.forEach(function(item) {
+					let exists = false;
 					let info = JSON.parse(item.rawInfo);
-					item.location = [];
-					item.location.push(info.lat);
-					item.location.push(info.lon);
-					item.city = info.city;
+
+					//skip same locations
+					for(var i in storedIps)
+					{
+						if(storedIps[i].lat == info.lat && storedIps[i].lon == info.lon) exists = true;
+					}
+					if (!exists && typeof info.lat !== "undefined")
+					{
+						item.location = [];
+						item.location.push(info.lat);
+						item.location.push(info.lon);
+						item.city = info.city;
+						storedIps.push({ lat : info.lat, lon : info.lon });
+					}
 				});
 				self.set("pageData", pageData);
 			}
+			self.set("loading", false);
 		});
 	},
 

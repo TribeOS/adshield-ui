@@ -3,6 +3,8 @@ import { computed } from "@ember/object";
 
 export default IpBaseController.extend({
 
+	ajax: Ember.inject.service(),
+
 	record : null,
 	settings : computed(function() {}),
 
@@ -31,6 +33,7 @@ export default IpBaseController.extend({
 		}).catch(function(error) {
 			alert("Error : " + error);
 		});
+
 	},
 
 	actions : {
