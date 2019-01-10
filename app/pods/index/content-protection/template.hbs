@@ -9,23 +9,124 @@
 		{{#website-dropdown userWebsites=userWebsites onSelect=(action "onSelectSite") }}{{/website-dropdown}}
 		<div class="boxpad row">
 
-			<div class="col-lg-8 no-pad-right">
+			<div class="col-lg-12">
 		    	<div class="contentbox">
 		        	<h1>Manage your threat responses</h1>
-		            <p>
-		            	{{#select-box onSelect=(action "onSelect") throwValue=settings.threatResponse.requestsFromUnknownViolators choices=choicesBlock }}
-		            	{{/select-box}}
-		      			<span class="b-bottom"> requests from <strong>known violators</strong></span>
-		      		</p>
-		            <p style="border-bottom:1px #eee solid; padding-bottom:10px">Known Signatures protects you from AdShield's curated list of known content thieves and malicous bots. This is a global IP and bot signature ACL that is maintained based on information gathered from all of our customers.</p>
-		            <p>
-		            	{{#select-box onSelect=(action "onSelect") throwValue=settings.threatResponse.requestsFromKnownViolatorDataCenters choices=choicesBlock }}
-				      	{{/select-box}}
-			      		<span> requests from <strong>known violator data centers</strong></span>
-			      	</p>
-		            <p style="border-bottom:1px #eee solid; padding-bottom:10px">Known Signatures protects you from AdShield's curated list of known content thieves and malicous bots. This is a global IP and bot signature ACL that is maintained based on information gathered from all of our customers.</p>
+
+		        	<div class="row">
+
+			        	<div class="col-md-6">
+				            <p>
+				            	{{#select-box onSelect=(action "onSelect") throwValue=settings.threatResponse.requestsFromKnownViolators choices=choicesBlock }}
+				            	{{/select-box}}
+				      			<span class="b-bottom"> requests from <strong>known violators</strong></span>
+				      		</p>
+				            <p style="border-bottom:1px #eee solid; padding-bottom:10px">Known Signatures protects you from AdShield's curated list of known content thieves and malicous bots. This is a global IP and bot signature ACL that is maintained based on information gathered from all of our customers.</p>
+				            <p>
+				            	{{#select-box onSelect=(action "onSelect") throwValue=settings.threatResponse.requestsFromKnownViolatorDataCenters choices=choicesBlock }}
+						      	{{/select-box}}
+					      		<span> requests from <strong>known violator data centers</strong></span>
+					      	</p>
+				            <p style="border-bottom:1px #eee solid; padding-bottom:10px">Known Signatures protects you from AdShield's curated list of known content thieves and malicous bots. This is a global IP and bot signature ACL that is maintained based on information gathered from all of our customers.</p>
+
+				            <p>
+				            	{{#select-box onSelect=(action "onSelect") throwValue=settings.threatResponse.jsCheckFailed choices=choicesBlock }}
+				            	{{/select-box}}
+				      			<span class="b-bottom"> requests from <strong>failed JS checks.</strong></span>
+				      		</p>
+
+				      		<p>
+				            	{{#select-box onSelect=(action "onSelect") throwValue=settings.threatResponse.knownViolatorUA choices=choicesBlock }}
+				            	{{/select-box}}
+				      			<span class="b-bottom"> requests from <strong>known violator's User Agent</strong></span>
+				      		</p>
+
+				      		<p>
+				            	{{#select-box onSelect=(action "onSelect") throwValue=settings.threatResponse.suspiciousUA choices=choicesBlock }}
+				            	{{/select-box}}
+				      			<span class="b-bottom"> requests from <strong>suspicious user agents</strong></span>
+				      		</p>
+
+
+				      		<p>
+				            	{{#select-box onSelect=(action "onSelect") throwValue=settings.threatResponse.browserIntegrity choices=choicesBlock }}
+				            	{{/select-box}}
+				      			<span class="b-bottom"> requests from <strong>failed browser integrity checks</strong></span>
+				      		</p>
+
+				        </div>
+
+				        <div class="col-md-6">
+
+				        	<p>
+				            	{{#select-box onSelect=(action "onSelect") throwValue=settings.threatResponse.pagesPerMinuteExceed choices=choicesBlock }}
+				            	{{/select-box}}
+				      			<span class="b-bottom"> requests exceeding the <strong>Pages Per Minute Limit</strong></span>
+				      		</p>
+
+				      		<p>
+				            	{{#select-box onSelect=(action "onSelect") throwValue=settings.threatResponse.pagesPerSessionExceed choices=choicesBlock }}
+				            	{{/select-box}}
+				      			<span class="b-bottom"> requests exceeding the <strong>Pages Per Session Limit</strong></span>
+				      		</p>
+
+				      		<p>
+				            	{{#select-box onSelect=(action "onSelect") throwValue=settings.threatResponse.sessionLengthExceed choices=choicesBlock }}
+				            	{{/select-box}}
+				      			<span class="b-bottom"> requests exceeding the <strong>session length</strong></span>
+				      		</p>
+
+				      		<p>
+				            	{{#select-box onSelect=(action "onSelect") throwValue=settings.threatResponse.blockedCountry choices=choicesBlock }}
+				            	{{/select-box}}
+				      			<span class="b-bottom"> requests from <strong>blocked countries</strong></span>
+				      		</p>
+
+				      		<p>
+				            	{{#select-box onSelect=(action "onSelect") throwValue=settings.threatResponse.aggregatorUA choices=choicesBlock }}
+				            	{{/select-box}}
+				      			<span class="b-bottom"> requests from <strong>aggregator User Agent</strong></span>
+				      		</p>
+
+				      		<p>
+				            	{{#select-box onSelect=(action "onSelect") throwValue=settings.threatResponse.knownViolatorAutoTool choices=choicesBlock }}
+				            	{{/select-box}}
+				      			<span class="b-bottom"> requests from <strong>known violator automation tool</strong></span>
+				      		</p>
+
+							<p>
+				            	{{#select-box onSelect=(action "onSelect") throwValue=settings.threatResponse.badUA choices=choicesBlock }}
+				            	{{/select-box}}
+				      			<span class="b-bottom"> requests from <strong>bad User Agent</strong></span>
+				      		</p>				      		
+
+				      		<p>
+				            	{{#select-box onSelect=(action "onSelect") throwValue=settings.threatResponse.unclassifiedUA choices=choicesBlock }}
+				            	{{/select-box}}
+				      			<span class="b-bottom"> requests from <strong>unclassified User Agent</strong></span>
+				      		</p>
+
+				      		<p>
+				            	{{#select-box onSelect=(action "onSelect") throwValue=settings.threatResponse.bot choices=choicesBlock }}
+				            	{{/select-box}}
+				      			<span class="b-bottom"> requests from <strong>detected bot</strong></span>
+				      		</p>
+
+			    		</div>
+
+			    	</div>
+
 		        </div>
-		        <div class="contentbox">
+		        
+		    </div>      
+
+		</div>
+
+		<div class="boxpad row">
+
+			<div class="col-lg-6">
+				
+				<div class="contentbox">
 		        	<h1>Manage referrers &amp; proxies</h1>
 		            <p>
 		            	{{#select-box onSelect=(action "onSelect") throwValue=settings.referrersAndProxies.blockReferrers choices=choicesBoolean }}
@@ -38,8 +139,10 @@
 			      		<span class="info"> I want to block <a href="#" accesskey="#">anonymous proxies</a></span>
 			      	</p>
 		        </div>
-		    </div>      
-			<div class="col-lg-4">
+
+			</div>
+
+			<div class="col-lg-6">
 		        <div class="contentbox">
 		        	<h1>Session Settings</h1>
 		            <p>
@@ -68,6 +171,7 @@
 		    </div>      
 		  
 		</div>
+
 	{{/modal.body}}
 
 
