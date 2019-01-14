@@ -33,11 +33,19 @@ export default IpBaseController.extend({
 			this.refreshList(this.page, this.limit, this.filter, this.sort);
 		},
 		refresh() {
-			this.refreshList(this.page, this.limit, this.filter, this.sort);
+			let self = this;
+			this.fetchMySites(function(data) {
+				self.filter.userKey = self.userWebsites.objectAt(0).get("userKey");
+				self.refreshList(self.page, self.limit, self.filter, self.sort);
+			});
 		},
 		onHide() {
 			this.transitionToRoute("index");
 		},
+		onSelectSite(item) {
+        	this.filter.userKey = item;
+        	this.refreshList(this.page, this.limit, this.filter, this.sort);
+        },
 	},
 
 });
