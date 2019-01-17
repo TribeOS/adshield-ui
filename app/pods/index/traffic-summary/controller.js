@@ -51,6 +51,9 @@ export default IpBaseController.extend({
 				self.filter.userKey = self.userWebsites.objectAt(0).get("userKey");
 				self.fetchData();
 			});
+		}
+		onRefresh() {
+			this.fetchData();
 		},
 		onHide() {
 			this.transitionToRoute("index");
