@@ -46,7 +46,11 @@ export default IpBaseController.extend({
 
 	actions : {
 		refresh() {
-			this.fetchData();
+			let self = this;
+			this.fetchMySites(function(data) {
+				self.filter.userKey = self.userWebsites.objectAt(0).get("userKey");
+				self.fetchData();
+			});
 		},
 		onHide() {
 			this.transitionToRoute("index");
@@ -58,6 +62,11 @@ export default IpBaseController.extend({
 			this.filter.duration = value;
 			this.fetchData();
 		},
+
+		onSelectSite(item) {
+			this.filter.userKey = item;
+			this.fetchData();
+		}
 		
 	},
 
