@@ -70,6 +70,7 @@ export default Controller.extend({
 
 	refreshList : function(page, limit, filter, sort) {
 		let self = this;
+		this.filter.ip = "";
 		let arg = { page : page, limit : limit, filter : filter, sort : sort };
 		self.get('store').queryRecord(this.get("listModelName"), arg).then(function(data) {
 			var listData = data.get("listData");

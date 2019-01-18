@@ -26,7 +26,7 @@ export default IpBaseController.extend({
 		},
 		onSelectDay(value) {
 			this.filter.duration = value;
-			this.refreshGraph(this.page, this.limit, this.filter, this.sort);
+			this.refreshList(this.page, this.limit, this.filter, this.sort);
 		},
 		onSelectSite(item) {
         	let self = this;
