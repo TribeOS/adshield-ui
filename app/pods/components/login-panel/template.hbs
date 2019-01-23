@@ -23,37 +23,44 @@
 	 	
 	{{/bs-form}}
 
-	<div>OR</div>
+	{{#if signingUp}}
+		<div>OR</div>
 
-	{{#bs-form onSubmit=(action "signup") as |form|}}
+		{{#bs-form onSubmit=(action "signup") as |form|}}
 
-		<div style="color: #000">
-			<p class="text-info">Create an account</p>
+			<div style="color: #000">
+				<p class="text-info">Create an account</p>
 
-			{{#form.group}}
-	 			{{input type="text" placeholder="Firstname" value=newUser.firstName class="form-control"}}
-	 		{{/form.group}}
+				{{#form.group}}
+		 			{{input type="text" placeholder="Company" value=newUser.company class="form-control"}}
+		 		{{/form.group}}
 
-	 		{{#form.group}}
-	 			{{input type="text" placeholder="Lastname" value=newUser.lastName class="form-control"}}
-	 		{{/form.group}}
+		 		{{#form.group}}
+		 			{{input type="text" placeholder="Firstname" value=newUser.firstname class="form-control"}}
+		 		{{/form.group}}
 
-	 		{{#form.group}}
-	 			{{input type="text" placeholder="Email" value=newUser.email class="form-control"}}
-	 		{{/form.group}}
+		 		{{#form.group}}
+		 			{{input type="text" placeholder="Lastname" value=newUser.lastname class="form-control"}}
+		 		{{/form.group}}
 
-	 		{{#form.group}}
-	 			{{input type="text" placeholder="Username" value=newUser.username class="form-control"}}
-	 		{{/form.group}}
+		 		{{#form.group}}
+		 			{{input type="text" placeholder="Email" value=newUser.email class="form-control"}}
+		 		{{/form.group}}
 
-	 		{{#form.group}}
-	 			{{input type="password" placeholder="Password" value=newUser.password class="form-control"}}
-	 		{{/form.group}}
+		 		{{#form.group}}
+		 			{{input type="text" placeholder="Username" value=newUser.username class="form-control"}}
+		 		{{/form.group}}
 
-	 		<button class="btn btn-success">{{fa-icon "user-plus"}} Sign Up</button>
+		 		{{#form.group}}
+		 			{{input type="password" placeholder="Password" value=newUser.password class="form-control"}}
+		 		{{/form.group}}
 
-	 	</div>
+		 		<button class="btn btn-success">{{fa-icon "user-plus"}} Sign Up</button>
 
-	{{/bs-form}}
+		 	</div>
+
+		{{/bs-form}}
+
+	{{/if}}
 
 {{/if}}

@@ -7,6 +7,9 @@ export default Controller.extend({
 
 	session : Ember.inject.service('session'),
 
+	//flag for signup result
+	signingUp : true,
+
 
 	actions : {
 
@@ -20,7 +23,18 @@ export default Controller.extend({
 		 * @return {[type]} [description]
 		 */
 		onSignUp(user) {
-			console.log(user);
+			let self = this;
+			let account = this.get("store").createRecord("account", user);
+			account.save().then(function() {
+				self.set("signingUp", false);
+				alert("Please complete your registration through the email we sent to you. Thanks.");
+			}).catch(function(error) {
+				if (typeof error.errors !== "undefined") {
+					alert(error.errors[0].detail);
+				} else {
+					alert(error);
+				}
+			});
 		},
 
 	}

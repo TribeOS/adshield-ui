@@ -10,8 +10,11 @@ export default IpBaseController.extend({
 	installCode : "",
 	isDetailShown : false,
 	newWebsiteUserKey : "",
-	newWebsiteDomain : "",
+	newWebsiteDomain : "", 
+	newWebsiteCode : "", //holds the JS code the publisher wants to run 
 
+	selectedWebsite : null,
+	isNewWebsite : true, //flag for indicating new website or update
 
 	init : function() {
 		this._super(...arguments);
@@ -27,21 +30,38 @@ export default IpBaseController.extend({
 		});
 	},
 
-	createWebsite : function(userKey, siteDomain) {
+	createWebsite : function(userKey, siteDomain, jsCode) {
 		let store = this.get("store");
 		let website = store.createRecord("userWebsite", {
 			userKey : userKey,
 			domain : siteDomain,
-			status : 1
+			status : 1,
+			jsCode : jsCode
 		});
 		let self = this;
 		website.save().then(() => {
 			self.set("newWebsiteUserKey", "");
 			self.set("newWebsiteDomain", "");
+			self.set("newWebsiteCode", "");
 			self.fetchData();
 			alert("New website/domain added.");
 		}).catch(function(d) {
 			alert(d.errors[0].detail);
+		});
+	},
+
+
+	updateWebsite : function(userKey, domain, jsCode) {
+		let self = this;
+		this.get("store").findRecord("userWebsite", this.selectedWebsite.id).then(function(item) {
+			item.set("domain", domain);
+			item.set("jsCode", jsCode);
+			item.save().then(function() {
+				self.fetchData();
+				alert("Website updated");
+			}).catch(function(error) {
+				alert(error.errors[0].detail);
+			});
 		});
 	},
 
@@ -81,15 +101,42 @@ export default IpBaseController.extend({
 			this.set("isDetailShown", false);
 		},
 
+
+		/**
+		 * blanks the form, indicate this is a new website not an update
+		 * @return {[type]} [description]
+		 */
 		createWebsite() {
+			//clears form and selection
+			this.set("isNewWebsite", true);
+			this.set("newWebsiteUserKey", "");
+			this.set("newWebsiteDomain", "");
+			this.set("newWebsiteCode", "");
+		},
+
+		updateWebsite(item) {
+			this.set("isNewWebsite", false);
+			this.set("selectedWebsite", item);
+			this.set("newWebsiteUserKey", item.userKey);
+			this.set("newWebsiteDomain", item.domain);
+			this.set("newWebsiteCode", item.jsCode);
+		},
+
+		saveWebsite() {
 			let userKey = this.get("newWebsiteUserKey");
 			let siteDomain = this.get("newWebsiteDomain");
+			let jsCode = this.get("newWebsiteCode");
 
-			if (siteDomain.trim().length == 0) {
+			if (siteDomain.trim().length == 0 || jsCode.trim().length == 0) {
 				alert("Please fill in all the fields.");
 				return false;
 			}
-			this.createWebsite(userKey, siteDomain);
+
+			if (this.isNewWebsite) {
+				this.createWebsite(userKey, siteDomain, jsCode);
+			} else {
+				this.updateWebsite(userKey, siteDomain, jsCode);
+			}
 		},
 
 		gotoPage(page) {
