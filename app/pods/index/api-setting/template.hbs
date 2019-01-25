@@ -32,36 +32,30 @@
 		    	
 
 		    	{{#if isNewWebsite}}
-			    	<h3>Create new website</h3>
-			    	<form>
-			    		<div class="form-group">
-			    			<label for="domain">Domain Name</label>
-			    			{{input type="text" class="form-control invalid" value=newWebsiteDomain placeholder="yourwebsite.com" required="required" id="domain" }}
-			    		</div>
-
-			    		<div class="form-group">
-			    			<label for="domain">JS Ad Code</label>
-			    			{{textarea class="form-control invalid" required="required" value=newWebsiteCode placeholder="Paste your JS ad code here." rows=6 }}
-			    		</div>
-			    		<button class="btn btn-sm btn-success" {{action "saveWebsite"}}>Save</button>
-			    	</form>
+			    	<h3>Add a new website</h3>
 			    {{else}}
+			    	<p>
+			    		<button class="btn btn-sm btn-success" {{action "createWebsite"}}>{{fa-icon "globe"}} I want to add a new website</button>
+			    	</p>
 			    	<h3>Update website information</h3>
-			    	<form>
-			    		<div class="form-group">
-			    			<label for="domain">Domain Name</label>
-			    			{{input type="text" class="form-control invalid" value=newWebsiteDomain placeholder="yourwebsite.com" required="required" id="domain" }}
-			    		</div>
-
-			    		<div class="form-group">
-			    			<label for="domain">JS Ad Code</label>
-			    			{{textarea class="form-control invalid" required="required" value=newWebsiteCode placeholder="Paste your JS ad code here." rows=6 }}
-			    		</div>
-			    		
-			    		<button class="btn btn-sm btn-primary" {{action "createWebsite"}}>Add a new website</button>
-			    		<button class="btn btn-sm btn-success" {{action "saveWebsite"}}>Save</button>
-			    	</form>
 			    {{/if}}
+			    	
+		    	<form>
+	    			<label for="domain">Domain Name</label>
+					<div class="input-group mb-3">
+					  	<div class="input-group-prepend">
+					    	<span class="input-group-text" id="basic-addon3">https://www.</span>
+					  	</div>
+					  	{{input type="text" aria-describedby="basic-addon3" class="form-control invalid" value=newWebsiteDomain placeholder="yourwebsite.com" required="required" id="domain" }}
+					</div>
+
+		    		<div class="form-group">
+		    			<label for="domain">JS Ad Code</label>
+		    			{{textarea class="form-control invalid" required="required" value=newWebsiteCode placeholder="Paste your JS ad code here." rows=6 }}
+		    		</div>
+		    		<button class="btn btn-sm btn-success" {{action "saveWebsite"}}>Save</button>
+		    	</form>
+
 		    </div>      
 		  
 		</div>
