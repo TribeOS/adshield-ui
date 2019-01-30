@@ -38,8 +38,8 @@ export default Controller.extend({
 				icon: "assets/images/icon_sell.png",
 				title: "Summary Reports",
 				items: [{
-					route: "index.click-fraud-report",
-					title: "Click Fraud"
+					route: "index.blocked-request",
+					title: "Blocked Requests"
 				},{
 					route: "index.captcha-request",
 					title: "Captcha Requests"

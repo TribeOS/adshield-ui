@@ -15,7 +15,7 @@ Router.map(function() {
         this.route('automated-traffic');
         this.route('traffic-by-org');
         this.route('suspicious-countries');
-        this.route('click-fraud-report');
+        this.route('blocked-request');
         this.route('captcha-request');
         this.route('desirable-automated-traffic');
         this.route('targeted-content');
