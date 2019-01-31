@@ -8,7 +8,6 @@ export default IpBaseController.extend({
 	settings : computed(function() {}),
 	userWebsites : null,
 	installCode : "",
-	isDetailShown : false,
 	newWebsiteUserKey : "",
 	newWebsiteDomain : "", 
 	newWebsiteCode : "", //holds the JS code the publisher wants to run 
@@ -71,6 +70,12 @@ export default IpBaseController.extend({
 		refresh() {
 			this.set("page", 1);
 			this.fetchData();
+
+			this.set("isNewWebsite", true);
+			this.set("newWebsiteUserKey", "");
+			this.set("newWebsiteDomain", "");
+			this.set("newWebsiteCode", "");
+			this.set("selectedWebsite", null);
 		},
 		
 		onHide() {
@@ -78,27 +83,6 @@ export default IpBaseController.extend({
 		},
 
 		onSelect(selected) {
-		},
-
-		viewDetail(userWebsite) {
-			let script = "<script>\n";
-				script += "	var _adshield = [];\n";
-				script += "	_adshield.push({key:'" + userWebsite.userKey + "'});\n";
-				script += "	(function() {\n";
-				script += '	var sc = document.createElement("script");\n';
-				script += '	sc.type = "text/javascript";sc.async=true;sc.src="https://api.adshield.tribeos.io/adshieldjs";\n';
-				script += '	var d = document.getElementsByTagName("script")[0];\n';
-				script += "	d.parentNode.insertBefore(sc, d);\n";
-				script += "	})();\n";
-				script += "</script>";
-				script += `<noscript><img style="display:none;" width="1" height="1" src="https://api.adshield.tribeos.io/nojs/` + userWebsite.userKey + `" /></noscript>`;
-			this.set("installCode", script);
-
-			this.set("isDetailShown", true);
-		},
-
-		hideDetail() {
-			this.set("isDetailShown", false);
 		},
 
 
@@ -127,6 +111,8 @@ export default IpBaseController.extend({
 			let siteDomain = this.get("newWebsiteDomain");
 			let jsCode = this.get("newWebsiteCode");
 
+			console.log(siteDomain);
+			console.log(jsCode);
 			if (siteDomain.trim().length == 0 || jsCode.trim().length == 0) {
 				alert("Please fill in all the fields.");
 				return false;

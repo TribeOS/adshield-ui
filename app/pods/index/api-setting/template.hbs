@@ -2,7 +2,7 @@
 	
 		<div class="boxpad row">    
 
-			<div class="col-lg-7 no-pad-right">
+			<div class="col-lg-6 no-pad-right">
 				<h4>My Websites</h4>
 		    	<div class="contentbox">
 		        	<table class="table">
@@ -16,7 +16,6 @@
 		        				<td>{{ userWebsite.domain }}</td>
 		        				<td>{{ userWebsite.userKey }}</td>
 		        				<td>
-		        					<button class="btn btn-sm btn-info" {{action "viewDetail" userWebsite}}>{{fa-icon "info-circle"}}</button>
 		        					<button class="btn btn-sm btn-info" {{action "updateWebsite" userWebsite}}>{{fa-icon "cogs"}}</button>
 		        				</td>
 		        			</tr>
@@ -25,11 +24,7 @@
 		        	{{#data-table-page source=userWebsites.listData gotoPage=(action "gotoPage")}}{{/data-table-page}}
 		        </div>
 		    </div>      
-			<div class="col-lg-5">
-		    	<p>
-		    		Click on the "detail" button to view the website detail and how to install the JS library to it.
-		    	</p>
-		    	
+			<div class="col-lg-6">   	
 
 		    	{{#if isNewWebsite}}
 			    	<h3>Add a new website</h3>
@@ -52,10 +47,40 @@
 		    		<div class="form-group">
 		    			<label for="domain">JS Ad Code</label>
 		    			{{textarea class="form-control invalid" required="required" value=newWebsiteCode placeholder="Paste your JS ad code here." rows=6 }}
-		    		</div>		    		
-		    		
-		    		<button class="btn btn-sm btn-success" {{action "saveWebsite"}}>Save</button>
+		    		</div>
+		    		<button class="btn btn-sm btn-success" {{action "saveWebsite"}}>Save</button>	
 		    	</form>
+
+		    	{{#if isNewWebsite}}
+		    		{{else}}
+			    		<div class="form-group contentbox">
+			    			<p>This is your AdShield widget code. Copy this to the page you want to protect.</p>
+			    			<p>
+								<code>
+									<small>
+										&lt;script&gt; 
+										<br />
+										var _adshield = []; _adshield.push({key:'{{ selectedWebsite.userKey }}'});
+										<br />
+										(function() { 
+										<br />
+										var sc = document.createElement(&quot;script&quot;);
+										<br />
+										sc.type = &quot;text/javascript&quot;;
+										<br />sc.async=true;sc.src=&quot;https://api.adshield.tribeos.io/adshieldjs&quot;;
+										<br />
+										var d = document.getElementsByTagName(&quot;script&quot;)[0];
+										<br />
+										d.parentNode.insertBefore(sc, d); })();
+										<br />
+										&lt;/script&gt;
+										<br />
+										&lt;noscript&gt;&lt;img style=&quot;display:none;&quot; width=&quot;1&quot; height=&quot;1&quot; src=&quot;https://api.adshield.tribeos.io/nojs/{{ selectedWebsite.userKey }}&quot; /&gt;&lt;/noscript&gt;
+									</small>
+								</code>
+							</p>
+			    		</div>  
+			    	{{/if}}  
 
 		    </div>      
 		  
@@ -63,15 +88,3 @@
 
 {{/bs-modal-simple}}
 
-
-
-{{#bs-modal-simple open=isDetailShown onHide=(action "hideDetail") as |modal| }}
-	<p>
-		Copy the code below and paste it on the webpage that you want to protect/track.
-	</p>
-	<div class="contentbox mBottom">
-		<p>
-			<code>{{ installCode }}</code>
-		</p>
-	</div>
-{{/bs-modal-simple}}
