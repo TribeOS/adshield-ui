@@ -6,5 +6,6 @@ export default DS.Model.extend({
 	username : DS.attr(),
 	company : DS.attr(),
 	email : DS.attr(),
-	password : DS.attr()
+	password : DS.attr(),
+	password_confirmation : DS.attr(),
 });

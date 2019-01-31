@@ -28,6 +28,10 @@
 
 		{{#bs-form onSubmit=(action "signup") as |form|}}
 
+			{{#if signUpError}}
+				<div class="alert alert-danger">{{signUpError}}</div>
+			{{/if}}
+
 			<div style="color: #000">
 				<p class="text-info">Create an account</p>
 
@@ -53,6 +57,10 @@
 
 		 		{{#form.group}}
 		 			{{input type="password" placeholder="Password" value=newUser.password class="form-control"}}
+		 		{{/form.group}}
+
+		 		{{#form.group}}
+		 			{{input type="password" placeholder="Please type your password again" value=newUser.password_confirmation class="form-control"}}
 		 		{{/form.group}}
 
 		 		<button class="btn btn-success">{{fa-icon "user-plus"}} Sign Up</button>

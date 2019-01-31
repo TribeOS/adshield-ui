@@ -9,6 +9,7 @@ export default Controller.extend({
 
 	//flag for signup result
 	signingUp : true,
+	signUpError : false,
 
 
 	actions : {
@@ -24,15 +25,16 @@ export default Controller.extend({
 		 */
 		onSignUp(user) {
 			let self = this;
+			self.set("signUpError", false);
 			let account = this.get("store").createRecord("account", user);
 			account.save().then(function() {
 				self.set("signingUp", false);
 				alert("Please complete your registration through the email we sent to you. Thanks.");
 			}).catch(function(error) {
 				if (typeof error.errors !== "undefined") {
-					alert(error.errors[0].detail);
+					self.set("signUpError", error.errors[0].detail);
 				} else {
-					alert(error);
+					self.set("signUpError", error);
 				}
 			});
 		},
