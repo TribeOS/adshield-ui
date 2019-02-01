@@ -18,7 +18,8 @@ export default IpBaseController.extend({
 		return [
 			{ value : 1, label : 'Account Access' },
 			{ value : 2, label : 'Reports Access' },
-			{ value : 3, label : 'Settings Access' }
+			{ value : 3, label : 'Settings Access' },
+			{ value : 4, label : 'Admin' }
 		];
 	}),
 
