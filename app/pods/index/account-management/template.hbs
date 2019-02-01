@@ -61,7 +61,7 @@
 							{{#each settings.emailNotifications as |emailNotification|}}
 								<tr>
 									<td width="35%" valign="middle">{{ emailNotification.email }}</td>
-									<td width="40%" valign="middle"><span class="glyphicon glyphicon-ok"></span> {{ emailNotification.coverage }}</td>
+									<td width="40%" valign="middle"><span class="glyphicon glyphicon-ok"></span> {{ show-coverage emailNotification.coverage }}</td>
 									<td width="25%" align="center">
 										<button class="btn btn-danger btn-sm" {{action "removeEmailNotification" emailNotification}}>{{fa-icon 'trash'}}</button>
 									</td>
