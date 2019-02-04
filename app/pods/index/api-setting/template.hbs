@@ -48,30 +48,44 @@
 	    				Enter your ad code(s) here.
 	    				<button class="btn btn-sm btn-default" type="button" {{ action "addJsCode" }}>New Ad Code</button>
 	    			</label>
-	    			{{#bs-tab customTabs=true as |tab|}}
+	    			
 
-    				  	{{#bs-nav type="tabs" as |nav|}}
-    				  		{{#each websiteCode as |code|}}
-					  		    {{#nav.item active=(bs-eq tab.activeId code.title) }}
-					  		    	{{ code.title }} <button class="btn btn-sm btn-danger" {{ action "removeJsCode" code }}>&times;</button>
-					  		    {{/nav.item}}
-					  		{{/each}}
-    				  	{{/bs-nav}}
-
-	    				<div class="tab-content">
-	    					{{#each websiteCode as |code|}}
-			    				{{#tab.pane elementId=code.title title=code.title }}
-			    					<div class="form-group">
-			    						{{input type="text" class="form-control invalid" placeholder="ID of code/script container" value=code.title}}
+	    			{{#bs-accordion as |acc|}}
+    					{{#each websiteCode as |code index|}}
+    						{{#acc.item value=index as |aitem|}}
+    							{{#aitem.title}}
+    								<button class="btn btn-sm btn-danger" {{ action "removeJsCode" code }}>&times;</button>
+    								{{code.container}}
+    							{{/aitem.title}}
+    							{{#aitem.body}}
+	    							<div class="form-group">
+			    						{{input type="text" class="form-control invalid" placeholder="ID of code/script container" value=code.container}}
 			    					</div>
 			    					<div class="form-group">
 			    						{{textarea class="form-control invalid" required="required" value=code.code placeholder="Paste your JS ad code here." rows=6 }}
 			    					</div>
-			    				{{/tab.pane}}
-			    			{{/each}}
-		    			</div>
+			    					<div class="form-group">
+			    						{{input type="checkbox" checked=code.isLibrary }}
+			    						<span>This is a JS library</span>
+		    							<p class="text-info">
+		    								<ul>
+		    									<li>
+		    										Check if your ad code needs to be placed on a specific location on your page (as indicated by your code container) :
+		    										<br />
+		    										e.g. <strong>&lt;script src="https://website.com/java/script.js"&gt;&lt;/script&gt;</strong>
+		    									</li>
+		    									<li>
+		    										Leave unchecked if your ad code can be placed at the bottom of the page. (Code container is still required for identifying your ad code).
+		    									</li>
+		    								</ul>
+		    							</p>
 
-    				{{/bs-tab}}
+			    					</div>
+			    				{{/aitem.body}}
+    						{{/acc.item}}
+		    			{{/each}}
+	    			{{/bs-accordion}}
+
 		    		
 		    		<button class="btn btn-sm btn-success" {{action "saveWebsite"}}>Save</button>	
 		    	</form>

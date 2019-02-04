@@ -65,6 +65,24 @@ export default IpBaseController.extend({
 	},
 
 
+	/**
+	 * checks if the given title already exists in the user's list of ad code for this website
+	 * @param  {[type]} title [description]
+	 * @return {[type]}       [description]
+	 */
+	containerExists : function(container, index) {
+		let exists = false;
+		if (typeof index == 'undefined') index = -1;
+		this.get("websiteCode").forEach(function(item, id) {
+			if (item.container == container && index != id) {
+				exists = true;
+				return false;
+			}
+		});
+		return exists;
+	},
+
+
 	actions : {
 
 		refresh() {
@@ -107,9 +125,24 @@ export default IpBaseController.extend({
 		},
 
 		saveWebsite() {
+			let self = this;
 			let userKey = this.get("newWebsiteUserKey");
 			let siteDomain = this.get("newWebsiteDomain");
 			let jsCode = this.get("websiteCode");
+
+			//check for duplicate containers/title
+			let duplicateContainer = false;
+			jsCode.forEach(function(item, index) {
+				if (self.containerExists(item.container, index)) {
+					duplicateContainer = true;
+					return false;
+				}
+			});
+
+			if (duplicateContainer) {
+				alert("Ad Code container needs to be unique.");
+				return false;
+			}
 
 			if (siteDomain.trim().length == 0) {
 				alert("Please fill in all the fields.");
@@ -135,15 +168,20 @@ export default IpBaseController.extend({
 		 * @return {[type]} [description]
 		 */
 		removeJsCode(item) {
-
+			this.get("websiteCode").removeObject(item);
 		},
 
 		/**
 		 * create a new tab for new js code
 		 */
 		addJsCode() {
-			let count = this.get("websiteCode").length + 1;
-			this.get("websiteCode").addObject({ title : "ad-code" + count, code : "" });
+			let container = "";
+			let count = 0;
+			do {
+				count = Math.ceil(Math.random() * 100 + 1000);
+				container = "ad-code" + count;
+			} while (this.containerExists(container));
+			this.get("websiteCode").addObject({ container : "ad-code" + count, code : "", isLibrary : false });
 		},
 
 		gotoPage(page) {
