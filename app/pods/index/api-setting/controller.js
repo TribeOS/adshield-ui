@@ -10,7 +10,7 @@ export default IpBaseController.extend({
 	installCode : "",
 	newWebsiteUserKey : "",
 	newWebsiteDomain : "", 
-	newWebsiteCode : "", //holds the JS code the publisher wants to run 
+	websiteCode : [], //holds the JS code the publisher wants to run 
 
 	selectedWebsite : null,
 	isNewWebsite : true, //flag for indicating new website or update
@@ -41,7 +41,7 @@ export default IpBaseController.extend({
 		website.save().then(() => {
 			self.set("newWebsiteUserKey", "");
 			self.set("newWebsiteDomain", "");
-			self.set("newWebsiteCode", "");
+			self.set("websiteCode", []);
 			self.fetchData();
 			alert("New website/domain added.");
 		}).catch(function(d) {
@@ -74,7 +74,7 @@ export default IpBaseController.extend({
 			this.set("isNewWebsite", true);
 			this.set("newWebsiteUserKey", "");
 			this.set("newWebsiteDomain", "");
-			this.set("newWebsiteCode", "");
+			this.set("websiteCode", []);
 			this.set("selectedWebsite", null);
 		},
 		
@@ -95,7 +95,7 @@ export default IpBaseController.extend({
 			this.set("isNewWebsite", true);
 			this.set("newWebsiteUserKey", "");
 			this.set("newWebsiteDomain", "");
-			this.set("newWebsiteCode", "");
+			this.set("websiteCode", []);
 		},
 
 		updateWebsite(item) {
@@ -103,18 +103,19 @@ export default IpBaseController.extend({
 			this.set("selectedWebsite", item);
 			this.set("newWebsiteUserKey", item.userKey);
 			this.set("newWebsiteDomain", item.domain);
-			this.set("newWebsiteCode", item.jsCode);
+			this.set("websiteCode", item.jsCode);
 		},
 
 		saveWebsite() {
 			let userKey = this.get("newWebsiteUserKey");
 			let siteDomain = this.get("newWebsiteDomain");
-			let jsCode = this.get("newWebsiteCode");
+			let jsCode = this.get("websiteCode");
 
-			console.log(siteDomain);
-			console.log(jsCode);
-			if (siteDomain.trim().length == 0 || jsCode.trim().length == 0) {
+			if (siteDomain.trim().length == 0) {
 				alert("Please fill in all the fields.");
+				return false;
+			} else if (jsCode.length == 0) {
+				alert("Your website needs to have at least one JS Ad Code to protect.");
 				return false;
 			}
 
@@ -123,6 +124,28 @@ export default IpBaseController.extend({
 			} else {
 				this.updateWebsite(userKey, siteDomain, jsCode);
 			}
+		},
+
+		/**
+		 * handler for js code management
+		 */
+		
+		/**
+		 * remove js code entry
+		 * @return {[type]} [description]
+		 */
+		removeJsCode(item) {
+
+		},
+
+		/**
+		 * create a new tab for new js code
+		 */
+		addJsCode() {
+			let count = this.get("websiteCode").length + 1;
+			console.log(count);
+			let c = { title : "ad-code" + count, code : "" };
+			this.get("websiteCode").addObject(c);
 		},
 
 		gotoPage(page) {

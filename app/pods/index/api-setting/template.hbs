@@ -43,11 +43,36 @@
 					  	</div>
 					  	{{input type="text" aria-describedby="basic-addon3" class="form-control invalid" value=newWebsiteDomain placeholder="yourwebsite.com" required="required" id="domain" }}
 					</div>
+	    		
+	    			<label for="domain">
+	    				Enter your ad code(s) here.
+	    				<button class="btn btn-sm btn-default" type="button" {{ action "addJsCode" }}>New Ad Code</button>
+	    			</label>
+	    			{{#bs-tab customTabs=true as |tab|}}
 
-		    		<div class="form-group">
-		    			<label for="domain">JS Ad Code</label>
-		    			{{textarea class="form-control invalid" required="required" value=newWebsiteCode placeholder="Paste your JS ad code here." rows=6 }}
-		    		</div>
+    				  	{{#bs-nav type="tabs" as |nav|}}
+    				  		{{#each websiteCode as |code|}}
+					  		    {{#nav.item active=(bs-eq tab.activeId code.title) }}
+					  		    	Ad Code 1 <button class="btn btn-sm btn-danger" {{ action "removeJsCode" code }}>&times;</button>
+					  		    {{/nav.item}}
+					  		{{/each}}
+    				  	{{/bs-nav}}
+
+	    				<div class="tab-content">
+	    					{{#each websiteCode as |code|}}
+			    				{{#tab.pane elementId=code.title title=code.title }}
+			    					<div class="form-group">
+			    						{{input type="text" class="form-control invalid" placeholder="ID of code/script container" value=code.title}}
+			    					</div>
+			    					<div class="form-group">
+			    						{{textarea class="form-control invalid" required="required" value=code.code placeholder="Paste your JS ad code here." rows=6 }}
+			    					</div>
+			    				{{/tab.pane}}
+			    			{{/each}}
+		    			</div>
+
+    				{{/bs-tab}}
+		    		
 		    		<button class="btn btn-sm btn-success" {{action "saveWebsite"}}>Save</button>	
 		    	</form>
 
