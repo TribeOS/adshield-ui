@@ -143,9 +143,7 @@ export default IpBaseController.extend({
 		 */
 		addJsCode() {
 			let count = this.get("websiteCode").length + 1;
-			console.log(count);
-			let c = { title : "ad-code" + count, code : "" };
-			this.get("websiteCode").addObject(c);
+			this.get("websiteCode").addObject({ title : "ad-code" + count, code : "" });
 		},
 
 		gotoPage(page) {
