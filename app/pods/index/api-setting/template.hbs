@@ -24,6 +24,7 @@
 		        	{{#data-table-page source=userWebsites.listData gotoPage=(action "gotoPage")}}{{/data-table-page}}
 		        </div>
 		    </div>      
+
 			<div class="col-lg-6">   	
 
 		    	{{#if isNewWebsite}}
@@ -65,21 +66,8 @@
 			    						{{textarea class="form-control invalid" required="required" value=code.code placeholder="Paste your JS ad code here." rows=6 }}
 			    					</div>
 			    					<div class="form-group">
-			    						{{input type="checkbox" checked=code.isLibrary }}
-			    						<span>This is a JS library</span>
-		    							<p class="text-info">
-		    								<ul>
-		    									<li>
-		    										Check if your ad code needs to be placed on a specific location on your page (as indicated by your code container) :
-		    										<br />
-		    										e.g. <strong>&lt;script src="https://website.com/java/script.js"&gt;&lt;/script&gt;</strong>
-		    									</li>
-		    									<li>
-		    										Leave unchecked if your ad code can be placed at the bottom of the page. (Code container is still required for identifying your ad code).
-		    									</li>
-		    								</ul>
-		    							</p>
-
+			    						{{input type="checkbox" checked=code.intoContainer}}
+			    						<span>Insert code into container with ID "{{code.container}}".</span>
 			    					</div>
 			    				{{/aitem.body}}
     						{{/acc.item}}

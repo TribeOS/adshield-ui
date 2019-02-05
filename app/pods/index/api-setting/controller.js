@@ -181,7 +181,7 @@ export default IpBaseController.extend({
 				count = Math.ceil(Math.random() * 100 + 1000);
 				container = "ad-code" + count;
 			} while (this.containerExists(container));
-			this.get("websiteCode").addObject({ container : "ad-code" + count, code : "", isLibrary : false });
+			this.get("websiteCode").addObject({ container : "ad-code" + count, code : "", intoContainer : false });
 		},
 
 		gotoPage(page) {
