@@ -37,77 +37,91 @@
 			    {{/if}}
 			    	
 		    	<form>
-	    			<label for="domain">Domain Name</label>
-					<div class="input-group mb-3">
-					  	<div class="input-group-prepend">
-					    	<span class="input-group-text" id="basic-addon3">https://www.</span>
-					  	</div>
-					  	{{input type="text" aria-describedby="basic-addon3" class="form-control invalid" value=newWebsiteDomain placeholder="yourwebsite.com" required="required" id="domain" }}
-					</div>
-	    		
-	    			<label for="domain">
-	    				Enter your ad code(s) here.
-	    				<button class="btn btn-sm btn-default" type="button" {{ action "addJsCode" }}>New Ad Code</button>
-	    			</label>
-	    			
+		    		{{#bs-accordion as |acc|}}
 
-	    			{{#bs-accordion as |acc|}}
-    					{{#each websiteCode as |code index|}}
-    						{{#acc.item value=index as |aitem|}}
-    							{{#aitem.title}}
-    								<button class="btn btn-sm btn-danger" {{ action "removeJsCode" code }}>&times;</button>
-    								{{code.container}}
-    							{{/aitem.title}}
-    							{{#aitem.body}}
-	    							<div class="form-group">
-			    						{{input type="text" class="form-control invalid" placeholder="ID of code/script container" value=code.container}}
-			    					</div>
-			    					<div class="form-group">
-			    						{{textarea class="form-control invalid" required="required" value=code.code placeholder="Paste your JS ad code here." rows=6 }}
-			    					</div>
-			    					<div class="form-group">
-			    						{{input type="checkbox" checked=code.intoContainer}}
-			    						<span>Insert code into container with ID "{{code.container}}".</span>
-			    					</div>
-			    				{{/aitem.body}}
-    						{{/acc.item}}
-		    			{{/each}}
-	    			{{/bs-accordion}}
+		    			{{#acc.item value="step1" title=(if isNewWebsite "1. Enter your domain name" "Domain Name")}}
+							<div class="input-group mb-3">
+							  	<div class="input-group-prepend">
+							    	<span class="input-group-text" id="basic-addon3">https://www.</span>
+							  	</div>
+							  	{{input type="text" aria-describedby="basic-addon3" class="form-control invalid" value=newWebsiteDomain placeholder="yourwebsite.com" required="required" id="domain" }}
+							  	<button {{action "enteredDomain" acc}}>Next</button>
+							</div>
+						{{/acc.item}}
+						
+						{{#acc.item value="step2" title=(if isNewWebsite "2. Paste your ad code(s)" "Your Ad Code(s)")}}
+							<p>
+								For each ad codes on your website, you have to create a container by clicking on the "Create Container" button. This container will hold your <strong>ad code</strong> in realtime when its safe.
+								<br />
+								<button class="btn btn-sm btn-primary" type="button" {{ action "addJsCode" }}>{{fa-icon "box"}} Create Container</button>
+							</p>
+							
 
-		    		
-		    		<button class="btn btn-sm btn-success" {{action "saveWebsite"}}>Save</button>	
+							{{#bs-accordion as |acc|}}
+								{{#each websiteCode as |code index|}}
+									{{#acc.item value=index as |aitem|}}
+										{{#aitem.title}}
+											<button class="btn btn-sm btn-danger" {{ action "removeJsCode" code }}>&times;</button>
+											{{code.container}}
+										{{/aitem.title}}
+										{{#aitem.body}}
+											<form>
+												<div class="form-group">
+													<label>Container ID</label>
+						    						{{input type="text" class="form-control invalid" placeholder="ID of code/script container" value=code.container title="Container ID"}}
+						    					</div>
+						    					<div class="form-group">
+						    						{{textarea class="form-control invalid" required="required" value=code.code placeholder="Paste your JS Ad code here." rows=6 title="Ad Code" }}
+						    					</div>
+						    					<div class="form-group">
+						    						{{input type="checkbox" checked=code.intoContainer}}
+						    						<span>Insert my js code into the container with ID "{{code.container}}".</span>
+						    					</div>
+						    					<div class="form-group">
+						    						<p>
+						    							Replace your ad code with this blank container at the same place in your site/page.
+						    						</p>
+						    						<code>
+						    							&lt;div id="{{code.container}}"&gt;&lt;/div&gt;
+						    						</code>
+						    						{{#copy-button clipboardText=(concat '<div id="' code.container '"></div>') class="btn btn-sm btn-info" success=(action "copySuccess") }}
+						    							{{fa-icon "clipboard"}} Copy
+						    						{{/copy-button}}
+						    					</div>
+						    				</form>
+					    				{{/aitem.body}}
+									{{/acc.item}}
+				    			{{/each}}
+							{{/bs-accordion}}
+
+							<hr />
+							<div class="form-group"> 
+								{{#if (gt websiteCode.length 0) }}
+				    				<button class="btn btn-success" {{action "saveWebsite" acc}}>{{fa-icon "save"}} Save Website {{newWebsiteDomain}}</button>	
+								{{/if}}
+				    		</div>
+				    	{{/acc.item}}
+
+
+				    	{{#acc.item value="step3" title=(if isNewWebsite "3. Copy your Adshield Widget Code" "Adshield Widget Code")}}
+			    			{{#if isNewWebsite}}
+			    				<p>
+			    					After creating your site, check back here to copy your Adshield Widget Code.
+			    				</p>
+			    			{{else}}
+				    			<p>
+				    				This is your AdShield widget code. Copy this to the bottom of your webpage.
+				    			</p>
+			    				<code><pre>{{ adshieldCode }}</pre></code>
+								{{#copy-button clipboardText=adshieldCode class="btn btn-sm btn-info" success=(action "copySuccess") }}
+	    							{{fa-icon "clipboard"}} Copy Adshield Code
+	    						{{/copy-button}}
+				    		{{/if}}  
+				    	{{/acc.item}}
+
+		    		{{/bs-accordion}}
 		    	</form>
 
-		    	{{#if isNewWebsite}}
-		    		{{else}}
-			    		<div class="form-group contentbox">
-			    			<p>This is your AdShield widget code. Copy this to the page you want to protect.</p>
-			    			<p>
-								<code>
-									<small>
-										&lt;script&gt; 
-										<br />
-										var _adshield = []; _adshield.push({key:'{{ selectedWebsite.userKey }}'});
-										<br />
-										(function() { 
-										<br />
-										var sc = document.createElement(&quot;script&quot;);
-										<br />
-										sc.type = &quot;text/javascript&quot;;
-										<br />sc.async=true;sc.src=&quot;https://api.adshield.tribeos.io/adshieldjs&quot;;
-										<br />
-										var d = document.getElementsByTagName(&quot;script&quot;)[0];
-										<br />
-										d.parentNode.insertBefore(sc, d); })();
-										<br />
-										&lt;/script&gt;
-										<br />
-										&lt;noscript&gt;&lt;img style=&quot;display:none;&quot; width=&quot;1&quot; height=&quot;1&quot; src=&quot;https://api.adshield.tribeos.io/nojs/{{ selectedWebsite.userKey }}&quot; /&gt;&lt;/noscript&gt;
-									</small>
-								</code>
-							</p>
-			    		</div>  
-			    	{{/if}}  
 
 		    </div>      
 		  

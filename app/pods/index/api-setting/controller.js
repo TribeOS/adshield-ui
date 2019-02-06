@@ -15,6 +15,20 @@ export default IpBaseController.extend({
 	selectedWebsite : null,
 	isNewWebsite : true, //flag for indicating new website or update
 
+	adshieldCode : computed("selectedWebsite", function() {
+		return `<script>\n`
+			+ `	var _adshield = []; _adshield.push({key:'${this.selectedWebsite.userKey}'});\n`
+			+ `	(function() {\n`
+			+ `		var sc = document.createElement("script");\n`
+			+ `		sc.type = "text/javascript";\n`
+			+ `		sc.async=true;sc.src="https://api.adshield.tribeos.io/adshieldjs";\n`
+			+ `		var d = document.getElementsByTagName("script")[0];\n`
+			+ `		d.parentNode.insertBefore(sc, d);\n`
+			+ `	})();\n`
+			+ `</script>\n`
+			+ `<noscript><img style="display:none;" width="1" height="1" src="https://api.adshield.tribeos.io/nojs/${this.selectedWebsite.userKey}" /></noscript>`;
+	}),
+
 	init : function() {
 		this._super(...arguments);
 		this.filter = { userKey : "", duration : "0", status : 0, ip : "" };
@@ -31,18 +45,18 @@ export default IpBaseController.extend({
 
 	createWebsite : function(userKey, siteDomain, jsCode) {
 		let store = this.get("store");
-		let website = store.createRecord("userWebsite", {
+		let newWebsite = {
 			userKey : userKey,
 			domain : siteDomain,
 			status : 1,
 			jsCode : jsCode
-		});
+		};
+		let website = store.createRecord("userWebsite", newWebsite);
 		let self = this;
 		website.save().then(() => {
-			self.set("newWebsiteUserKey", "");
-			self.set("newWebsiteDomain", "");
-			self.set("websiteCode", []);
-			self.fetchData();
+			newWebsite.userKey = website.get("userKey");
+			newWebsite.id = website.get("id");
+			self.openWebsite(newWebsite);
 			alert("New website/domain added.");
 		}).catch(function(d) {
 			alert(d.errors[0].detail);
@@ -80,6 +94,40 @@ export default IpBaseController.extend({
 			}
 		});
 		return exists;
+	},
+
+
+	openWebsite : function(item) {
+		this.set("isNewWebsite", false);
+		this.set("selectedWebsite", item);
+		this.set("newWebsiteUserKey", item.userKey);
+		this.set("newWebsiteDomain", item.domain);
+		this.set("websiteCode", item.jsCode);
+	},
+
+
+	areContainersUnique : function(jsCode) {
+		let self = this;
+		//check for duplicate containers/title
+		let duplicateContainer = false;
+		jsCode.forEach(function(item, index) {
+			if (self.containerExists(item.container, index)) {
+				duplicateContainer = true;
+				return false;
+			}
+		});
+		return !duplicateContainer;
+	},
+
+	areAdcodesValid : function(jsCode) {
+		let isEmpty = false;
+		jsCode.forEach(function(item, index) {
+			if (item.code.trim().length == 0) {
+				isEmpty = true;
+				return false;
+			}
+		});
+		return !isEmpty;
 	},
 
 
@@ -124,26 +172,13 @@ export default IpBaseController.extend({
 			this.set("websiteCode", item.jsCode);
 		},
 
-		saveWebsite() {
+		saveWebsite(objAccordion) {
 			let self = this;
 			let userKey = this.get("newWebsiteUserKey");
 			let siteDomain = this.get("newWebsiteDomain");
 			let jsCode = this.get("websiteCode");
 
-			//check for duplicate containers/title
-			let duplicateContainer = false;
-			jsCode.forEach(function(item, index) {
-				if (self.containerExists(item.container, index)) {
-					duplicateContainer = true;
-					return false;
-				}
-			});
-
-			if (duplicateContainer) {
-				alert("Ad Code container needs to be unique.");
-				return false;
-			}
-
+			//perform general validation
 			if (siteDomain.trim().length == 0) {
 				alert("Please fill in all the fields.");
 				return false;
@@ -152,8 +187,18 @@ export default IpBaseController.extend({
 				return false;
 			}
 
+			//validate each ad code entry
+			if (!this.areContainersUnique(jsCode)) {
+				alert("Ad Code container needs to be unique.");
+				return false;
+			} else if (!this.areAdcodesValid(jsCode)) {
+				alert("You need to place an Ad Code/JS Code in your containers");
+				return false;
+			}
+
 			if (this.isNewWebsite) {
 				this.createWebsite(userKey, siteDomain, jsCode);
+				objAccordion.change("step3");
 			} else {
 				this.updateWebsite(userKey, siteDomain, jsCode);
 			}
@@ -181,7 +226,21 @@ export default IpBaseController.extend({
 				count = Math.ceil(Math.random() * 100 + 1000);
 				container = "ad-code" + count;
 			} while (this.containerExists(container));
-			this.get("websiteCode").addObject({ container : "ad-code" + count, code : "", intoContainer : false });
+			this.get("websiteCode").addObject({ container : "ad-code" + count, code : "", intoContainer : true });
+		},
+
+		enteredDomain(objAccordion) {
+			let pattern = /^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9](?:\.[a-zA-Z]{2,})+$/;
+			if (this.newWebsiteDomain.match(pattern) == null) {
+				alert("Please enter a valid domain name");
+				return;
+			}
+			objAccordion.change("step2");
+		},
+
+
+		copySuccess(e) {
+			alert("Copied! Paste this into your webpage.");
 		},
 
 		gotoPage(page) {
