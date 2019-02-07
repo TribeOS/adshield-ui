@@ -79,6 +79,20 @@ export default IpBaseController.extend({
 	},
 
 
+	deleteWebsite : function(website) {
+		let self = this;
+		this.get("store").findRecord("userWebsite", website.id).then(function(item) {
+			item.set("status", 0);
+			item.save().then(function() {
+				self.fetchData();
+				alert("Website was deleted!");
+			}).catch(function(error) {
+				alert(error);
+			});
+		});
+	},
+
+
 	/**
 	 * checks if the given title already exists in the user's list of ad code for this website
 	 * @param  {[type]} title [description]
@@ -170,6 +184,11 @@ export default IpBaseController.extend({
 			this.set("newWebsiteUserKey", item.userKey);
 			this.set("newWebsiteDomain", item.domain);
 			this.set("websiteCode", item.jsCode);
+		},
+
+		deleteWebsite(website) {
+			if(!confirm("Are you sure you want to delete this website?")) return false;
+			this.deleteWebsite(website);
 		},
 
 		saveWebsite(objAccordion) {

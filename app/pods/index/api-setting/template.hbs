@@ -17,6 +17,7 @@
 		        				<td>{{ userWebsite.userKey }}</td>
 		        				<td>
 		        					<button class="btn btn-sm btn-info" {{action "updateWebsite" userWebsite}}>{{fa-icon "cogs"}}</button>
+		        					<button class="btn btn-sm btn-danger" {{action "deleteWebsite" userWebsite}}>{{fa-icon "trash"}}</button>
 		        				</td>
 		        			</tr>
 		        		{{/each}}
