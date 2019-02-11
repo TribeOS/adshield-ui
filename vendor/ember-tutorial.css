@@ -266,11 +266,25 @@ span.total {
 	background:#fff; padding:20px; box-shadow:0 2px 0 0 rgba(50,50,50,.2); border:1px solid rgba(0,0,0,.125)	
 	}
 .login-box h1 {
-	font-size:32px	
+	font-size:32px;
+	margin-bottom:15px
 	}	
 	
 .login-box button {
 	background:#4394a3; border-radius:0; text-transform:uppercase; border:none; padding:10px 20px	
+	}	
+	
+.signup-box {
+	background:#fff; padding:20px; box-shadow:0 2px 0 0 rgba(50,50,50,.2); border:1px solid rgba(0,0,0,.125)	
+	}
+.signup-box h1 {
+	font-size:32px;
+	margin-bottom:15px;
+	color:#e83e24 !important
+	}	
+	
+.signup-box button {
+	background:#e83e24 !important; border-radius:0; text-transform:uppercase; border:none; padding:10px 20px	
 	}	
 
 /*Bootstrap Overrides*/
