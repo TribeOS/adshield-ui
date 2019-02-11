@@ -7,12 +7,13 @@
 
 <div class="row">
 	<div class="col-md-6">
+		<div class="login-box">
 		{{#bs-form onSubmit=(action "authenticate") as |form|}}
 
 			{{#if loginError}}
 				<div class="alert alert-danger">{{loginError}}</div>
 			{{/if}}
-
+				<h1>{{fa-icon "sign-in-alt"}} Login</h1>
 		  	{{#form.group}}
 				{{input type="text" placeholder="Username" value=identification class="form-control" }}
 			{{/form.group}}
@@ -22,22 +23,23 @@
 		 	{{/form.group}}
 
 
-		 	<button class="btn btn-success">{{fa-icon "sign-in-alt"}} Login</button>
+		 	<button class="btn btn-success">Login</button>
 		 	
 		{{/bs-form}}
+		</div>
 	</div>
 
 	{{#if signingUp}}
 
 		<div class="col-md-6">
+			<div class="login-box">
 			{{#bs-form onSubmit=(action "signup") as |form|}}
 
 				{{#if signUpError}}
 					<div class="alert alert-danger">{{signUpError}}</div>
 				{{/if}}
 
-				<div style="color: #000">
-					<p class="text-info">Create an account</p>
+					<h1>{{fa-icon "user-plus"}} Create an account</h1>
 
 					{{#form.group}}
 			 			{{input type="text" placeholder="Company" value=newUser.company class="form-control"}}
@@ -67,11 +69,12 @@
 			 			{{input type="password" placeholder="Please type your password again" value=newUser.password_confirmation class="form-control"}}
 			 		{{/form.group}}
 
-			 		<button class="btn btn-success">{{fa-icon "user-plus"}} Sign Up</button>
+			 		<button class="btn btn-success">Sign Up</button>
 
-			 	</div>
+
 
 			{{/bs-form}}
+			</div>
 		</div>
 
 	{{/if}}

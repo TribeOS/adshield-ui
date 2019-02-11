@@ -251,6 +251,28 @@ span.total {
 	font-size:20px
 }
 
+.ad-container h1 {
+	font-size:64px; color:#4394a3; font-weight:lighter; margin-bottom:0	
+	}
+.ad-container h2	{
+	font-size:34px; color:#000 !important; font-weight:lighter; line-height:normal; margin-bottom:0
+}
+
+.ad-container p	{
+	font-size:18px; color:#666 !important; 
+}
+
+.login-box {
+	background:#fff; padding:20px; box-shadow:0 2px 0 0 rgba(50,50,50,.2); border:1px solid rgba(0,0,0,.125)	
+	}
+.login-box h1 {
+	font-size:32px	
+	}	
+	
+.login-box button {
+	background:#4394a3; border-radius:0; text-transform:uppercase; border:none; padding:10px 20px	
+	}	
+
 /*Bootstrap Overrides*/
 
 .ados-input {
