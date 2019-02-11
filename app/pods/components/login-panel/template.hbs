@@ -4,71 +4,78 @@
 		Resuming your active session...
 	</div>
 {{else}}
-	{{#bs-form onSubmit=(action "authenticate") as |form|}}
 
-		{{#if loginError}}
-			<div class="alert alert-danger">{{loginError}}</div>
-		{{/if}}
+<div class="row">
+	<div class="col-md-6">
+		{{#bs-form onSubmit=(action "authenticate") as |form|}}
 
-	  	{{#form.group}}
-			{{input type="text" placeholder="Username" value=identification class="form-control" }}
-		{{/form.group}}
-
-		{{#form.group}}
-			{{input type="password" placeholder="Password" value=password class="form-control" }}
-	 	{{/form.group}}
-
-
-	 	<button class="btn btn-success">{{fa-icon "sign-in-alt"}} Login</button>
-	 	
-	{{/bs-form}}
-
-	{{#if signingUp}}
-		<div>OR</div>
-
-		{{#bs-form onSubmit=(action "signup") as |form|}}
-
-			{{#if signUpError}}
-				<div class="alert alert-danger">{{signUpError}}</div>
+			{{#if loginError}}
+				<div class="alert alert-danger">{{loginError}}</div>
 			{{/if}}
 
-			<div style="color: #000">
-				<p class="text-info">Create an account</p>
+		  	{{#form.group}}
+				{{input type="text" placeholder="Username" value=identification class="form-control" }}
+			{{/form.group}}
 
-				{{#form.group}}
-		 			{{input type="text" placeholder="Company" value=newUser.company class="form-control"}}
-		 		{{/form.group}}
+			{{#form.group}}
+				{{input type="password" placeholder="Password" value=password class="form-control" }}
+		 	{{/form.group}}
 
-		 		{{#form.group}}
-		 			{{input type="text" placeholder="Firstname" value=newUser.firstname class="form-control"}}
-		 		{{/form.group}}
 
-		 		{{#form.group}}
-		 			{{input type="text" placeholder="Lastname" value=newUser.lastname class="form-control"}}
-		 		{{/form.group}}
-
-		 		{{#form.group}}
-		 			{{input type="text" placeholder="Email" value=newUser.email class="form-control"}}
-		 		{{/form.group}}
-
-		 		{{#form.group}}
-		 			{{input type="text" placeholder="Username" value=newUser.username class="form-control"}}
-		 		{{/form.group}}
-
-		 		{{#form.group}}
-		 			{{input type="password" placeholder="Password" value=newUser.password class="form-control"}}
-		 		{{/form.group}}
-
-		 		{{#form.group}}
-		 			{{input type="password" placeholder="Please type your password again" value=newUser.password_confirmation class="form-control"}}
-		 		{{/form.group}}
-
-		 		<button class="btn btn-success">{{fa-icon "user-plus"}} Sign Up</button>
-
-		 	</div>
-
+		 	<button class="btn btn-success">{{fa-icon "sign-in-alt"}} Login</button>
+		 	
 		{{/bs-form}}
+	</div>
+
+	{{#if signingUp}}
+
+		<div class="col-md-6">
+			{{#bs-form onSubmit=(action "signup") as |form|}}
+
+				{{#if signUpError}}
+					<div class="alert alert-danger">{{signUpError}}</div>
+				{{/if}}
+
+				<div style="color: #000">
+					<p class="text-info">Create an account</p>
+
+					{{#form.group}}
+			 			{{input type="text" placeholder="Company" value=newUser.company class="form-control"}}
+			 		{{/form.group}}
+
+			 		{{#form.group}}
+			 			{{input type="text" placeholder="Firstname" value=newUser.firstname class="form-control"}}
+			 		{{/form.group}}
+
+			 		{{#form.group}}
+			 			{{input type="text" placeholder="Lastname" value=newUser.lastname class="form-control"}}
+			 		{{/form.group}}
+
+			 		{{#form.group}}
+			 			{{input type="text" placeholder="Email" value=newUser.email class="form-control"}}
+			 		{{/form.group}}
+
+			 		{{#form.group}}
+			 			{{input type="text" placeholder="Username" value=newUser.username class="form-control"}}
+			 		{{/form.group}}
+
+			 		{{#form.group}}
+			 			{{input type="password" placeholder="Password" value=newUser.password class="form-control"}}
+			 		{{/form.group}}
+
+			 		{{#form.group}}
+			 			{{input type="password" placeholder="Please type your password again" value=newUser.password_confirmation class="form-control"}}
+			 		{{/form.group}}
+
+			 		<button class="btn btn-success">{{fa-icon "user-plus"}} Sign Up</button>
+
+			 	</div>
+
+			{{/bs-form}}
+		</div>
 
 	{{/if}}
+
+</div>
 
 {{/if}}
