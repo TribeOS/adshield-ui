@@ -8,4 +8,5 @@ export default DS.Model.extend({
 	createdOn : DS.attr(),
 	status : DS.attr(),
 	listData : DS.attr(),
+	showDetail : DS.attr(),
 });

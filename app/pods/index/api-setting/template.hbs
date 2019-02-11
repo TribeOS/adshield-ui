@@ -2,7 +2,7 @@
 	
 		<div class="boxpad row">    
 
-			<div class="col-lg-7 no-pad-right">
+			<div class="col-lg-6 no-pad-right">
 				<h4>My Websites</h4>
 		    	<div class="contentbox">
 		        	<table class="table">
@@ -16,8 +16,8 @@
 		        				<td>{{ userWebsite.domain }}</td>
 		        				<td>{{ userWebsite.userKey }}</td>
 		        				<td>
-		        					<button class="btn btn-sm btn-info" {{action "viewDetail" userWebsite}}>{{fa-icon "info-circle"}}</button>
 		        					<button class="btn btn-sm btn-info" {{action "updateWebsite" userWebsite}}>{{fa-icon "cogs"}}</button>
+		        					<button class="btn btn-sm btn-danger" {{action "deleteWebsite" userWebsite}}>{{fa-icon "trash"}}</button>
 		        				</td>
 		        			</tr>
 		        		{{/each}}
@@ -25,11 +25,8 @@
 		        	{{#data-table-page source=userWebsites.listData gotoPage=(action "gotoPage")}}{{/data-table-page}}
 		        </div>
 		    </div>      
-			<div class="col-lg-5">
-		    	<p>
-		    		Click on the "detail" button to view the website detail and how to install the JS library to it.
-		    	</p>
-		    	
+
+			<div class="col-lg-6">   	
 
 		    	{{#if isNewWebsite}}
 			    	<h3>Add a new website</h3>
@@ -41,21 +38,91 @@
 			    {{/if}}
 			    	
 		    	<form>
-	    			<label for="domain">Domain Name</label>
-					<div class="input-group mb-3">
-					  	<div class="input-group-prepend">
-					    	<span class="input-group-text" id="basic-addon3">https://www.</span>
-					  	</div>
-					  	{{input type="text" aria-describedby="basic-addon3" class="form-control invalid" value=newWebsiteDomain placeholder="yourwebsite.com" required="required" id="domain" }}
-					</div>
+		    		{{#bs-accordion as |acc|}}
 
-		    		<div class="form-group">
-		    			<label for="domain">JS Ad Code</label>
-		    			{{textarea class="form-control invalid" required="required" value=newWebsiteCode placeholder="Paste your JS ad code here." rows=6 }}
-		    		</div>		    		
-		    		
-		    		<button class="btn btn-sm btn-success" {{action "saveWebsite"}}>Save</button>
+		    			{{#acc.item value="step1" title=(if isNewWebsite "1. Enter your domain name" "Domain Name")}}
+							<div class="input-group mb-3">
+							  	<div class="input-group-prepend">
+							    	<span class="input-group-text" id="basic-addon3">https://www.</span>
+							  	</div>
+							  	{{input type="text" aria-describedby="basic-addon3" class="form-control invalid" value=newWebsiteDomain placeholder="yourwebsite.com" required="required" id="domain" }}
+							  	<button {{action "enteredDomain" acc}}>Next</button>
+							</div>
+						{{/acc.item}}
+						
+						{{#acc.item value="step2" title=(if isNewWebsite "2. Paste your ad code(s)" "Your Ad Code(s)")}}
+							<p>
+								For each ad codes on your website, you have to create a container by clicking on the "Create Container" button. This container will hold your <strong>ad code</strong> in realtime when its safe.
+								<br />
+								<button class="btn btn-sm btn-primary" type="button" {{ action "addJsCode" }}>{{fa-icon "box"}} Create Container</button>
+							</p>
+							
+
+							{{#bs-accordion as |acc|}}
+								{{#each websiteCode as |code index|}}
+									{{#acc.item value=index as |aitem|}}
+										{{#aitem.title}}
+											<button class="btn btn-sm btn-danger" {{ action "removeJsCode" code }}>&times;</button>
+											{{code.container}}
+										{{/aitem.title}}
+										{{#aitem.body}}
+											<form>
+												<div class="form-group">
+													<label>Container ID</label>
+						    						{{input type="text" class="form-control invalid" placeholder="ID of code/script container" value=code.container title="Container ID"}}
+						    					</div>
+						    					<div class="form-group">
+						    						{{textarea class="form-control invalid" required="required" value=code.code placeholder="Paste your JS Ad code here." rows=6 title="Ad Code" }}
+						    					</div>
+						    					<div class="form-group">
+						    						{{input type="checkbox" checked=code.intoContainer}}
+						    						<span>Insert my js code into the container with ID "{{code.container}}".</span>
+						    					</div>
+						    					<div class="form-group">
+						    						<p>
+						    							Replace your ad code with this blank container at the same place in your site/page.
+						    						</p>
+						    						<code>
+						    							&lt;div id="{{code.container}}"&gt;&lt;/div&gt;
+						    						</code>
+						    						{{#copy-button clipboardText=(concat '<div id="' code.container '"></div>') class="btn btn-sm btn-info" success=(action "copySuccess") }}
+						    							{{fa-icon "clipboard"}} Copy
+						    						{{/copy-button}}
+						    					</div>
+						    				</form>
+					    				{{/aitem.body}}
+									{{/acc.item}}
+				    			{{/each}}
+							{{/bs-accordion}}
+
+							<hr />
+							<div class="form-group"> 
+								{{#if (gt websiteCode.length 0) }}
+				    				<button class="btn btn-success" {{action "saveWebsite" acc}}>{{fa-icon "save"}} Save Website {{newWebsiteDomain}}</button>	
+								{{/if}}
+				    		</div>
+				    	{{/acc.item}}
+
+
+				    	{{#acc.item value="step3" title=(if isNewWebsite "3. Copy your Adshield Widget Code" "Adshield Widget Code")}}
+			    			{{#if isNewWebsite}}
+			    				<p>
+			    					After creating your site, check back here to copy your Adshield Widget Code.
+			    				</p>
+			    			{{else}}
+				    			<p>
+				    				This is your AdShield widget code. Copy this to the bottom of your webpage.
+				    			</p>
+			    				<code><pre>{{ adshieldCode }}</pre></code>
+								{{#copy-button clipboardText=adshieldCode class="btn btn-sm btn-info" success=(action "copySuccess") }}
+	    							{{fa-icon "clipboard"}} Copy Adshield Code
+	    						{{/copy-button}}
+				    		{{/if}}  
+				    	{{/acc.item}}
+
+		    		{{/bs-accordion}}
 		    	</form>
+
 
 		    </div>      
 		  
@@ -63,15 +130,3 @@
 
 {{/bs-modal-simple}}
 
-
-
-{{#bs-modal-simple open=isDetailShown onHide=(action "hideDetail") as |modal| }}
-	<p>
-		Copy the code below and paste it on the webpage that you want to protect/track.
-	</p>
-	<div class="contentbox mBottom">
-		<p>
-			<code>{{ installCode }}</code>
-		</p>
-	</div>
-{{/bs-modal-simple}}
