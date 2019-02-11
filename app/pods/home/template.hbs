@@ -1,17 +1,19 @@
 <div class="container ad-container">
 
-	<div class="row">		
-		<div class="col-md-6">
-			<h1>Welcome to Adshield</h1>
+	<div class="row">	
+		<div class="col-md-4">
+		<h1>Welcome to Adshield</h1>
 			<p class="text-info">
 				Start protecting your ads today!
 			</p>
 			<p class="text-success">
 				Login with your <strong>username</strong> and <strong>password</strong> or <strong>Create a new account</strong>
 			</p>
+		</div>	
+		<div class="col-md-4">	
 		</div>
 
-		<div class="col-md-6">
+		<div class="col-md-4">
 			{{login-panel isShown=true didLoggedIn=(action "didLoggedIn") onSignUp=(action "onSignUp") signingUp=signingUp signUpError=signUpError }}
 		</div>
 	</div>
