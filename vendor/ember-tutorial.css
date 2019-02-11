@@ -267,7 +267,8 @@ span.total {
 	}
 .login-box h1 {
 	font-size:32px;
-	margin-bottom:15px
+	margin-bottom:15px;
+	font-weight:normal	
 	}	
 	
 .login-box button {
@@ -280,7 +281,8 @@ span.total {
 .signup-box h1 {
 	font-size:32px;
 	margin-bottom:15px;
-	color:#e83e24 !important
+	color:#e83e24 !important;
+	font-weight:normal
 	}	
 	
 .signup-box button {
