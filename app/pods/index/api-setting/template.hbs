@@ -58,9 +58,9 @@
 							</p>
 							
 
-							{{#bs-accordion as |acc|}}
+							{{#bs-accordion as |accSub|}}
 								{{#each websiteCode as |code index|}}
-									{{#acc.item value=index as |aitem|}}
+									{{#accSub.item value=index as |aitem|}}
 										{{#aitem.title}}
 											<button class="btn btn-sm btn-danger" {{ action "removeJsCode" code }}>&times;</button>
 											{{code.container}}
@@ -82,16 +82,16 @@
 						    						<p>
 						    							Replace your ad code with this blank container at the same place in your site/page.
 						    						</p>
-						    						<code>
-						    							&lt;div id="{{code.container}}"&gt;&lt;/div&gt;
-						    						</code>
+						    						<p>
+						    							&lt;div id="{{ code.container }}"&gt;&lt;/div&gt;
+						    						</p>
 						    						{{#copy-button clipboardText=(concat '<div id="' code.container '"></div>') class="btn btn-sm btn-info" success=(action "copySuccess") }}
 						    							{{fa-icon "clipboard"}} Copy
 						    						{{/copy-button}}
 						    					</div>
 						    				</form>
 					    				{{/aitem.body}}
-									{{/acc.item}}
+									{{/accSub.item}}
 				    			{{/each}}
 							{{/bs-accordion}}
 
@@ -129,4 +129,3 @@
 		</div>
 
 {{/bs-modal-simple}}
-
