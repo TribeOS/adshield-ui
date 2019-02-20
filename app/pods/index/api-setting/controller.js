@@ -57,9 +57,9 @@ export default IpBaseController.extend({
 			newWebsite.userKey = website.get("userKey");
 			newWebsite.id = website.get("id");
 			self.openWebsite(newWebsite);
-			alert("New website/domain added.");
+			self.showAlert("success", "New website/domain added.");
 		}).catch(function(d) {
-			alert(d.errors[0].detail);
+			self.showAlert("error", d.errors[0].detail);
 		});
 	},
 
@@ -71,9 +71,9 @@ export default IpBaseController.extend({
 			item.set("jsCode", jsCode);
 			item.save().then(function() {
 				self.fetchData();
-				alert("Website updated");
+				self.showAlert("success", "Website updated");
 			}).catch(function(error) {
-				alert(error.errors[0].detail);
+				self.showAlert("error", d.errors[0].detail);
 			});
 		});
 	},
@@ -85,9 +85,9 @@ export default IpBaseController.extend({
 			item.set("status", 0);
 			item.save().then(function() {
 				self.fetchData();
-				alert("Website was deleted!");
+				self.showAlert("success", "Website was deleted!");
 			}).catch(function(error) {
-				alert(error);
+				self.showAlert("error", error);
 			});
 		});
 	},
@@ -199,19 +199,19 @@ export default IpBaseController.extend({
 
 			//perform general validation
 			if (siteDomain.trim().length == 0) {
-				alert("Please fill in all the fields.");
+				self.showAlert("error", "Please fill in all the fields.");
 				return false;
 			} else if (jsCode.length == 0) {
-				alert("Your website needs to have at least one JS Ad Code to protect.");
+				self.showAlert("warning", "Your website needs to have at least one JS Ad Code to protect.");
 				return false;
 			}
 
 			//validate each ad code entry
 			if (!this.areContainersUnique(jsCode)) {
-				alert("Ad Code container needs to be unique.");
+				self.showAlert("warning", "Ad Code container needs to be unique.");
 				return false;
 			} else if (!this.areAdcodesValid(jsCode)) {
-				alert("You need to place an Ad Code/JS Code in your containers");
+				self.showAlert("warning", "You need to place an Ad Code/JS Code in your containers");
 				return false;
 			}
 
@@ -251,7 +251,7 @@ export default IpBaseController.extend({
 		enteredDomain(objAccordion) {
 			let pattern = /^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9](?:\.[a-zA-Z]{2,})+$/;
 			if (this.newWebsiteDomain.match(pattern) == null) {
-				alert("Please enter a valid domain name");
+				this.showAlert("warning", "Please enter a valid domain name");
 				return;
 			}
 			objAccordion.change("step2");
@@ -259,7 +259,7 @@ export default IpBaseController.extend({
 
 
 		copySuccess(e) {
-			alert("Copied! Paste this into your webpage.");
+			this.showAlert("success", "Copied! Paste this into your webpage.");
 		},
 
 		gotoPage(page) {

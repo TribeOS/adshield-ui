@@ -24,14 +24,15 @@ export default IpBaseController.extend({
 	},
 
 	saveData : function() {
+		let self = this;
 		let record = this.get("record");
 		let settings = this.get("settings");
 		settings.userKey = this.filter.userKey;
 		record.set("pageData", settings);
 		record.save().then(function(response) {
-			alert("Settings saved.");
+			self.showAlert("success", "Settings saved");
 		}).catch(function(error) {
-			alert("Error : " + error);
+			self.showAlert("error", error);
 		});
 
 	},

@@ -16,10 +16,10 @@ export default IpBaseController.extend({
 
 	choicesPermissions : computed(function() {
 		return [
-			{ value : "1", label : 'Account Access' },
-			{ value : "2", label : 'Reports Access' },
-			{ value : "3", label : 'Settings Access' },
-			{ value : "4", label : 'Admin' }
+			{ value : 1, label : 'Account Access' },
+			{ value : 2, label : 'Reports Access' },
+			{ value : 3, label : 'Settings Access' },
+			{ value : 4, label : 'Admin' }
 		];
 	}),
 
@@ -41,10 +41,10 @@ export default IpBaseController.extend({
 		this.user.set("password", null);
 		this.user.set("password_confirmation", null);
 		this.user.save().then(function() {
-			alert("User information updated");
+			self.showAlert("success", "User information updated");
 			self.transitionToRoute("index.account-management");
 		}).catch(function(error) {
-			alert(error.errors[0].detail);
+			self.showAlert("error", error.errors[0].detail);
 		});
 	},
 
@@ -54,9 +54,9 @@ export default IpBaseController.extend({
 		this.user.set("password", this.get("password"));
 		this.user.set("password_confirmation", this.get("password_confirmation"));
 		this.user.save().then(function() {
-			alert("Password has been reset!");
+			self.showAlert("success", "Password has been reset!");
 		}).catch(function(error) {
-			alert(error.errors[0].detail);
+			self.showAlert("error", error.errors[0].detail);
 		});
 		this.set("password", "");
 		this.set("password_confirmation", "");
