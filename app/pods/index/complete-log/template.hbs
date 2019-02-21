@@ -17,21 +17,21 @@
 				<table class="table table-striped table-bordered marBot">
 					<thead>
 						<tr>
-							<th>Action</th>
-							<th>User</th>
-							<th>Date/Time</th>
-							<th>Details</th>
-							<th>Origin IP/Location</th>
+							<th scope="col">Action</th>
+							<th scope="col">User</th>
+							<th scope="col">Date/Time</th>
+							<th scope="col">Details</th>
+							<th scope="col">Origin IP/Location</th>
 						</tr>
 					</thead>
 					<tbody>
 						{{#each listData.data as |record|}}
 							<tr>
-								<td>{{ record.action }}</td>
-								<td>{{ record.username }}</td>
-								<td>{{ record.createdOn }}</td>
-								<td>{{ record.details }}</td>
-								<td>({{ record.ipStr }}) {{ record.city }}, {{ record.country }}</td>
+								<td data-label="Account">{{ record.action }}</td>
+								<td data-label="User">{{ record.username }}</td>
+								<td data-label="Date/Time">{{ record.createdOn }}</td>
+								<td data-label="Details">{{ record.details }}</td>
+								<td data-label="Origin IP/Location">({{ record.ipStr }}) {{ record.city }}, {{ record.country }}</td>
 							</tr>
 						{{/each}}
 					</tbody>
