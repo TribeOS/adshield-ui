@@ -231,6 +231,22 @@ export default Controller.extend({
 		});
     },
 
+    /**
+     * shorthand for showing notifications
+     * @param  {[type]} type    [description]
+     * @param  {[type]} message [description]
+     * @return {[type]}         [description]
+     */
+    showAlert : function(type, message) {
+    	switch(type) {
+    		case "info" : this.get("notifications").info(message, { autoClear : true }); break;
+    		case "success" : this.get("notifications").success(message, { autoClear : true }); break;
+    		case "error" : this.get("notifications").error(message, { autoClear : true }); break;
+    		case "warning" : this.get("notifications").warning(message, { autoClear : true }); break;
+    	}
+    },
+
+
 	actions : {
 		firstPage() {
 			if (this.get("page") == 1) return;

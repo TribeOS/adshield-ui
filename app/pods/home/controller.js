@@ -29,13 +29,15 @@ export default Controller.extend({
 			let account = this.get("store").createRecord("account", user);
 			account.save().then(function() {
 				self.set("signingUp", false);
-				alert("Please complete your registration through the email we sent to you. Thanks.");
+				self.get('notifications').success("Please complete your registration through the email we sent to you. Thanks.", { autoClear : true });
 			}).catch(function(error) {
+				let err = "";
 				if (typeof error.errors !== "undefined") {
-					self.set("signUpError", error.errors[0].detail);
+					err = error.errors[0].detail;
 				} else {
-					self.set("signUpError", error);
+					err = error;
 				}
+				self.get('notifications').error(err, { autoClear : true });
 			});
 		},
 

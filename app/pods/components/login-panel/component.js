@@ -43,7 +43,7 @@ export default Component.extend({
 				},
 				(err) => {
 					//error
-					self.set("loginError", err);
+					self.get('notifications').error(err, { autoClear : true });
 				}
 			);
 		},
@@ -58,11 +58,6 @@ export default Component.extend({
 		 * @return {[type]} [description]
 		 */
 		signup() {
-			//validate frontend
-			if (this.newUser.company.trim().length == 0) {
-
-			}
-
 			this.sendAction("onSignUp", this.newUser);
 		},
 
