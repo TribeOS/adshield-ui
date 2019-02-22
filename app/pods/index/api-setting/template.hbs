@@ -9,15 +9,15 @@
 		    	<div class="contentbox table-responsive">
 		        	<table class="table">
 		        		<thead>
-		        			<th>Domain/Website</th>
-		        			<th>Domain Key/ID</th>
-		        			<th></th>
+		        			<th scope="col">Domain/Website</th>
+		        			<th scope="col">Domain Key/ID</th>
+		        			<th scope="col"></th>
 		        		</thead>
 		        		{{#each userWebsites.listData.data as |userWebsite|}}
 		        			<tr>
-		        				<td>{{ userWebsite.domain }}</td>
-		        				<td>{{ userWebsite.userKey }}</td>
-		        				<td>
+		        				<td data-label="Domain/Website">{{ userWebsite.domain }}</td>
+		        				<td data-label="Domain Key/ID">{{ userWebsite.userKey }}</td>
+		        				<td data-label="">
 		        					<button class="btn btn-sm btn-info" {{action "updateWebsite" userWebsite}}>{{fa-icon "cogs"}}</button>
 		        					<button class="btn btn-sm btn-danger" {{action "deleteWebsite" userWebsite}}>{{fa-icon "trash"}}</button>
 		        				</td>

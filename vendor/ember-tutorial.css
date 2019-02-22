@@ -86,6 +86,7 @@ h2.allcaps {
 .contentbox {
 	border:1px #ccc solid;
 	padding:10px;
+	color:#999
 }
 .tcenter {
 	text-align:center
@@ -97,6 +98,11 @@ h2.allcaps {
 	background:#eee;
 	font-weight:bold
 }
+
+label {
+	color:#999	
+	}
+
 .text-large {
 	font-size:24px
 }
