@@ -24,8 +24,8 @@ export default IpBaseController.extend({
     },
     fetchData: function() {
         var self = this;
-        self.get('store').query("countryBlockList", { filter : self.filter }).then(function(data) {
-            self.set("blockList", data);
+        self.get('store').queryRecord("countryBlockList", { page : this.page, limit : this.limit, filter : self.filter }).then(function(data) {
+            self.set("blockList", data.get("listData"));
         });
     },
     searchCountry: function(keyword) {
@@ -63,15 +63,27 @@ export default IpBaseController.extend({
     },
 
     removeCountry: function(item) {
+        let self = this;
         this.get("store").findRecord("countryBlockList", item.id, {
             backgroundReload: false
         }).then(function(record) {
-            record.destroyRecord();
+            record.destroyRecord().then(() => {
+                self.fetchData();
+            }).catch((error) => {
+                self.showAlert("warning", error);
+            });
+        }).catch((error) => {
+            self.showAlert("warning", error);
         });
     },
     
 
     actions: {
+        gotoPage(page) {
+            this.page = page;
+            this.fetchData();
+        },
+
         refresh() {
             this.set("page", 1);
             let self = this;
@@ -97,6 +109,7 @@ export default IpBaseController.extend({
             this.set("keyword", "");
         },
         onSelectSite(item) {
+            this.page = 1;
         	this.filter.userKey = item;
         	this.fetchData();
         	this.searchCountry(this.keyword);

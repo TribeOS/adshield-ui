@@ -17,12 +17,16 @@ export default IpBaseController.extend({
 		self.get('store').queryRecord("ipaccesslist", { page : page, limit : limit, filter : filter, sort : sort }).then(function(data) {
 			self.set("model", data);
 			self.set("listData", self.get("model").get("listData"));
-			var listData = self.get("listData");
-			listData.headers = ['IP', 'Recorded on', 'Visited Url'];
 		});
 	},
 
 	actions : {
+		
+		gotoPage(page) {
+			this.page = page;
+			this.refreshList(this.page, this.limit, this.filter, this.sort);
+		},
+
 		refreshData() {
 			this.refreshList(1, this.limit, this.filter, this.sort);
 		},

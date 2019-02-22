@@ -75,23 +75,23 @@ export default Controller.extend({
 		self.get('store').queryRecord(this.get("listModelName"), arg).then(function(data) {
 			var listData = data.get("listData");
 			listData.headers = ['IP', '# of Violations'];
-			listData.data.forEach((item) => {
-				//use this code to turn a column value on the table into a link.
-				let old = item.ip;
-				item.ip = { 
-					type : 'action', route : "", 
-					params : [
-						"", //route name
-						{
-							isQueryParams : true,
-							values : {
-								ip : old //route param:values
-							}
-						}
-					],
-					value : old
-				}
-			});
+			// listData.data.forEach((item) => {
+			// 	//use this code to turn a column value on the table into a link.
+			// 	let old = item.ip;
+			// 	item.ip = { 
+			// 		type : 'action', route : "", 
+			// 		params : [
+			// 			"", //route name
+			// 			{
+			// 				isQueryParams : true,
+			// 				values : {
+			// 					ip : old //route param:values
+			// 				}
+			// 			}
+			// 		],
+			// 		value : old
+			// 	}
+			// });
 			self.set("listData", listData);
 		}).catch(function(error) {
 			self.get("session").invalidate().then(() => {
@@ -290,13 +290,16 @@ export default Controller.extend({
 		onToDateChanged(dates, selectedDate, flatpickr) {
 			this.set("filter.dateTo", selectedDate);
 		},
-		onIpClick(param) {
+		onIpClick(ip) {
 			this.set("ipSelected", true);
-			let ip = param.value;
 			this.refreshGraph(ip);
 		},
 		onSelectSite(item) {
         	this.filter.userKey = item;
+        },
+        gotoPage(page) {
+        	this.page = page;
+        	this.refreshList(this.page, this.limit, this.filter, this.sort);
         }
 	}
 

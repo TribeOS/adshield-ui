@@ -22,6 +22,11 @@ export default IpBaseController.extend({
 
 
 	actions : {
+		gotoPage(page) {
+			this.page = page;
+			this.refreshList(this.page, this.limit, this.filter, this.sort);
+		},
+
 		onSelectDay(value) {
 			this.filter.duration = value;
 			this.refreshList(this.page, this.limit, this.filter, this.sort);

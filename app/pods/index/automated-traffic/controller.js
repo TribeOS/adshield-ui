@@ -14,14 +14,6 @@ export default IpBaseController.extend({
 		self.get('store').queryRecord("automatedTraffic", { page : page, limit : limit, sort : sort, filter : this.filter }).then(function(data) {
 			let mainData = data.get("pageData");
 			var listData = mainData.automatedTrafficList;
-			listData.headers = ['Undesired Automated Traffic Name', 'Classification', 'Page Requests'];
-			listData.data.forEach(function(item) {
-				let old = item.name;
-				item.name = {
-					textLeft : true,
-					value : old
-				}
-			});
 			self.set("listData", listData);
 
 			let chartData = {};
@@ -33,36 +25,19 @@ export default IpBaseController.extend({
 
 
 	actions : {
-		firstPage() {
-			this.set("page", 1);
-			this.getData(this.page, this.limit, this.filter, this.sort);
-		},
-		nextPage() {
-			var listData = this.get("listData");
-			if (listData.current_page == listData.last_page) return;
-			this.set("page", parseInt(this.page) + 1);
-			this.getData(this.page, this.limit, this.filter, this.sort);
-		},
-		previousPage() {
-			var listData = this.get("listData");
-			if (listData.current_page == 1) return;
-			this.set("page", parseInt(this.page) - 1);
-			this.getData(this.page, this.limit, this.filter, this.sort);
-		},
-		lastPage() {
-			var listData = this.get("listData");
-			this.set("page", listData.last_page);
-			this.getData(this.page, this.limit, this.filter, this.sort);
+		gotoPage(page) {
+			this.page = page;
+			this.getData(this.page, this.limit);
 		},
 		onSelectDay(value) {
 			this.filter.duration = value;
-			this.getData();
+			this.getData(1, this.limit);
 		},
 		refresh() {
 			let self = this;
             this.fetchMySites(function(data) {
             	self.filter.userKey = self.userWebsites.objectAt(0).get("userKey");
-            	self.getData();
+            	self.getData(1, self.limit);
             });
 		},
 		onHide() {
