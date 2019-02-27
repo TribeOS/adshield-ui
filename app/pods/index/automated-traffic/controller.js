@@ -11,6 +11,7 @@ export default IpBaseController.extend({
 
 	getData : function(page, limit, filter, sort) {
 		let self = this;
+		this.showBusy('Fetching data ...');
 		self.get('store').queryRecord("automatedTraffic", { page : page, limit : limit, sort : sort, filter : this.filter }).then(function(data) {
 			let mainData = data.get("pageData");
 			var listData = mainData.automatedTrafficList;
@@ -20,6 +21,7 @@ export default IpBaseController.extend({
 			chartData.botsByClassification = self.generateChartData(mainData.botsByClassification);
 			chartData.mostFrequentBots = self.generateChartData(mainData.mostFrequentBots);
 			self.set("chartData", chartData);
+			self.hideBusy();
 		});
 	},
 

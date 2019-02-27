@@ -12,6 +12,7 @@ export default IpBaseController.extend({
 
 	refreshGraph : function() {
 		let self = this;
+		this.showBusy('Fetching data ...');
 		self.get('store').queryRecord("threatGraph", { filter : this.filter }).then(function(data) {
 			let graphData = data.get("graphData");
 			let chartData = {};
@@ -19,6 +20,7 @@ export default IpBaseController.extend({
 			chartData.topThreatsByCountry = self.generateChartData(graphData.topThreatsByCountry);
 			chartData.threatsAverted = self.generateChartData(graphData.threatsAverted);
 			self.set("chartData", chartData);
+			self.hideBusy();
 		});
 	},
 

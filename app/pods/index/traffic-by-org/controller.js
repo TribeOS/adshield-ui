@@ -12,11 +12,12 @@ export default IpBaseController.extend({
 
 	refreshList : function(page, limit, filter, sort) {
 		let self = this;
+		this.showBusy('Fetching data ...');
 		self.get('store').queryRecord("trafficByOrg", { page : page, limit : limit, sort : sort, filter : this.filter }).then(function(data) {
 			let listData = data.get("listData");
 			listData.headers = ['Organization', 'Total Threats', 'Top Country by Threats'];
-			
 			self.set("listData", listData);
+			self.hideBusy();
 		});
 	},
 

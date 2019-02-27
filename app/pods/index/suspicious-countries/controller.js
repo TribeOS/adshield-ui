@@ -20,6 +20,7 @@ export default IpBaseController.extend({
 	},
 
 	refreshList : function(page, limit, filter, sort) {
+		this.showBusy('Fetching data ...');
 		this.set("loading", true);
 		let self = this;
 		this.get('store').queryRecord("suspiciousCountry", { page : page, limit : limit, filter : filter, sort : sort, showTable : this.showTable }).then(function(data) {
@@ -51,6 +52,7 @@ export default IpBaseController.extend({
 					}
 				});
 				self.set("pageData", pageData);
+				self.hideBusy();
 			}
 			self.set("loading", false);
 		});

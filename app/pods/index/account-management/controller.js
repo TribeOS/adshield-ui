@@ -60,8 +60,10 @@ export default IpBaseController.extend({
 		let self = this;
 		let record = this.get("record");
 		let settings = this.get("settings");
+		this.showBusy('Saving ...');
 		record.set("pageData", settings);
 		record.save().then(function() {
+			self.hideBusy();
 			self.showAlert("success", "Settings saved.");
 		});
 	},

@@ -24,8 +24,10 @@ export default IpBaseController.extend({
     },
     fetchData: function() {
         var self = this;
+        this.showBusy('Fetching countries ...');
         self.get('store').queryRecord("countryBlockList", { page : this.page, limit : this.limit, filter : self.filter }).then(function(data) {
             self.set("blockList", data.get("listData"));
+            self.hideBusy();
         });
     },
     searchCountry: function(keyword) {
@@ -46,20 +48,22 @@ export default IpBaseController.extend({
 
     blockCountry: function() {
         let result = this.get("searchResult");
+        if (result == null) return;
         let selectedCountries = result.filterBy('selected', true);
         if (selectedCountries.length == 0) return;
         let self = this;
+        this.showBusy('Setting blocked countries ...');
         selectedCountries.forEach(function(item) {
             let country = self.get("store").peekRecord("country", item.id);
             let entry = self.get("store").createRecord("countryBlockList", {
                 country: country,
                 userKey : self.filter.userKey
             });
-            entry.save().then(function(response) {
-            	self.fetchData();
-        	});
+            entry.save();
         });
         this.set("searchResult", null);
+        this.hideBusy();
+        this.fetchData();
     },
 
     removeCountry: function(item) {

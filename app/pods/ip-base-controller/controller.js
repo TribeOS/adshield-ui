@@ -252,6 +252,7 @@ export default Controller.extend({
     },
 
     showBusy : function(message) {
+    	this.hideBusy();
     	this.busyNotification = this.showAlert("info", message, 1);
     },
 
