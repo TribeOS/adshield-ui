@@ -53,12 +53,15 @@ export default IpBaseController.extend({
 		};
 		let website = store.createRecord("userWebsite", newWebsite);
 		let self = this;
+		this.showBusy('Creating website ...');
 		website.save().then(() => {
 			newWebsite.userKey = website.get("userKey");
 			newWebsite.id = website.get("id");
 			self.openWebsite(newWebsite);
+			self.hideBusy();
 			self.showAlert("success", "New website/domain added.");
 		}).catch(function(d) {
+			self.hideBusy();
 			self.showAlert("error", d.errors[0].detail);
 		});
 	},
@@ -66,13 +69,16 @@ export default IpBaseController.extend({
 
 	updateWebsite : function(userKey, domain, jsCode) {
 		let self = this;
+		this.showBusy('Updating website ...');
 		this.get("store").findRecord("userWebsite", this.selectedWebsite.id).then(function(item) {
 			item.set("domain", domain);
 			item.set("jsCode", jsCode);
 			item.save().then(function() {
 				self.fetchData();
+				self.hideBusy();
 				self.showAlert("success", "Website updated");
 			}).catch(function(error) {
+				self.hideBusy();
 				self.showAlert("error", d.errors[0].detail);
 			});
 		});

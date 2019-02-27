@@ -28,6 +28,7 @@ export default Controller.extend({
 
 	// flag to indicate if the system is busy processing something
 	isBusy : false,
+	busyNotification : null,
 
 
 	/**
@@ -235,15 +236,27 @@ export default Controller.extend({
      * shorthand for showing notifications
      * @param  {[type]} type    [description]
      * @param  {[type]} message [description]
+     * @param {boolean} dontWait set a value to disable auto clear.
      * @return {[type]}         [description]
      */
-    showAlert : function(type, message) {
+    showAlert : function(type, message, dontWait) {
+    	let arg = {};
+    	if (typeof dontWait == 'undefined') arg = { autoClear : true };
+    	arg.htmlContent = true;
     	switch(type) {
-    		case "info" : this.get("notifications").info(message, { autoClear : true }); break;
-    		case "success" : this.get("notifications").success(message, { autoClear : true }); break;
-    		case "error" : this.get("notifications").error(message, { autoClear : true }); break;
-    		case "warning" : this.get("notifications").warning(message, { autoClear : true }); break;
+    		case "info" : return this.get("notifications").info(message, arg); break;
+    		case "success" : return this.get("notifications").success(message, arg); break;
+    		case "error" : return this.get("notifications").error(message, arg); break;
+    		case "warning" : return this.get("notifications").warning(message, arg); break;
     	}
+    },
+
+    showBusy : function(message) {
+    	this.busyNotification = this.showAlert("info", message, 1);
+    },
+
+    hideBusy : function() {
+    	this.get("notifications").removeNotification(this.busyNotification);
     },
 
 
