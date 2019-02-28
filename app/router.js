@@ -48,6 +48,7 @@ Router.map(function() {
       this.route('known-violator-auto-tool');
   });
   this.route('route-permission');
+  this.route('password', { path : '/password' });
 });
 
 export default Router;

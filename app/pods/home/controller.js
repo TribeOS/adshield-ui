@@ -6,10 +6,14 @@ export default Controller.extend({
 
 
 	session : Ember.inject.service('session'),
+	ajax : Ember.inject.service('ajax'),
 
 	//flag for signup result
 	signingUp : true,
 	signUpError : false,
+
+	//reset response we get from the server
+	resetResponse : "",
 
 
 	actions : {
@@ -40,6 +44,29 @@ export default Controller.extend({
 				self.get('notifications').error(err, { autoClear : true });
 			});
 		},
+
+
+		onResetPassword(email) {
+			//send reset password to server
+			var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		    if (!re.test(String(email).toLowerCase())) {
+		    	this.get("notifications").error("Invalid email address.", { autoClear : true });
+ 				return;
+		    }
+		    var self = this;
+		    var notif = self.get("notifications").info("Requesting password reset...");
+		    this.get('ajax').post('/requestPassword', {
+		        data: {
+		          email : email
+		        }
+	      	}).then(function(response) {
+	      		self.get("notifications").removeNotification(notif);
+	      		self.get("notifications").success("Please check your email for instructions on how to reset your password.", { autoClear : true });
+		    }, function(response) {
+		    	self.get("notifications").removeNotification(notif);
+		    	self.get("notifications").error(response, { autoClear : true });
+		    });
+		}
 
 	}
 	
