@@ -25,14 +25,16 @@ export default Controller.extend({
 		    this.get('ajax').post('/resetPassword/' + this.get("reset"), {
 		        data: {
 		          password : self.get("newPassword"),
-		          confirmPassword : self.get("confirmPassword")
+		          password_confirmation : self.get("confirmPassword")
 		        }
 	      	}).then(function(response) {
 	      		self.get("notifications").removeNotification(notif);
 	      		self.get("notifications").success("You've successfuly updated your password. You can now log in using your new password.", { autoClear : true });
 		    }, function(response) {
+		    	var errorStr = "";
+		    	for(var i in response.payload.errors) errorStr += response.payload.errors[i][0] + " ";
 		    	self.get("notifications").removeNotification(notif);
-		    	self.get("notifications").error(response, { autoClear : true });
+		    	self.get("notifications").error(errorStr, { autoClear : true });
 		    });
 		},
 

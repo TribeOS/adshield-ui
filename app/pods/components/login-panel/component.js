@@ -10,7 +10,10 @@ export default Component.extend({
 	password : null,
 	isShown : false,
 	loginError : null,
+	
+	isResetPassword : false,
 	resetEmail : "", //contains the email address of the user requesting for password reset
+
 
 	newUser : {
 		firstName : "",
@@ -62,6 +65,10 @@ export default Component.extend({
 			this.onSignUp(this.newUser);
 		},
 
+
+		showResetPassword() {
+			this.set("isResetPassword", !this.get("isResetPassword"));
+		},
 
 		resetPassword() {
 			this.onReset(this.resetEmail);

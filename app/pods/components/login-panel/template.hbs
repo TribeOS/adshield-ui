@@ -24,19 +24,23 @@
 					{{input type="password" placeholder="Password" value=password class="form-control" }}
 			 	{{/form.group}}
 
-
-			 	<button class="btn btn-success">Login</button><br />
-			 	<a href="#">Forgot my password</a>
+			 	{{#form.group}}
+			 		<button class="btn btn-success">Login</button>
+			 		<a href="#" {{action "showResetPassword" }} class="btn btn-sm">{{fa-icon "lock"}} Forgot my password</a>
+			 	{{/form.group}}
 			 	
 			{{/bs-form}}
 
-			{{#bs-form onSubmit=(action "resetPassword") as |form|}}
-				{{#form.group}}
-					{{input type="text" placeholder="Enter your email" value=resetEmail class="form-control" }}
-				{{/form.group}}
+			{{#if isResetPassword}}
+				{{#bs-form onSubmit=(action "resetPassword") as |form|}}
+					{{#form.group}}
+						{{input type="text" placeholder="Enter your email" value=resetEmail class="form-control" }}
+					{{/form.group}}
 
-				<button class="btn btn-success" {{action "resetPassword"}}>Reset My Password</button>
-			{{/bs-form}}
+					<button class="btn btn-success" {{action "resetPassword"}}>Reset My Password</button>
+				{{/bs-form}}
+			{{/if}}
+
 		</div>
 	</div>
 
