@@ -15,6 +15,7 @@ export default IpBaseController.extend({
 
 	fetchData : function() {
 		var self = this;
+		this.showBusy("Fetching data ...");
 		let filter = this.get("filter");
 		self.get('store').queryRecord("trafficSummary", { filter : filter }).then(function(data) {
 			let pageData = data.get("pageData");
@@ -23,6 +24,7 @@ export default IpBaseController.extend({
 			pageData.trafficGraph = self.generateChartData(pageData.trafficGraph);
 
 			self.set("chartData", pageData);
+			self.hideBusy();
 		});
 	},
 

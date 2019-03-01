@@ -70,30 +70,15 @@ export default Controller.extend({
 	},
 
 	refreshList : function(page, limit, filter, sort) {
+		this.showBusy("Fetching data ...");
 		let self = this;
 		this.filter.ip = "";
 		let arg = { page : page, limit : limit, filter : filter, sort : sort };
 		self.get('store').queryRecord(this.get("listModelName"), arg).then(function(data) {
 			var listData = data.get("listData");
 			listData.headers = ['IP', '# of Violations'];
-			// listData.data.forEach((item) => {
-			// 	//use this code to turn a column value on the table into a link.
-			// 	let old = item.ip;
-			// 	item.ip = { 
-			// 		type : 'action', route : "", 
-			// 		params : [
-			// 			"", //route name
-			// 			{
-			// 				isQueryParams : true,
-			// 				values : {
-			// 					ip : old //route param:values
-			// 				}
-			// 			}
-			// 		],
-			// 		value : old
-			// 	}
-			// });
 			self.set("listData", listData);
+			self.hideBusy();
 		}).catch(function(error) {
 			self.get("session").invalidate().then(() => {
 				self.transitionToRoute("home");
@@ -103,6 +88,7 @@ export default Controller.extend({
 
 
 	refreshGraph : function(ip) {
+		this.showBusy("Fetching information for " + ip);
 		let self = this;
 		this.filter.ip = ip;
 		self.get('store').queryRecord(this.graphModelName, { filter : this.filter }).then(function(data) {
@@ -121,7 +107,8 @@ export default Controller.extend({
 			});
 			self.set("chartData", chartData);
 			self.set("violatorInfo", graphData.info);
-			this.filter.ip = "";
+			self.filter.ip = "";
+			self.hideBusy();
 		});
 	},
 

@@ -15,6 +15,7 @@ export default IpBaseController.extend({
 
 	refreshList : function(page, limit, filter, sort) {
 		var self = this;
+		this.showBusy("Fetching data ...");
 		self.get('store').queryRecord("targetedContent", { page : page, limit : limit, filter : filter, sort : sort }).then(function(data) {
 			let pageData = data.get("pageData");
 			let chartData = {};
@@ -23,6 +24,7 @@ export default IpBaseController.extend({
 
 			let listData = pageData.listData;
 			self.set("listData", listData);
+			self.hideBusy();
 		});
 	},
 

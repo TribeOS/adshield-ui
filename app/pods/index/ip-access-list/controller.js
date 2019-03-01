@@ -13,10 +13,12 @@ export default IpBaseController.extend({
 
 	refreshList : function(page, limit, filter, sort) {
 		var self = this;
+		this.showBusy("Fetching data ...");
 		this.set("listData", null);
 		self.get('store').queryRecord("ipaccesslist", { page : page, limit : limit, filter : filter, sort : sort }).then(function(data) {
 			self.set("model", data);
 			self.set("listData", self.get("model").get("listData"));
+			self.hideBusy();
 		});
 	},
 

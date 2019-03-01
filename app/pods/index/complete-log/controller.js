@@ -13,20 +13,14 @@ export default IpBaseController.extend({
 
 	fetchData : function() {
 		var self = this;
+		this.showBusy("Fetching data ...");
 		self.get('store').queryRecord("completeLog", { page : this.page, limit : this.limit, filter : this.filter }).then(function(data) {
 			let listData = data.get("listData");
-			// let pageData = {};
-			// let count = 0;
-			// rows.forEach(function(item) {
-			// 	count ++;
-			// 	item.count = count;
-			// });
-			console.log(listData);
 			self.set("listData", listData);
+			self.hideBusy();
 		});
 	},
 	
-
 
 	actions : {
 		refresh() {

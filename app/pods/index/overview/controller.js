@@ -18,11 +18,11 @@ export default IpBaseController.extend({
 
 	refreshGraph : function() {
 		let self = this;
-		self.busy(true);
+		this.showBusy("Fetching data ...");
 		self.get('store').queryRecord(self.graphModelName, { filter : self.filter }).then(function(data) {
 			let chartData = self.generateChartData(data.get("graphData"));
 			self.set("chartData", chartData);
-			self.busy(false);
+			self.hideBusy();
 		});
 	},
 

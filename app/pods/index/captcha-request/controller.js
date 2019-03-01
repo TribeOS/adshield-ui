@@ -15,6 +15,7 @@ export default IpBaseController.extend({
 
 	refreshList : function(page, limit, filter, sort) {
 		var self = this;
+		this.showBusy("Fetching data ...");
 		self.get('store').queryRecord("captchaRequest", { filter : filter }).then(function(data) {
 			let pageData = data.get("pageData");
 			let chartData = {};
@@ -23,6 +24,7 @@ export default IpBaseController.extend({
 			chartData.captchaRequests = self.generateChartData(pageData.captchaRequests);
 
 			self.set("chartData", chartData);
+			self.hideBusy();
 		});
 	},
 
