@@ -256,16 +256,10 @@ export default Controller.extend({
 		
 		if (includeGraph) {
 			let cData = this.get("adshieldChartData");
-			cData.datasets[0].data = [];
 			let maxPoint = 60;
-			console.log(asStat.previousTransactions);
-			for(var i in asStat.previousTransactions) {
-				cData.datasets[0].data.push(asStat.previousTransactions[i]);
-			}
 			if (cData.labels.length < maxPoint) cData.labels.push('');
-			// cData.datasets[0].data.push(asStat.transactionsInterval);
 			if (cData.datasets[0].data.length == maxPoint) cData.datasets[0].data.splice(0, 1);
-			
+			cData.datasets[0].data.push(asStat.transactionsInterval);
 			this.set("adshieldChartData", cData);
 			this.notifyPropertyChange('adshieldChartData');
 		}
