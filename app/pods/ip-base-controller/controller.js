@@ -214,7 +214,12 @@ export default Controller.extend({
 	fetchMySites : function(onFetchDone) {
     	var self = this;
         self.get('store').query("userWebsite", { filter : {} }).then(function(data) {
-			self.set("userWebsites", data);
+        	//insert option to select All website data
+        	var ws = [{ userKey : "all", domain : "All Websites" }];
+        	data.forEach(function(item) {
+        		ws.push(item);
+        	});
+			self.set("userWebsites", ws);
 			if (typeof onFetchDone !== "undefined") onFetchDone();
 		});
     },
@@ -273,6 +278,7 @@ export default Controller.extend({
 			this.refreshList(this.page, this.limit, this.filter, this.sort);
 		},
 		onSelectDay(value) {
+			this.set("page", 1);
 			this.filter.duration = value;
 			this.refreshList(this.page, this.limit, this.filter, this.sort);
 		},
@@ -296,6 +302,7 @@ export default Controller.extend({
 			this.refreshGraph(ip);
 		},
 		onSelectSite(item) {
+			this.set("page", 1);
         	this.filter.userKey = item;
         },
         gotoPage(page) {

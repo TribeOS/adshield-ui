@@ -40,7 +40,7 @@ export default IpBaseController.extend({
 			this.set("page", 1);
 			let self = this;
 			this.fetchMySites(function(data) {
-				self.filter.userKey = self.userWebsites.objectAt(0).get("userKey");
+				self.filter.userKey = self.userWebsites[0].userKey;
 				self.fetchData();
 			});
 		},

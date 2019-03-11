@@ -1,4 +1,7 @@
-<label style="color:#666">{{ label }} &nbsp;</label>
+{{#if noLabel}}
+{{else}}
+	<label style="color:#666">{{ label }} &nbsp;</label>
+{{/if}}
 <select class="form-control" onChange={{action "onSelectSite" value="target.value"}}>
 	{{#each userWebsites as |item|}}
 		<option value="{{ item.userKey }}">{{ item.domain }}</option>

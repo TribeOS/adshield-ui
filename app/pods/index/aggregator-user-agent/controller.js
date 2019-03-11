@@ -18,7 +18,7 @@ export default IpBaseController.extend({
 			let self = this;
             this.set("page", 1);
             this.fetchMySites(function(data) {
-            	self.filter.userKey = self.userWebsites.objectAt(0).get("userKey");
+            	self.filter.userKey = self.userWebsites[0].userKey;
             	self.refreshList(self.page, self.limit, self.filter, self.sort);
             });
         },

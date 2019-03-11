@@ -13,8 +13,7 @@
 	    	
 			<div class="col-lg-5">				
 				<div>
-					{{#data-table source=listData nextPage="nextPage" firstPage="firstPage" lastPage="lastPage" previousPage="previousPage" onClick="onIpClick"}}
-				{{/data-table}}
+					{{#data-table source=listData gotoPage=(action "gotoPage") onClick="onIpClick"}}{{/data-table}}
 				</div>
 			</div>
 	        

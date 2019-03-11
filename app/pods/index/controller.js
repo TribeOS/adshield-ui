@@ -99,9 +99,9 @@ export default Controller.extend({
 					route: "index.content-protection",
 					title: "Ad Protection"
 				},{
-					route: "index.custom-page",
-					title: "Custom Pages"
-				},{
+				// 	route: "index.custom-page",
+				// 	title: "Custom Pages"
+				// },{
 					route: "index.ip-access-list",
 					title: "IP Access List"
 				},{
@@ -245,7 +245,7 @@ export default Controller.extend({
 		let stats = data.stats.adshieldstats.stat;
 		let graphData = stats.transactionsInterval;
 		
-		if (this.userKey !== null && stats.userKey !== this.userKey) return;
+		if (this.userKey !== null && stats.userKey !== this.userKey && stats.userKey !== 'all') return;
 		this.set("lastGraphData", parseInt(graphData));
 		this.updateStats(stats, false);
 	},
@@ -325,7 +325,11 @@ export default Controller.extend({
 	fetchMySites : function(onFetchDone) {
     	var self = this;
         self.get('store').query("userWebsite", { filter : {} }).then(function(data) {
-			self.set("userWebsites", data);
+        	var ws = [{ userKey : "all", domain : "All Websites" }];
+        	data.forEach(function(item) {
+        		ws.push(item);
+        	});
+			self.set("userWebsites", ws);
 			if (typeof onFetchDone !== "undefined") onFetchDone();
 		});
     },
@@ -336,7 +340,7 @@ export default Controller.extend({
 		onFinishedLoading() {
 			let self = this;
 			this.fetchMySites(function() {
-				self.userKey = self.userWebsites.objectAt(0).get("userKey");
+				self.userKey = self.userWebsites[0].userKey;
 				self.initFetchData();
 				self.initSocketIO();
 			});

@@ -16,7 +16,7 @@ export default IpBaseController.extend({
 	refreshList : function(page, limit, filter, sort) {
 		var self = this;
 		this.showBusy("Fetching data ...");
-		self.get('store').queryRecord("captchaRequest", { filter : filter }).then(function(data) {
+		self.get('store').queryRecord("captchaRequest", { page : page, limit : limit, sort : sort, filter : filter }).then(function(data) {
 			let pageData = data.get("pageData");
 			let chartData = {};
 			chartData.totalTrafficVsCaptcha = self.generateChartData(pageData.totalTrafficVsCaptcha);
@@ -31,6 +31,7 @@ export default IpBaseController.extend({
 
 	actions : {
 		onSelectDay(value) {
+			this.page = 1;
 			this.filter.duration = value;
 			this.refreshList(this.page, this.limit, this.filter, this.sort);
 		},
@@ -42,7 +43,7 @@ export default IpBaseController.extend({
 		refresh() {
 			let self = this;
 			this.fetchMySites(function(data) {
-				self.filter.userKey = self.userWebsites.objectAt(0).get("userKey");
+				self.filter.userKey = self.userWebsites[0].userKey;
 				self.refreshList(self.page, self.limit, self.filter, self.sort);
 			});
 		},
