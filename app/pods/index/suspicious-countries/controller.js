@@ -52,8 +52,8 @@ export default IpBaseController.extend({
 					}
 				});
 				self.set("pageData", pageData);
-				self.hideBusy();
 			}
+			self.hideBusy();
 			self.set("loading", false);
 		});
 	},
