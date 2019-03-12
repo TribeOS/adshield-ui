@@ -23,6 +23,9 @@ export default IpBaseController.extend({
 			self.set("chartData", chartData);
 
 			let listData = pageData.listData;
+			listData.data.forEach(function(i) {
+				i.path = decodeURIComponent(i.path);
+			});
 			self.set("listData", listData);
 			self.hideBusy();
 		});
