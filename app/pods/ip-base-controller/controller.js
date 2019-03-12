@@ -63,7 +63,7 @@ export default Controller.extend({
 
 	init : function() {
 		this._super(...arguments);
-		this.filter = { userKey : "", duration : "0", status : "0", ip : "", dateFrom : "", dateTo : "" };
+		this.filter = { userKey : "", duration : "7", status : "0", ip : "", dateFrom : "", dateTo : "" };
 		this.sort = { by : "last_updated", dir : "asc" };
 
 		if (!this.get("session").isAuthenticated) this.transitionToRoute("home");
