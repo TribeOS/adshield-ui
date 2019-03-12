@@ -45,8 +45,16 @@ export default IpBaseController.extend({
 					if (!exists && typeof info.lat !== "undefined")
 					{
 						item.location = [];
-						item.location.push(info.lat);
-						item.location.push(info.lon);
+						if (typeof info.lat !== "undefined") {
+							item.location.push(info.lat);
+						} else {
+							item.location.push(info.latitude);
+						}
+						if (typeof info.lon !== "undefined") {
+							item.location.push(info.lon);
+						} else {
+							item.location.push(info.longitude);
+						}
 						item.city = info.city;
 						// storedIps.push({ lat : info.lat, lon : info.lon });
 					}
