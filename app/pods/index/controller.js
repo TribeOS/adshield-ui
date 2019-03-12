@@ -245,7 +245,7 @@ export default Controller.extend({
 		let stats = data.stats.adshieldstats.stat;
 		let graphData = stats.transactionsInterval;
 		
-		if (this.userKey !== null && stats.userKey !== this.userKey && stats.userKey !== 'all') return;
+		if (this.userKey !== null && stats.userKey !== this.userKey && this.userKey !== 'all') return;
 		this.set("lastGraphData", parseInt(graphData));
 		this.updateStats(stats, false);
 	},
