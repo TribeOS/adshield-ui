@@ -32,32 +32,41 @@ export default IpBaseController.extend({
 			{
 				let pageData = data.get("pageData");
 				let storedIps = [];
+				var c = 0;
 				//parse gps coord
 				pageData.forEach(function(item) {
 					let exists = false;
 					let info = JSON.parse(item.rawInfo);
 
-					//skip same locations
-					// for(var i in storedIps)
-					// {
-					// 	if(storedIps[i].lat == info.lat && storedIps[i].lon == info.lon) exists = true;
-					// }
-					if (!exists && typeof info.lat !== "undefined")
-					{
-						item.location = [];
-						if (typeof info.lat !== "undefined") {
-							item.location.push(info.lat);
-						} else {
-							item.location.push(info.latitude);
-						}
-						if (typeof info.lon !== "undefined") {
-							item.location.push(info.lon);
-						} else {
-							item.location.push(info.longitude);
-						}
-						item.city = info.city;
-						// storedIps.push({ lat : info.lat, lon : info.lon });
+					let tmpLoc = { lat : 0, lon : 0 };
+					item.location = [];
+					if (typeof info.lat !== "undefined") {
+						tmpLoc.lat = parseFloat(info.lat);
+					} else {
+						tmpLoc.lat = parseFloat(info.latitude);
 					}
+					if (typeof info.lon !== "undefined") {
+						tmpLoc.lon = parseFloat(info.lon);
+					} else {
+						tmpLoc.lon = parseFloat(info.longitude);
+					}
+					
+					//skip same locations. just add their total no of requests
+					for(var i = 0; i < storedIps.length; i ++) {
+						if(storedIps[i].lat == tmpLoc.lat && storedIps[i].lon == tmpLoc.lon) {
+							storedIps[i].item.noRequests += item.noRequests;
+							exists = true;
+							break;
+						}
+					}
+					
+					if (!exists) {
+						item.location.push(tmpLoc.lat);
+						item.location.push(tmpLoc.lon);
+						item.city = info.city;
+						storedIps.push({ lat : tmpLoc.lat, lon : tmpLoc.lon, item : item });
+					}
+					
 				});
 				self.set("pageData", pageData);
 			}

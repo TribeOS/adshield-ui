@@ -154,7 +154,7 @@ export default Controller.extend({
 			//no datasets yet, we assume we are having one dataset only
 			//mainly used for single line/bar or pie charts
 			chartData.datasets.push({
-				label : graphData.label,
+				// label : graphData.label,
 				data : graphData.data,
 				backgroundColor : [
 					//we can add more colors here in order to accommodate more data columns
