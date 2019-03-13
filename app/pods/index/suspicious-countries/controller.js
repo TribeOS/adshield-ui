@@ -37,6 +37,7 @@ export default IpBaseController.extend({
 				pageData.forEach(function(item) {
 					let exists = false;
 					let info = JSON.parse(item.rawInfo);
+					item.noRequests = parseInt(item.noRequests);
 
 					let tmpLoc = { lat : 0, lon : 0 };
 					item.location = [];
