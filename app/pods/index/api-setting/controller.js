@@ -38,8 +38,10 @@ export default IpBaseController.extend({
 
 	fetchData : function() {
 		var self = this;
+		this.showBusy('Fetching your websites');
 		self.get('store').queryRecord("userWebsite", { page : self.page, filter : self.filter }).then(function(data) {
 			self.set("userWebsites", data);
+			self.hideBusy();
 		});
 	},
 
