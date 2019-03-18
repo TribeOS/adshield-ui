@@ -24,7 +24,7 @@
 											{{#if item.showStat}}
 												{{component item.name showStat=true stats=adshieldStats onFinishedLoading=(action "onFinishedLoading")}}
 											{{else if item.showLive}}
-												{{component item.name showLive=true chartData=adshieldChartData lastGraphData=lastGraphData onFinishedLoading=(action "onFinishedLoading")}}
+												{{component item.name showLive=true chartData=adshieldChartData lastGraphData=lastGraphData onFinishedLoading=(action "onFinishedLoading") onGraphUpdate=(action "onGraphUpdate") }}
 											{{else if item.showClicks}}
 												{{component item.name showClicks=true stats=adshieldStats onFinishedLoading=(action "onFinishedLoading")}}
 											{{else if item.showCount}}
@@ -32,7 +32,7 @@
 											{{else if item.showMap}}
 												{{component item.name showMap=true stats=adshieldStats onFinishedLoading=(action "onFinishedLoading")}}
 											{{else if item.showSites}}
-												{{component item.name showSites=true userWebsites=userWebsites onSelect=(action "onSelectWebsite") }}
+												{{component item.name showSites=true userWebsites=userWebsites onSelect=(action "onSelectWebsite") onFinishedLoading=(action "onFinishedLoading") }}
 											{{/if}}
 										</li>
 									{{else}}

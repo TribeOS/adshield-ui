@@ -17,7 +17,7 @@ export default Component.extend({
 
 	didInsertElement() {
 		if (this.get("showLive") == true) this.updateGraph();
-		this.sendAction("onFinishedLoading");
+		if (this.onFinishedLoading) this.onFinishedLoading()
 	},
 
 	updateGraph : function() {
@@ -37,6 +37,7 @@ export default Component.extend({
 					self.set("chartData", cData);
 					self.notifyPropertyChange('chartData');
 				}
+				if (self.onGraphUpdate) self.onGraphUpdate();
 				self.poll();
 			}, 2000);
 		}
@@ -94,7 +95,7 @@ export default Component.extend({
 
 		onSelectSite(item) {
 			this.onSelect(item)
-		}
+		},
 
 	}
 

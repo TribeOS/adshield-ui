@@ -189,6 +189,7 @@ export default Controller.extend({
 	socketServerUrl : "https://socketio.adshield.tribeos.io",
 
 	lastGraphData : 0,
+	initAlreadyFired : false,
 
 	adshieldStats : computed(function() {
 		return {};
@@ -220,6 +221,7 @@ export default Controller.extend({
 	},
 
 	initSocketIO : function() {
+		console.log("init call");
 		//IMPT/ TODO: need to find a way to tell server which account/userKey we want to receive
 		let self = this;
 		let socket = this.get("socketio").socketFor(this.get("socketServerUrl"));
@@ -241,12 +243,12 @@ export default Controller.extend({
 
 	dataReceived : function(data) {
 		data = JSON.parse(data).data;
-		// console.log(data);
 		let stats = data.stats.adshieldstats.stat;
 		let graphData = stats.transactionsInterval;
 		
 		if (this.userKey !== null && stats.userKey !== this.userKey && this.userKey !== 'all') return;
-		this.set("lastGraphData", parseInt(graphData));
+		let lastGraphData = this.get("lastGraphData") + parseInt(graphData);
+		this.set("lastGraphData", lastGraphData);
 		this.updateStats(stats, false);
 	},
 
@@ -338,12 +340,14 @@ export default Controller.extend({
 	actions : {
 
 		onFinishedLoading() {
+			if (this.initAlreadyFired) return;
 			let self = this;
 			this.fetchMySites(function() {
 				self.userKey = self.userWebsites[0].userKey;
 				self.initFetchData();
 				self.initSocketIO();
 			});
+			this.set("initAlreadyFired", true);
 		},
 		
 		didLogOut() {
@@ -355,6 +359,11 @@ export default Controller.extend({
 			this.set("userKey", item);
 			this.resetStats();
 			this.initFetchData();
+		},
+
+		///called whenever the live stat graph updates (defaults to every 2 secs)
+		onGraphUpdate() {
+			this.set("lastGraphData", 0);
 		},
 
 	}
