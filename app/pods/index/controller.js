@@ -190,6 +190,7 @@ export default Controller.extend({
 
 	lastGraphData : 0,
 	initAlreadyFired : false,
+	switchWebsite : true,
 
 	adshieldStats : computed(function() {
 		return {};
@@ -215,13 +216,13 @@ export default Controller.extend({
 		self.get('store').queryRecord('adshieldstat', { userKey : self.userKey }).then(function(data) 
 		{
 			self.updateStats(data.get("stat"), true);
+			self.switchWebsite = false;
 		});
 
 		this.user = this.get('session.data.authenticated');
 	},
 
 	initSocketIO : function() {
-		console.log("init call");
 		//IMPT/ TODO: need to find a way to tell server which account/userKey we want to receive
 		let self = this;
 		let socket = this.get("socketio").socketFor(this.get("socketServerUrl"));
@@ -255,6 +256,24 @@ export default Controller.extend({
 
 	updateStats : function(data, includeGraph) {
 		let asStat = data
+
+		if (this.switchWebsite == false &&this.initAlreadyFired && typeof this.adshieldStats.transactions !== "undefined") {
+			//just add the new stats to the current values we got.
+			let tmpStat = this.get("adshieldStats");
+			asStat.transactions.today += parseInt(tmpStat.transactions.today);
+			asStat.transactions.week += parseInt(tmpStat.transactions.week);
+			asStat.transactions.month += parseInt(tmpStat.transactions.month);
+
+			asStat.adClicks.today = parseInt(asStat.adClicks.today) + parseInt(tmpStat.adClicks.today);
+			asStat.adClicks.week = parseInt(asStat.adClicks.week) + parseInt(tmpStat.adClicks.week);
+			asStat.adClicks.month = parseInt(asStat.adClicks.month) + parseInt(tmpStat.adClicks.month);
+
+			for(var i = 0; i < asStat.stat.length; i ++) {
+				for(var p = 0; p < tmpStat.stat.length; p ++) {
+					if (tmpStat.stat[p].status == asStat.stat[i].status) asStat.stat[i].count += tmpStat.stat[p].count;
+				}
+			}
+		}
 		
 		if (includeGraph) {
 			let cData = this.get("adshieldChartData");
@@ -357,6 +376,7 @@ export default Controller.extend({
 
 		onSelectWebsite(item) {
 			this.set("userKey", item);
+			this.switchWebsite = true;
 			this.resetStats();
 			this.initFetchData();
 		},
