@@ -9,5 +9,6 @@ export default DS.Model.extend({
 	password : DS.attr(),
 	password_confirmation : DS.attr(),
 	permission : DS.attr(),
+	timeZone : DS.attr(),
 	isReset : DS.attr("boolean"),
 });

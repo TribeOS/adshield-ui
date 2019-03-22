@@ -47,6 +47,18 @@
 								{{/each}}
 							</select>
 						</div>
+						<div class="form-group">
+							<label>Local Time Zone</label>
+							<select class="form-control" onChange={{action "onSelectTimezone" value="target.value"}}>
+								{{#each timezones as |timezone|}}
+									{{#if (eq timezone.offset user.timeZone) }}
+										<option selected="selected" value="{{ timezone.offset }}">{{ timezone.name }}</option>
+									{{else}}
+										<option value="{{ timezone.offset }}">{{ timezone.name }}</option>
+									{{/if}}
+								{{/each}}
+							</select>
+						</div>
 					</div>
 					{{#bs-button onClick=(action "onSave") type="success"}} Save {{/bs-button}}
 		        </div>

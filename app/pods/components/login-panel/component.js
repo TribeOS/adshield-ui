@@ -36,6 +36,10 @@ export default Component.extend({
 
 	actions : {
 		authenticate() {
+			//get timezone offset 
+			var offset = new Date().getTimezoneOffset();
+			offset = (offset < 1 ? "+" : "-") + (Math.abs(offset) / 60);
+
 			let self = this;
 			this.set("isLoginError", false);
 			let { identification, password } = this.getProperties('identification', 'password');
