@@ -257,7 +257,7 @@ export default Controller.extend({
 	updateStats : function(data, includeGraph) {
 		let asStat = data
 
-		if (this.switchWebsite == false &&this.initAlreadyFired && typeof this.adshieldStats.transactions !== "undefined") {
+		if (this.switchWebsite == false && this.initAlreadyFired && typeof this.adshieldStats.transactions !== "undefined") {
 			//just add the new stats to the current values we got.
 			let tmpStat = this.get("adshieldStats");
 			asStat.transactions.today += parseInt(tmpStat.transactions.today);
@@ -270,7 +270,7 @@ export default Controller.extend({
 
 			for(var i = 0; i < asStat.stat.length; i ++) {
 				for(var p = 0; p < tmpStat.stat.length; p ++) {
-					if (tmpStat.stat[p].status == asStat.stat[i].status) asStat.stat[i].count += tmpStat.stat[p].count;
+					if (tmpStat.stat[p].status == asStat.stat[i].status) asStat.stat[i].count = parseInt(asStat.stat[i].count) + parseInt(tmpStat.stat[p].count);
 				}
 			}
 		}
