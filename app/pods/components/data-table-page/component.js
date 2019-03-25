@@ -11,6 +11,7 @@ export default Component.extend({
  	   	this._super(...arguments);
  
 		let pg = [];
+		if (this.source == null) return;
 		if (this.source.total == 0) return;
 
 		if (this.source.last_page <= 5) {
