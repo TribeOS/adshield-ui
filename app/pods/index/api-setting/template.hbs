@@ -64,8 +64,7 @@
 								{{#each websiteCode as |code index|}}
 									{{#accSub.item value=index as |aitem|}}
 										{{#aitem.title}}
-											<button class="btn btn-sm btn-danger" {{ action "removeJsCode" code }}>&times;</button>
-											{{code.container}}
+											<button class="btn btn-sm btn-danger" {{ action "removeJsCode" code }}>&times;</button>{{code.container}}
 										{{/aitem.title}}
 										{{#aitem.body}}
 											<form>
@@ -76,18 +75,20 @@
 						    					<div class="form-group">
 						    						{{textarea class="form-control invalid" required="required" value=code.code placeholder="Paste your JS Ad code here." rows=6 title="Ad Code" }}
 						    					</div>
+						    					<!--
 						    					<div class="form-group">
 						    						{{input type="checkbox" checked=code.intoContainer}}
 						    						<span>Insert my js code into the container with ID "{{code.container}}".</span>
 						    					</div>
+						    					-->
 						    					<div class="form-group">
 						    						<p>
-						    							Replace your ad code with this blank container at the same place in your site/page.
+						    							Replace your ad code with this DIV wrapper.
 						    						</p>
 						    						<p>
-						    							&lt;div id="{{ code.container }}"&gt;&lt;/div&gt;
+						    							&lt;div style="display: none;" id="{{ code.container }}"&gt;<br />{{ code.code }}<br />&lt;/div&gt;
 						    						</p>
-						    						{{#copy-button clipboardText=(concat '<div id="' code.container '"></div>') class="btn btn-sm btn-info" success=(action "copySuccess") }}
+						    						{{#copy-button clipboardText=(concat '<div style="display: none;" id="' code.container '">' code.code '</div>') class="btn btn-sm btn-info" success=(action "copySuccess") }}
 						    							{{fa-icon "clipboard"}} Copy
 						    						{{/copy-button}}
 						    					</div>
