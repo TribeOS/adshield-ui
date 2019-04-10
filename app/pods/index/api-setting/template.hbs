@@ -64,7 +64,7 @@
 								{{#each websiteCode as |code index|}}
 									{{#accSub.item value=index as |aitem|}}
 										{{#aitem.title}}
-											<button class="btn btn-sm btn-danger" {{ action "removeJsCode" code }}>&times;</button>{{code.container}}
+											<button class="btn btn-sm btn-danger" {{ action "removeJsCode" code }}>&times;</button> {{code.container}}
 										{{/aitem.title}}
 										{{#aitem.body}}
 											<form>
