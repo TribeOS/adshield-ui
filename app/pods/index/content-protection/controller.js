@@ -26,10 +26,12 @@ export default IpBaseController.extend({
 
     fetchData: function() {
         var self = this;
+        this.showBusy('Fetching site settings...');
         self.get('store').queryRecord("contentProtection", self.filter).then(function(data) {
             self.set("record", data);
             let pageData = data.get("pageData");
             self.set("settings", pageData);
+            self.hideBusy();
         });
     },
 
