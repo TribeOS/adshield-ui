@@ -27,8 +27,8 @@ export default IpBaseController.extend({
 	choicesCoverage : computed(function() {
 		return [
 			{ value : 'all', label : 'All Events' },
-			{ value : 'settings', label : 'Settings' },
-			{ value : 'violations', label : 'Violations' },
+			{ value : 'settings', label : 'Settings Updated' },
+			{ value : 'violations', label : 'Violations Detected' },
 		];
 	}),
 
